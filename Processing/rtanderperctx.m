@@ -1,0 +1,264 @@
+% [ctx_rtime, ctx_er, ctx_resp, contexts, ctxrnds, ct_pos] = rtanderperctx(data, id, from, till, tree_file_address, show, tau) 
+%
+% This function provides the response times, errors for each context of the
+% requested tree of a given subject.
+%
+% Input
+% data: organized data as in responsetimeandresponses
+% id: alternative id of the participant
+% from: starting at the play
+% till: ending in the play
+% tree_file_address: adress with the tree information
+% show: (1) indicates plotting and (0) not plotting
+% tau = number that identifies the tree in the experiment
+%
+% Output:
+% ctx_rtime: cells with the response time organized by context (cell type)
+% ctx_er: cells with the error organized by context (cell type)
+% ctx_resp: cells with the responses organized by context (cell type)
+% contexts: contexts of the evaluated tree.
+% ctxrnds: for each context indicate if the response is deterministic (0)
+% or not
+% ct_pos: a column cell containing at each entry the information about at
+% wich positions a context appeared.
+%
+% Author: Paulo Roberto Cabral Passos Last Modified: 21/04/2020
+
+function [ctx_rtime, ctx_er, ctx_resp, contexts, ctxrnds, ct_pos] = rtanderperctx(data, id, from, till, tree_file_address, show, tau) 
+
+% Gathering Tree information
+
+[contexts, ~, tresp, ctxrnds] = build_treePM(tree_file_address);
+
+start = 0;
+for a = 1: size(data,1)
+    if (data(a,3) == 1)&&((data(a,6) == id)&&(data(a,5) == tau))
+        start = a;
+    end
+end
+
+start = start + from -1;
+%disp(['starting at:' num2str(start)])
+
+if start == 0
+   ctx_rtime = cell(length(contexts),1); 
+   ctx_er = cell(length(contexts),1);
+   ctx_resp = cell(length(contexts),1);
+   ct_pos = [];
+   return;
+else
+    over = start + (till-from); 
+    %disp(['ending at:' num2str(over)])
+    % Feeding count_contexts
+
+    chain = data(start:over, 9);
+    response = data(start:over, 8);
+    time = data(start:over,7);
+
+    [~,ct_pos, ctx_count] = count_contexts(contexts, chain');
+
+    % Dividing response times per context
+
+    ctx_rtime = cell(length(contexts),1); % for the storage of the response time per context
+    ctx_er = cell(length(contexts),1); % for the storage of the error per context
+    ctx_resp = cell(length(contexts),1); % for the storage of the response
+    
+    er = 0;
+    for a = 1:length(contexts)
+       auxr_ctx = [];
+       auxe_ctx = [];
+       auxresp_ctx = [];
+       for b = 1:size(ct_pos,2)
+           if (ct_pos(a,b) ~= 0)&&(ct_pos(a,b) ~= 102)
+           auxr_ctx = [auxr_ctx; time(ct_pos(a,b)+1,1)]; %#ok<AGROW>
+           auxresp_ctx = [auxresp_ctx; response(ct_pos(a,b)+1,1)]; %#ok<AGROW>
+           er = response(ct_pos(a,b)+1,1)~= chain(ct_pos(a,b)+1,1);
+           auxe_ctx = [auxe_ctx; er]; %#ok<AGROW>
+           end
+       end
+       ctx_rtime{a,1} = auxr_ctx;
+       ctx_er{a,1} = auxe_ctx;
+       ctx_resp{a,1} = auxresp_ctx;
+    end
+
+    if show == 1
+        % PLOTTING
+
+        % Defining parameters for the axis:
+
+        aux = []; aux2 = [];
+        for a = 1:length(contexts)
+           aux = [aux; ctx_rtime{a,1}];      %#ok<AGROW>
+           aux2 = [aux2; length(ctx_rtime{a,1})]; %#ok<AGROW>
+        end
+
+        max_t = mean(aux)+3*std(aux); 
+        max_trial = max(aux2);
+        lines = 3;
+        columns = 3;
+
+        ccode = 'rmbgyc';
+
+        figure
+        for a = 1:length(contexts)
+            subplot(lines,columns,a)
+            plot(1:length(ctx_rtime{a,1}), ctx_rtime{a,1}, ccode(1,tau))
+            axis([1 size(ctx_rtime{a,1},1) 0 max_t]) %axis([0 max_trial 0 max_t])
+            xlabel('ocorrência')
+            ylabel('tempo (seg.)')
+            title(num2str(contexts{1,a}))
+        end
+        
+        figure
+        for a = 1:length(contexts)
+            subplot(lines,columns,a)
+            plot(1:length(ctx_er{a,1}), ctx_er{a,1}, ccode(1,tau))
+            axis([1 size(ctx_er{a,1},1) 0 max_t]) %axis([0 max_trial 0 max_t])
+            xlabel('ocorrência')
+            ylabel('error')
+            title(num2str(contexts{1,a}))
+        end
+        
+    end
+end
+
+
+
+end
+
+
+
+% % OLDERVERSIONBACKUP
+% 
+% % [ctx_rtime ctx_er, contexts, ctxrnds] = rtanderperctx(data, id, from, till, tau, show);
+% %
+% % this function provides the response times and errors for each context of the
+% % requested tree.
+% %
+% % Input
+% % data: organized data as in responsetimeandresponses
+% % id: alternative id of the participant
+% % from: starting at the play
+% % till: ending in the play
+% % tree: number that identifies the tree
+% % show: (1) indicates plotting and (0) not plotting
+% %
+% % Output:
+% % ctx_rtime: cells with the response time organized by context (cell type)
+% % ctx_er: cells with the error organized by context (cell type)
+% % contexts: contexts of the evaluated tree.
+% % ctxrnds: for each context indicate if the response is deterministic (0)
+% % or not
+% 
+% function [ctx_rtime, ctx_er, contexts, ctxrnds] = rtanderperctx(data, id, from, till, tau, show) %#ok<STOUT>
+% 
+% % trees:
+% 
+% tau1 = {0 , 2 , [0 1], [1 1]};
+% tau2 = {0 , 2, [0 0 1], [1 0 1], [2 0 1], [1 1]};
+% tau3 = {[ 0 0], [1 0], [2 0], 1, [0 2], [1 2], [2 2]};
+% tau4 = {0 , [0 1] , [2 1], 2};
+% tau5 = {2, [2 1], [2 0], [1 0], [0 1], [2 0 0], [1 0 0], [0 0 0]};
+% tau6 = {2 , [2 1], [2 0], [1 1], [1 0], [0 1], [0 0]};
+% 
+% tau1rnd = [0 , 0, 1, 0];
+% tau2rnd = [1, 0, 0, 0, 0, 0];
+% tau3rnd = [0, 0, 0, 1, 0, 0, 0];
+% tau4rnd = [1, 0, 0, 1];
+% tau5rnd = [1, 0, 0, 1, 0, 1, 0, 0];
+% tau6rnd = [1, 1, 1, 0, 0, 0, 0];
+% 
+% 
+% eval(['contexts = tau' num2str(tau) ';'])
+% eval(['ctxrnds = tau' num2str(tau) 'rnd;'])
+% 
+% start = 0;
+% for a = 1: size(data,1)
+%     if (data(a,3) == 1)&&((data(a,6) == id)&&(data(a,5) == tau))
+%         start = a;
+%     end
+% end
+% 
+% start = start + from -1;
+% %disp(['starting at:' num2str(start)])
+% 
+% if start == 0
+%    ctx_rtime = cell(length(contexts),1); 
+%    ctx_er = cell(length(contexts),1);
+%    return;
+% else
+%     over = start + (till-from); % Previously: over = start + (till -1);
+%     %disp(['ending at:' num2str(over)])
+%     % Feeding count_contexts
+% 
+%     chain = data(start:over, 9);
+%     response = data(start:over, 8);
+%     time = data(start:over,7);
+% 
+%     [~,ct_pos, ctx_count] = count_contexts(contexts, chain');
+% 
+%     % Dividing response times per context
+% 
+%     ctx_rtime = cell(length(contexts),1); % for the storage of the response time per context
+%     ctx_er = cell(length(contexts),1); % for the storage of the error per context
+% 
+%     er = 0;
+%     for a = 1:length(contexts)
+%        auxr_ctx = [];
+%        auxe_ctx = [];
+%        for b = 1:size(ct_pos,2)
+%            if (ct_pos(a,b) ~= 0)&&(ct_pos(a,b) ~= 102)
+%            auxr_ctx = [auxr_ctx; time(ct_pos(a,b)+1,1)]; %#ok<AGROW>
+%            er = response(ct_pos(a,b)+1,1)~= chain(ct_pos(a,b)+1,1);
+%            auxe_ctx = [auxe_ctx; er]; %#ok<AGROW>
+%            end
+%        end
+%        ctx_rtime{a,1} = auxr_ctx;
+%        ctx_er{a,1} = auxe_ctx;
+%     end
+% 
+%     if show == 1
+%         % PLOTTING
+% 
+%         % Defining parameters for the axis:
+% 
+%         aux = []; aux2 = [];
+%         for a = 1:length(contexts)
+%            aux = [aux; ctx_rtime{a,1}];      %#ok<AGROW>
+%            aux2 = [aux2; length(ctx_rtime{a,1})]; %#ok<AGROW>
+%         end
+% 
+%         max_t = mean(aux)+3*std(aux); 
+%         max_trial = max(aux2);
+%         lines = 3;
+%         columns = 3;
+% 
+%         ccode = 'rmbgyc';
+% 
+%         figure
+%         for a = 1:length(contexts)
+%             subplot(lines,columns,a)
+%             plot(1:length(ctx_rtime{a,1}), ctx_rtime{a,1}, ccode(1,tau))
+%             axis([1 size(ctx_rtime{a,1},1) 0 max_t]) %axis([0 max_trial 0 max_t])
+%             xlabel('ocorrência')
+%             ylabel('tempo (seg.)')
+%             title(num2str(contexts{1,a}))
+%         end
+%         
+%         figure
+%         for a = 1:length(contexts)
+%             subplot(lines,columns,a)
+%             plot(1:length(ctx_er{a,1}), ctx_er{a,1}, ccode(1,tau))
+%             axis([1 size(ctx_er{a,1},1) 0 max_t]) %axis([0 max_trial 0 max_t])
+%             xlabel('ocorrência')
+%             ylabel('error')
+%             title(num2str(contexts{1,a}))
+%         end
+%         
+%     end
+% end
+% 
+% 
+% 
+% end
+% 
