@@ -1,0 +1,33 @@
+mport pandas as pd
+import numpy as np
+#from os import listdr, getcwd, chdir
+#from os.path import isfile, join
+
+#df= pd.read_csv ('T013_Vinicius_210720_165402_546.csv').replace (np.nan, '', regex = True)
+
+df= pd.read_csv ('T009_Vinicius_211019_135426_849.csv').replace (np.nan, '', regex = True)
+
+ndf=pd.DataFrame()
+
+# reorganizando a tabela para ficar compatível às rotinas de análise
+
+for i in range (df.shape[0]): #Número de linhas
+    aux= list()
+    aux = aux + [1] + [1]
+    aux = aux + [str(df.iloc [i,0])] #coluna de movimentos
+    aux = aux + [1]  #Coluna step
+    aux = aux + [12] # 12 é o identificador da árvore
+    aux = aux + [1] # adicionando identificação alternativa do participante
+    aux = aux + [str(df.iloc[i, 3])] #adicionando coluna de tempos de respostas
+    aux = aux + [str(df.iloc[i, 2])]#adicionando coluna de escolhas dos participantes
+    aux = aux + [str(df.iloc[i, 1])] #adicionando a cadeia do batedor
+    n2df = pd.DataFrame (aux)
+    frames = [ndf,n2df.T]
+    ndf = pd.concat(frames)
+
+ndf=ndf.reset_index(drop='True')
+#ndf.to_csv('dataset3.csv', index = False)
+
+ndf.to_csv ('P015.csv', index = False)
+
+print('test')
