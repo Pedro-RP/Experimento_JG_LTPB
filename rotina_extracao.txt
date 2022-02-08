@@ -1,0 +1,164 @@
+import os
+import numpy as np
+import pandas as pd
+from functools import reduce
+import datetime
+
+
+hold=[]
+for i in os.listdir():
+   if ".csv" in i:
+        hold.append(i)  #hold é uma lista com o nome dos dataframes
+
+print(hold)
+#removendo informações desnecessárias e removendo duplicatas ao selecionar apenas o dado mais recente:
+
+df_lst=[]
+for i in hold:
+    if "115129" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last') # Seleciona dentre linhas com o mesmo código somente aquela com a data mais recente
+        i=i.iloc[:,[0,8]] # Seleciona apenas as colunas desejadas
+        df_lst.append(i)
+    if "148234" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i=i.iloc[:,[0,24,25]]
+        df_lst.append(i)
+    if "271192" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i=i.iloc[:,[0,86]]
+        df_lst.append(i)
+    if "345282" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i = i.iloc[:, [0,64,80,96]]
+        df_lst.append(i)
+    if "367311" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i=i.iloc[:,[0,77,78]]
+        df_lst.append(i)
+    if "616949" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i=i.iloc[:,[0,2]]
+        df_lst.append(i)
+    if "627636" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i=i.iloc[:,[0,47,48,49,50,51,52]]
+        df_lst.append(i)
+    if "765858" in i:
+        i = pd.read_csv(i)
+        if 'acquisitiondate' in i:
+            i['acquisitiondate'] = pd.to_datetime(i['acquisitiondate'])
+            i = i.sort_values('acquisitiondate').drop_duplicates('participant_code', keep='last')
+        i=i.iloc[:,[0,1,2,4,5,7,8,9,12]]
+        df_lst.append(i)
+
+#renomeando as colunas
+for i in range(len(df_lst)):
+    if "participant_code" in df_lst[i].columns:
+            df_lst[i].rename(columns={'participant_code': 'p_code'}, inplace=True)
+    if 'idade' in df_lst[i].columns:
+            df_lst[i].rename(columns={'idade': 'age'}, inplace=True)
+    if 'Idade' in df_lst[i].columns:
+        df_lst[i].rename(columns={'Idade': 'age'}, inplace=True)
+    if 'sexo' in df_lst[i].columns:
+            df_lst[i].rename(columns={'sexo': 'gender'}, inplace=True)
+    if 'Sexo' in df_lst[i].columns:
+            df_lst[i].rename(columns={'Sexo': 'gender'}, inplace=True)
+    if "Que tratamentos ou medicações você está recebendo para dor?" in df_lst[i].columns:
+            df_lst[i].rename(columns={"Que tratamentos ou medicações você está recebendo para dor?": 'IBD_MED'}, inplace=True)
+    if "Escore" in df_lst[i].columns:
+            df_lst[i].rename(columns={"Escore": 'DN4_score'}, inplace=True)
+    if 'diagnostico' in df_lst[i].columns:
+            df_lst[i].rename(columns={'diagnostico': 'DN4_diag'}, inplace=True)
+    if 'pontuacaoold' in df_lst[i].columns:
+            df_lst[i].rename(columns={'pontuacaoold': 'LAT_score'}, inplace=True)
+    if 'pontuacaodash1' in df_lst[i].columns:
+            df_lst[i].rename(columns={'pontuacaodash1': 'DASH_score_1'}, inplace=True)
+    if 'pontuacaodash2' in df_lst[i].columns:
+           df_lst[i].rename(columns={'pontuacaodash2': 'DASH_score_2'}, inplace=True)
+    if 'pontuacaodash3' in df_lst[i].columns:
+           df_lst[i].rename(columns={'pontuacaodash3': 'DASH_score_3'}, inplace=True)
+    if 'escore' in df_lst[i].columns:
+           df_lst[i].rename(columns={'escore': 'MEEM_score'}, inplace=True)
+    if 'resultado' in df_lst[i].columns:
+           df_lst[i].rename(columns={'resultado': 'MEEM_result'}, inplace=True)
+    if 'Qual o lado da dor após a lesão?' in df_lst[i].columns:
+           df_lst[i].rename(columns={'Qual o lado da dor após a lesão?': 'ILDOR_side'}, inplace=True)
+    if "DATA da LESÃO:" in df_lst[i].columns:
+           df_lst[i].rename(columns={"DATA da LESÃO:": 'ENTRD_lesion_date'}, inplace=True)
+    if "Qual o LADO da LESÃO?" in df_lst[i].columns:
+           df_lst[i].rename(columns={"Qual o LADO da LESÃO?": 'ENTRD_lesion_side'}, inplace=True)
+    if "Teve TRAUMATISMO CRANIOENCEFÁLICO ASSOCIADO à LESÃO?" in df_lst[i].columns:
+           df_lst[i].rename(columns={"Teve TRAUMATISMO CRANIOENCEFÁLICO ASSOCIADO à LESÃO?": 'ENTRD_head_trauma'}, inplace=True)
+    if "Já fez alguma CIRURGIA DE PLEXO BRAQUIAL?" in df_lst[i].columns:
+           df_lst[i].rename(columns={"Já fez alguma CIRURGIA DE PLEXO BRAQUIAL?": 'ENTRD_arm_surgery'}, inplace=True)
+    if "Já fez alguma CIRURGIA DE DOR?" in df_lst[i].columns:
+           df_lst[i].rename(columns={"Já fez alguma CIRURGIA DE DOR?": 'ENTRD_pain_surgery'}, inplace=True)
+    if "Escolaridade do participante" in df_lst[i].columns:
+           df_lst[i].rename(columns={"Escolaridade do participante": 'ENTRD_scholarity'}, inplace=True)
+
+
+#formatando os dados
+
+for t in range(len(df_lst)):
+ for i in range(df_lst[t].shape[0]):
+  for j in range(df_lst[t].shape[1]):
+      if isinstance(df_lst[t].iloc[i,j],str):
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace(',','.')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Masculino', 'M')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Feminino', 'F')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Esquerdo', 'L')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Direito', 'R')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Sim', 'T')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Nao', 'F')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Esquerda', 'L')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('Direita', 'R')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('X', 'missing')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('ZERO', 'R')
+          df_lst[t].iloc[i,j] = df_lst[t].iloc[i,j].replace('N', 'DNA')
+
+
+print(df_lst)
+#juntando os dataframes:
+
+df=reduce(lambda left,right: pd.merge(left,right,on='p_code', how='outer'), df_lst)
+df=df.reset_index(drop='True')
+df = df.replace(np.nan, -404 , regex=True)#determina o que aparece no lugar do 'nan'. As linhas de uma mesma coluna devem pertencer ao mesmo tipo, então altere esse parâmetro de acordo.
+df = df.drop_duplicates('p_code', keep = 'first') # Garantindo que não vão haver duas linhas identicas devido a erro humano na hora de submeter os dados no NES
+print(df)
+
+# Selecionando informações
+
+right_handed = (df['LAT_score'] >=0) | (df['LAT_score'] == -404)
+left_compromised = df['ENTRD_lesion_side'] == 'L'
+cut = right_handed & left_compromised
+
+interest_df = df[cut]
+interest_df = interest_df.reset_index(drop=True)
+print(interest_df)
+
+
+
+#Formando o arquivo final
+
+#interest_df.to_csv('true_sample_cut.csv')
