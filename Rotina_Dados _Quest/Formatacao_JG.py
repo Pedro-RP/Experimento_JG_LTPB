@@ -25,7 +25,7 @@ for j in range(file_count):
     dataframes_list.append(temp_df)
 
 pd.set_option("display.max_rows", None, "display.max_columns", None) #pra os dados serem escritos além do limite de exibição do python#
-Dsetwlist=open("dataframe_full.txt",'w')    #cria o arquivo com todos os dados
+Dsetwlist=open("dataframe_full.csv",'w')    #cria o arquivo com todos os dados
 #reorganizando e escrevendo as tabelas para ficarem compatíveis às rotinas de análise
 for dataset in dataframes_list:
         for i in range(dataset.shape[0]):  # Número de linhas
@@ -46,7 +46,7 @@ Dsetwlist.write(str(Dset))
 Dset_list.append(Dset)
 Dsetwlist.close()
 #criando os arquivos individuais
-df_full = pd.read_csv("dataframe_full.txt" )
+df_full = pd.read_csv("dataframe_full.csv" )
 for i in range (file_count):
     df_full = df_full.reset_index(drop='True')
     Df_set=df_full[:1000].to_csv(path2 + "/" +files[i],sep=',',index=False)
