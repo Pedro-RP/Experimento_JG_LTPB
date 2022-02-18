@@ -4,20 +4,16 @@ from operator import index
 import numpy as np
 import pandas as pd
 
-
-#cria uma nova pasta dentro da pasta do projeto
-#os.makedirs('C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/dados/processados', exist_ok=True)
-
+pd.set_option("display.max_rows", None, "display.max_columns", None) #pra os dados serem escritos além do limite de exibição do python#
 
 # create empty lists
 dataframes_list = []
 Dset = pd.DataFrame()
 Dset_list = []
-Controls= []
-Patients= []
-#gerando a lista com todos os arquivos
 path=("C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/dados")
 path2=("C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/processed")
+
+# #gerando a lista com todos os arquivos
 files = os.listdir(path)
 file_count = len(files)
 print(file_count)
@@ -25,10 +21,9 @@ for j in range(file_count):
     temp_df = pd.read_csv(path +"/"+ files[j])
     dataframes_list.append(temp_df)
 new_index=list(range(1,1001))
-pd.set_option("display.max_rows", None, "display.max_columns", None) #pra os dados serem escritos além do limite de exibição do python#
-
 Dsetwlist=open("dataframe_full.csv",'w')    #cria o arquivo com todos os dados
-#reorganizando e escrevendo as tabelas para ficarem compatíveis às rotinas de análise
+
+##reorganizando e escrevendo as tabelas para ficarem compatíveis às rotinas de análise
 count=0
 for dataset in dataframes_list:
         count+=1
@@ -51,20 +46,37 @@ Dsetwlist.write(str(Dset))
 Dset_list.append(Dset)
 Dsetwlist.close()
 
-#criando os arquivos individuais
+# #criando os arquivos individuais
 df_full = pd.read_csv("dataframe_full.csv" )
 for i in range (file_count):
-    #df_full = df_full.reset_index(drop=False)
     Df_set=df_full[:1000].to_csv(path2 + "/" +files[i],sep=',',index=False,header=False)
     df_full = df_full.drop(df_full.index[range(1000)])
-    #df_full = df_full.reindex(new_index)
     df_full = df_full.drop(df_full.iloc[:, 1:])
-    #df_full = df_full.set_axis([1, 2, 3, 4, 5, 6, 7, 8, 9], axis=1, inplace=False)
 #print(Df_set)
 
-files = os.listdir(path2)
-file_count = len(files)
-print(file_count)
-for j in range(file_count):
-    temp_df = pd.read_csv(path +"/"+ files[j])
-    dataframes_list.append(temp_df)
+#criando os arquivos para os grupos
+files_group = os.listdir(path2)
+file_Controls = len(files_group)
+file_Patients = len(files_group)
+#print(files_group)
+Controls= ["T014","T021","T022","T024","T027","T028","T030","T033"]
+Patients= ["T006","T007","T009","T010","T012","T015","T016","T017"]
+dataframes_control = []
+dataframes_patient = []
+Dset_Control=open("dataframe_Control.csv",'w')    #cria o arquivo com todos Controles
+Dset_Patient=open("dataframe_Patient.csv",'w')    #cria o arquivo com todos Pacientes
+
+for file in files_group:
+    #print(file[0:4])
+    if file[0:4] in Controls:
+        temp_C = pd.read_csv(path2 + "/" + file)
+        dataframes_control.append(temp_C)
+
+    elif file[0:4] in Patients:
+        temp_P = pd.read_csv(path2 + "/" + file)
+        dataframes_patient.append(temp_P)
+
+Dset_Patient.write(str(dataframes_patient))
+Dset_Control.write(str(dataframes_control))
+Dset_Control.close()
+Dset_Patient.close()

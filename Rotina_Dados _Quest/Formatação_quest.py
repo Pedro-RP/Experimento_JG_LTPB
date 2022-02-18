@@ -3,7 +3,7 @@ import csv
 from operator import index
 import numpy as np
 import pandas as pd
-pd.set_option("display.max_rows", None, "display.max_columns", None) #pra os dados serem escritos além do limite de exibição do python#
+#pd.set_option("display.max_rows", None, "display.max_columns", None) #pra os dados serem escritos além do limite de exibição do python#
 # create empty lists
 dataframes_list = []
 Dset = pd.DataFrame()
