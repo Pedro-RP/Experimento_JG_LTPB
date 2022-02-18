@@ -71,7 +71,7 @@ tauofid = aux_tab;
 treesizes = zeros(length(trees),1);
 
 for a = 1:ntau
-   tree_file_address = ['/GitHub/main/files_for_reference/tree_behave' num2str(trees(a)) '.txt' ];
+   tree_file_address = ['/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts/Git/files_for_reference/tree_behave' num2str(trees(a)) '.txt' ];
    [contexts, ~, ~, ~] = build_treePM (tree_file_address);
    treesizes(a) = length(contexts);
 end

@@ -5,7 +5,7 @@ if show ==1
 figure
 end
 
-[alfa, beta,r, tcrit, tcalc, p] = slinearwithpear(x,y, 0.05);
+[alfa, beta,r, tcrit, tcalc, p, ~] = slinearwithpear(x,y, 0.05, 0);
 
 if show ==1 
 subplot(1,3,1)
@@ -17,7 +17,7 @@ text((max(x)-min(x))/40 + min(x), (max(y)-min(y))/2 + min(y), [num2str(alfa,'%.2
 end
 
 yc = y - alfa;
-[alfa, beta,r, tcrit, tcalc, p] = slinearwithpear(x,yc, 0.05);
+[alfa, beta,r, tcrit, tcalc, p, ~] = slinearwithpear(x,yc, 0.05, 0);
 
 if show ==1 
 subplot(1,3,2)

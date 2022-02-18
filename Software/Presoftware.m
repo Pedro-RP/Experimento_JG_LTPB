@@ -1,8 +1,8 @@
 function Presoftware(data)
 close all
-cd 'C:\Users\Numec\Desktop'
+cd '/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts'
 set(0,'defaultfigurecolor',[1 1 1]); set(0, 'DefaultFigureRenderer', 'painters');
-addpath(genpath('C:\Users\Numec\Desktop\Git'))
+addpath(genpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts/Git'))
 
 strfig.data = data;
 assignin('base','aux',0);
@@ -219,11 +219,11 @@ updateb.Callback = @upthedata;
     % Loading the mean parameters
     [ids, vids, tauofid, gametest, trees, treesizes] = data_setaspects(data, ntrials);
     t_id = find(tauofid == tau);
-    tau_repo = cell(length(t_id),treesizes(tau-6));
-    counts_total = zeros(length(t_id),treesizes(tau-6));
+    tau_repo = cell(length(t_id),treesizes(find(trees == tau)));
+    counts_total = zeros(length(t_id),treesizes(find(trees == tau)));
 
     for a = 1:length(t_id)
-       tree_file_address = ['C:\Users\Numec\Desktop\Git\files_for_reference\tree_behave' num2str(tau) '.txt' ];
+       tree_file_address = ['/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts/Git/files_for_reference/tree_behave' num2str(tau) '.txt' ];
        % Creating table with the tree structure
        [contexts, PM, responses, rnds] = build_treePM (tree_file_address);
        colnames = {'0', '1', '2'}; rownames = {};
@@ -239,7 +239,7 @@ updateb.Callback = @upthedata;
        if fpos >= 1
           [ctx_fer,ct_poscell] = lastwas_error(ct_pos, ctx_er, contexts, chain, responses,fpos); 
        end       
-       for b = 1:treesizes(tau-6)
+       for b = 1:treesizes(find(trees == tau))
           h = findobj('Tag','filter');
           if h.Value == 0 % Considering all responses
           aux = [1:length(ctx_er{b,1})];

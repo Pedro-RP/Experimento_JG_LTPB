@@ -13,7 +13,8 @@ import pandas as pd
 dataframes_list = []
 Dset = pd.DataFrame()
 Dset_list = []
-
+Controls= []
+Patients= []
 #gerando a lista com todos os arquivos
 path=("C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/dados")
 path2=("C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/processed")
@@ -61,3 +62,9 @@ for i in range (file_count):
     #df_full = df_full.set_axis([1, 2, 3, 4, 5, 6, 7, 8, 9], axis=1, inplace=False)
 #print(Df_set)
 
+files = os.listdir(path2)
+file_count = len(files)
+print(file_count)
+for j in range(file_count):
+    temp_df = pd.read_csv(path +"/"+ files[j])
+    dataframes_list.append(temp_df)
