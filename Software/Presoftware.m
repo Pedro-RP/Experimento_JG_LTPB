@@ -1,8 +1,6 @@
 function Presoftware(data)
 close all
-cd '/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts'
 set(0,'defaultfigurecolor',[1 1 1]); set(0, 'DefaultFigureRenderer', 'painters');
-addpath(genpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts/Git'))
 
 strfig.data = data;
 assignin('base','aux',0);
@@ -223,7 +221,7 @@ updateb.Callback = @upthedata;
     counts_total = zeros(length(t_id),treesizes(find(trees == tau)));
 
     for a = 1:length(t_id)
-       tree_file_address = ['/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/MatlabScripts/Git/files_for_reference/tree_behave' num2str(tau) '.txt' ];
+       tree_file_address = ['C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\files_for_reference\tree_behave' num2str(tau) '.txt' ];
        % Creating table with the tree structure
        [contexts, PM, responses, rnds] = build_treePM (tree_file_address);
        colnames = {'0', '1', '2'}; rownames = {};
