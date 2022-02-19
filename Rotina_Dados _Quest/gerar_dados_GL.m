@@ -22,5 +22,5 @@ data_ltpb = table2array(predata_ltpb);
 
 %%Lançar Software para grupo LTPB:
 
-Presoftware(data_ltpb)
+%Presoftware(data_ltpb)
 
