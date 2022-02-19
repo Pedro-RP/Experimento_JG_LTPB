@@ -70,15 +70,14 @@ count1=0
 for file in files_group:
     if file[0:4] in Controls:
         count1 += 1
-        fl=[file[0:4]]*999
+        fl=[file[0:4]]*1000
         ID=pd.DataFrame(fl)
-        temp_C = pd.DataFrame(pd.read_csv(path2 + "/" + file,delim_whitespace=True,))
+        temp_C = pd.DataFrame(pd.read_csv(path2 + "/" + file,delim_whitespace=True,header=None))
         #temp_C= temp_C.set_axis([1,2,3,4,5,6,7,8,9], axis=1, inplace=False)
         temp_C.iloc[:,6]=count1
-        #temp_C.insert(10,"ID",[file[0:4]])
         temp_C=pd.concat([temp_C ,ID], axis= 1 ,ignore_index=True)
-        #temp_C.fillna(method='ffill')
-        dataframes_control.append(temp_C)
+        Dset_Control.write(temp_C.to_string(header=False)+"\n")
+
 
 
 
@@ -86,17 +85,16 @@ count2 = 0
 for file in files_group:
     if file[0:4] in Patients:
         count2 += 1
-        fl = [file[0:4]] * 999
+        fl = [file[0:4]] * 1000
         ID = pd.DataFrame(fl)
         temp_P = pd.DataFrame(pd.read_csv(path2 + "/" + file ,delim_whitespace=True,header=None))
         #temp_P = temp_P.set_axis([1, 2, 3, 4, 5, 6, 7, 8, 9], axis=1, inplace=False)
         temp_P.iloc[:,6] = count2
         temp_P = pd.concat([temp_P, ID], axis=1, ignore_index=True)
-        dataframes_patient.append(temp_P)
+        Dset_Patient.write(temp_P.to_string(header=False)+"\n")
 
-print(dataframes_control)
-#print(temp_P.iloc[1].tolist()[0][7])
-Dset_Patient.write(str(dataframes_patient))
-Dset_Control.write(str(dataframes_control))
+
+print((Dset_Control))
+
 Dset_Control.close()
 Dset_Patient.close()
