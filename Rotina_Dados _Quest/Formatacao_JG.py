@@ -10,8 +10,8 @@ pd.set_option("display.max_rows", None, "display.max_columns", None) #pra os dad
 dataframes_list = []
 Dset = pd.DataFrame()
 Dset_list = []
-path=("C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/dados")
-path2=("C:/Users/Numec/Documents/GitHub/main/Rotina_Dados _Quest/processed")
+path=(r"C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dados")
+path2=(r"C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\processed")
 #
 # # #gerando a lista com todos os arquivos
 # files = os.listdir(path)
@@ -70,7 +70,7 @@ count1=0
 for file in files_group:
     if file[0:4] in Controls:
         count1 += 1
-        fl=[file[0:4]]*1000
+        fl=[float(file[1:4])]*1000
         ID=pd.DataFrame(fl)
         temp_C = pd.DataFrame(pd.read_csv(path2 + "/" + file,delim_whitespace=True,header=None))
         #temp_C= temp_C.set_axis([1,2,3,4,5,6,7,8,9], axis=1, inplace=False)
@@ -85,7 +85,7 @@ count2 = 0
 for file in files_group:
     if file[0:4] in Patients:
         count2 += 1
-        fl = [file[0:4]] * 1000
+        fl = [float(file[1:4])] * 1000
         ID = pd.DataFrame(fl)
         temp_P = pd.DataFrame(pd.read_csv(path2 + "/" + file ,delim_whitespace=True,header=None))
         #temp_P = temp_P.set_axis([1, 2, 3, 4, 5, 6, 7, 8, 9], axis=1, inplace=False)
