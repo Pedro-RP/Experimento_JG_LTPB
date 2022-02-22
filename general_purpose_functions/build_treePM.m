@@ -16,7 +16,7 @@
 function [contexts, PM, responses, rnds] = build_treePM (tree_file_address)
 
 fid = fopen(tree_file_address);
-des = fscanf(fid,'%s');
+des = fscanf(fid ,'%s');
 fclose(fid); 
 
 contexts = cell(1,count(des,'('));
