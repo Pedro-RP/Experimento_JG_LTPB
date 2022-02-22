@@ -1,4 +1,4 @@
-%%%Preparando dados para inser玢o no Goalkeeper's Lab
+%%%Preparando dados para inser莽茫o no Goalkeeper's Lab
 
 %%Dados COmpletos
 predata_full = readtable('C:\Users\Numec\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv'); 
@@ -19,15 +19,15 @@ predata_ltpb(: , 1) = [ ];
 data_ltpb = table2array(predata_ltpb);
 
 
-%%Lan鏰r software para grupo Controle:
+%%Lan莽ar software para grupo Controle:
 
 %Presoftware(data_control)
 
-%%Lan鏰r Software para grupo LTPB:
+%%Lan莽ar Software para grupo LTPB:
 
 Presoftware(data_ltpb)
 
-%%%%Construindo a m閐ia m髒el
+%%%%Construindo a m茅dia m贸vel
 Z=data_control;  %arquivo sendo utilizado
 
 % 
@@ -45,7 +45,7 @@ Z=data_control;  %arquivo sendo utilizado
 % %display(W)
 % %T=movmean(W,101);
 % 
-% %Definindo a Cell M composta pelos vetores m equivalentes a m閐ia m髒el de
+% %Definindo a Cell M composta pelos vetores m equivalentes a m茅dia m贸vel de
 % %cada participante
 % %m = zeros(1,size(Z,2));
 % i=1;
@@ -62,7 +62,7 @@ Z=data_control;  %arquivo sendo utilizado
 % %Construindo os graficos
 % x = linspace(1,1000,1000);
 % 
-% title('m閐ia m髒el(tx de acerto)')
+% title('m茅dia m贸vel(tx de acerto)')
 % 
 % hold on
 % for i= 1:(size(Z,1)/1000) ;
@@ -73,13 +73,13 @@ Z=data_control;  %arquivo sendo utilizado
 % hold off
 
 
-%%% Contruindo m閐io m髒el temporal
+%%% Contruindo m茅dio m贸vel temporal
 for i = 1:size(Z,1);
   P(i)=Z(i,7);
 %
    end
    
-%Definindo a Cell M composta pelos vetores m equivalentes a m閐ia m髒el de
+%Definindo a Cell M composta pelos vetores m equivalentes a m茅dia m贸vel de
 %cada participante
 
 i=1;
@@ -95,7 +95,7 @@ end
 %Construindo os graficos
 x = linspace(1,1000,1000);
 
-title('m閐ia m髒el temporal')
+title('m茅dia m贸vel temporal')
 
 hold on
 for i= 1:(size(Z,1)/1000) ;
