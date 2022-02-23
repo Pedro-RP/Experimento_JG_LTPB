@@ -1,6 +1,6 @@
 %%%Preparando dados para inserção no Goalkeeper's Lab
 
-%%Dados COmpletos
+%%Dados Completos
 predata_full = readtable('C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_full.csv'); 
 predata_full(: , 1) = [ ];
 data_full = table2array(predata_full);
@@ -94,17 +94,18 @@ i=i+1000;
 end
 
 %Construindo os graficos
+
 x = linspace(1,1000,1000);
 
-title('Média Móvel Temporal')
-
+title('Média Móvel Temporal - Controle')
+xlabel("Número da Jogada")
+ylabel("RTs")
 
 hold on
 for i= 1:(size(Z,1)/1000)
 l = num2str(i);
 plot(x,N{i},'LineWidth',2,'MarkerSize',2,'DisplayName',l)
-ylim ([0 3.5])
+ylim ([0 5])
 end
 hold off
-
 legend show
