@@ -98,11 +98,13 @@ x = linspace(1,1000,1000);
 
 title('Média Móvel Temporal')
 
+
 hold on
-for i= 1:(size(Z,1)/1000) ;
-plot(x,N{i})
-ylim ([0 4])
-
+for i= 1:(size(Z,1)/1000)
+l = num2str(i);
+plot(x,N{i},'LineWidth',2,'MarkerSize',2,'DisplayName',l)
+ylim ([0 3.5])
 end
-
 hold off
+
+legend show
