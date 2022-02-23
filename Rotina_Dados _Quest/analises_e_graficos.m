@@ -58,10 +58,13 @@ Z=data_full;  %arquivo sendo utilizado
 % 
 % end
 % 
-% %Construindo os graficos
+%%Construindo os graficos
+
+%Dar "clear" sempre que for rodar um gráfico novo
+
 % x = linspace(1,1000,1000);
 % yticks(0:0.1:1);
-% title('Média Móvel de Acurácia - Full')
+% title('Média Móvel de Acurácia - Full') %Mudar o nome de acordo com o arquivo aberto
 % xlabel("Número da Jogada")
 % ylabel("RTs")
 % 
@@ -96,9 +99,11 @@ end
 
 %Construindo os graficos
 
+%Dar "clear" sempre que for rodar um gráfico novo
+
 x = linspace(1,1000,1000);
 
-title('Média Móvel Temporal - Full')
+title('Média Móvel Temporal - Full') %Mudar o nome de acordo com o arquivo aberto
 xlabel("Número da Jogada")
 ylabel("RTs")
 
