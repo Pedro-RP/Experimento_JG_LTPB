@@ -29,83 +29,84 @@ data_ltpb = table2array(predata_ltpb);
 
 %%%%Construindo a média móvel
 
-Z=data_control;  %arquivo sendo utilizado
-
+Z=data_full;  %arquivo sendo utilizado
 
 %Construindo W ,como vetor de erros e acertos
-% for i = 1:size(Z,1);
-%   
-%    if Z(i,8)== Z(i,9);
-%        W(i)= 1;    
-%    else 
-%        W(i)= 0;
-%    end
-%    
-%    
-% end
-% %display(W)
-% %T=movmean(W,101);
-% 
-% %Definindo a Cell M composta pelos vetores m equivalentes a média móvel de
-% %cada participante
-% %m = zeros(1,size(Z,2));
-% i=1;
-% 
-% for m=1:(size(Z,1)/1000) ;
-% w=W(i:i+999);
-% 
-% M{m}= movmean(w,101);
-% 
-% i=i+1000;
-% 
-% end
-% 
-% %Construindo os graficos
-% x = linspace(1,1000,1000);
-% 
-% title('Média Móvel de Acurácia')
-% 
-% hold on
-% for i= 1:(size(Z,1)/1000) ;
-% plot(x,M{i})
-% 
-% end
-% 
-% hold off
-
-
-%%% Contruindo médio móvel temporal
 for i = 1:size(Z,1);
-  P(i)=Z(i,7);
-%
+  
+   if Z(i,8)== Z(i,9);
+       W(i)= 1;    
+   else 
+       W(i)= 0;
    end
    
+   
+end
+
+
 %Definindo a Cell M composta pelos vetores m equivalentes a média móvel de
 %cada participante
 
 i=1;
 
-for p=1:(size(Z,1)/1000) ;
-u=P(i:i+999);
-N{p}= movmean(u,101);
+for m=1:(size(Z,1)/1000) ;
+w=W(i:i+999);
+
+M{m}= movmean(w,101);
 
 i=i+1000;
 
 end
 
 %Construindo os graficos
-
 x = linspace(1,1000,1000);
-
-title('Média Móvel Temporal - Controle')
+yticks(0:0.1:1);
+title('Média Móvel de Acurácia - Full')
 xlabel("Número da Jogada")
 ylabel("RTs")
 
 hold on
-for i= 1:(size(Z,1)/1000)
-l = num2str(i);
-plot(x,N{i},'LineWidth',2,'MarkerSize',2,'DisplayName',l)
-ylim ([0 5])
+for I= 1:(size(Z,1)/1000) ;
+l = num2str(I);
+plot(x,M{I},'LineWidth',2,'MarkerSize',2,'DisplayName',l)
 end
+
 hold off
 legend show
+
+
+%%% Contruindo médio móvel temporal
+% for i = 1:size(Z,1);
+%   P(i)=Z(i,7);
+% %
+%    end
+%    
+% %Definindo a Cell M composta pelos vetores m equivalentes a média móvel de
+% %cada participante
+% 
+% i=1;
+% 
+% for p=1:(size(Z,1)/1000) ;
+% u=P(i:i+999);
+% N{p}= movmean(u,101);
+% 
+% i=i+1000;
+% 
+% end
+% 
+% %Construindo os graficos
+% 
+% x = linspace(1,1000,1000);
+% 
+% title('Média Móvel Temporal - Controle')
+% xlabel("Número da Jogada")
+% ylabel("RTs")
+% 
+% hold on
+% for i= 1:(size(Z,1)/1000)
+% l = num2str(i);
+% plot(x,N{i},'LineWidth',2,'MarkerSize',2,'DisplayName',l)
+% ylim ([0 5])
+% end
+% hold off
+% legend show
