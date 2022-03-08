@@ -1,4 +1,4 @@
-%%%Preparando dados para inserção no Goalkeeper's Lab
+%%Preparando dados para inserção no Goalkeeper's Lab
 
 %%Dados Completos
 predata_full = readtable('C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_full.csv'); 
