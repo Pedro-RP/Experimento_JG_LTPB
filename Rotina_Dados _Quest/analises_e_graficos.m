@@ -106,19 +106,28 @@ end
 % Construindo gráficos de análise individual com a linha mostrando os
 % contextos
 
-pa = 1; %participante que está sendo analisado.
+pa = 2; %participante que está sendo analisado.
 
 x = linspace(1,1000,1000);
 
+set(0,'defaultaxescolororder', [[1 0 0]
+                                [0 0 1]
+                                [1 1 0]
+                                [0 0 0]
+                                [1 0 1]
+                                [0 1 1]]);
+
 yyaxis left
-plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia')
+ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [0 0 1]);
 ylim([0 1])
-legend show
+
 
 yyaxis right
-plot(x,C2{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Contextos')
-ylim([0 10])
+ct=plot(x,C2{pa},'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [1 1 0]);
+ylim([0 2])
 yticks([0 1 2])
+
+legend show
 
 xline(334,'--','DisplayName','Intervalo 1');
 xline(668,'--','DisplayName','Intervalo 2');
@@ -129,8 +138,8 @@ xline(668,'--','DisplayName','Intervalo 2');
 % 
 %    end
 %    
-% Definindo a Cell N composta pelos vetores p equivalentes a média móvel de
-% cada participante
+% %Definindo a Cell N composta pelos vetores p equivalentes a média móvel de
+% %cada participante
 % 
 % i=1;
 % 
@@ -184,14 +193,13 @@ xline(668,'--','DisplayName','Intervalo 2');
 % x = linspace(1,1000,1000);
 % 
 % yyaxis left
-% plot(x,N{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'RT')
-% ylim([0 1])
+% plot(x,N{pa},'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'RT','color', [0 0 1])
 % legend show
 % 
 % yyaxis right
 % 
-% plot(x,C2{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Contextos')
-% ylim([0 10])
+% plot(x,C2{pa},'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [1 1 0])
+% ylim([0 2])
 % yticks([0 1 2])
 % 
 % xline(334,'--','DisplayName','Intervalo 1');
