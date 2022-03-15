@@ -1,34 +1,23 @@
 %%Preparando dados para inserção no Goalkeeper's Lab
 
 %%Dados Completos
-<<<<<<< Updated upstream
-predata_full = readtable('C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv'); 
-=======
+
 file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
 predata_full = readtable(file_full); 
->>>>>>> Stashed changes
 predata_full(: , 1) = [ ];
 data_full = table2array(predata_full);
 
 %%Grupo Controle
-<<<<<<< Updated upstream
-
-predata_control = readtable('C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_control.csv');
-=======
 file_control='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_control.csv';
 predata_control = readtable(file_control);
->>>>>>> Stashed changes
 predata_control(: , 1) = [ ]; 
 predata_control(: , 1) = [ ];
 data_control = table2array(predata_control);
 
 %%Grupo LTPB
-<<<<<<< Updated upstream
-predata_ltpb = readtable('C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Patient.csv');
-=======
+
 file_ltpb='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Patient.csv';
 predata_ltpb = readtable(file_ltpb);
->>>>>>> Stashed changes
 predata_ltpb(: , 1) = [ ];
 predata_ltpb(: , 1) = [ ];
 data_ltpb = table2array(predata_ltpb);
@@ -90,46 +79,11 @@ end
 % %Construindo o grafico de comparação entre indivíduos do mesmo grupo
 % 
 % %Dar "clear" sempre que for rodar um gráfico novo
-% 
-% x = linspace(1,1000,1000);
-% title('Média Móvel de Acurácia - Completo') %Mudar o nome de acordo com o arquivo aberto
-% xlabel("Número da Jogada")
-% ylabel("Taxa de acerto")
-% 
-% set(0,'defaultaxescolororder', [[1 0 0]
-%                                 [0 0 1]
-%                                 [1 1 0]
-%                                 [0 0 0]
-%                                 [1 0 1]
-%                                 [0 1 1]]);
-%                            
-% set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
-% 
-% hold on
-% for I= 1:(size(Z,1)/1000) ;
-% l = num2str(I);
-% plot(x,M{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
-% ylim([0 1])
-% end
-% 
-% xline(334,'--','DisplayName','Intervalo 1');
-% xline(668,'--','DisplayName','Intervalo 2');
-% 
-% hold off
-% legend show
-
-% Construindo gráficos de análise individual com a linha mostrando os
-% contextos
-
-pa = 4; %participante que está sendo analisado.
-Id=Z(pa*1000 ,10);
-space='|';
-Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 
 x = linspace(1,1000,1000);
-title(strcat('Média M. Acurácia participante:', Name))
-
+title('Média Móvel de Acurácia - Completo') %Mudar o nome de acordo com o arquivo aberto
 xlabel("Número da Jogada")
+ylabel("Taxa de acerto")
 
 set(0,'defaultaxescolororder', [[1 0 0]
                                 [0 0 1]
@@ -137,23 +91,58 @@ set(0,'defaultaxescolororder', [[1 0 0]
                                 [0 0 0]
                                 [1 0 1]
                                 [0 1 1]]);
+                           
+set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
 
-yyaxis left
-ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [0 0 1]);
-ylabel("Taxa de acerto")
-
+hold on
+for I= 1:(size(Z,1)/1000) ;
+l = strcat('Participante:T0',num2str(Z(I*1000 ,10)));
+plot(x,M{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
 ylim([0 1])
-
-yyaxis right
-ct=plot(x,C2{pa},'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [1 1 0]);
-ylim([0 2])
-yticks([0 1 2])
-
-legend show
+end
 
 xline(334,'--','DisplayName','Intervalo 1');
 xline(668,'--','DisplayName','Intervalo 2');
 
+hold off
+legend show
+
+% Construindo gráficos de análise individual com a linha mostrando os
+% contextos
+
+% pa = 4; %participante que está sendo analisado.
+% Id=Z(pa*1000 ,10);
+% space='|';
+% Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
+% 
+% x = linspace(1,1000,1000);
+% title(strcat('Média M. Acurácia participante:', Name))
+% 
+% xlabel("Número da Jogada")
+% 
+% set(0,'defaultaxescolororder', [[1 0 0]
+%                                 [0 0 1]
+%                                 [1 1 0]
+%                                 [0 0 0]
+%                                 [1 0 1]
+%                                 [0 1 1]]);
+% 
+% yyaxis left
+% ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [0 0 1]);
+% ylabel("Taxa de acerto")
+% 
+% ylim([0 1])
+% 
+% yyaxis right
+% ct=plot(x,C2{pa},'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [1 1 0]);
+% ylim([0 2])
+% yticks([0 1 2])
+% 
+% legend show
+% 
+% xline(334,'--','DisplayName','Intervalo 1');
+% xline(668,'--','DisplayName','Intervalo 2');
+% 
 % % %%% Contruindo média móvel temporal
 % for i = 1:size(Z,1);
 %   P(i)=Z(i,7);
@@ -180,7 +169,7 @@ xline(668,'--','DisplayName','Intervalo 2');
 % % 
 % % x = linspace(1,1000,1000);
 % % 
-% % title('Média Móvel Temporal - Controle') %Mudar o nome de acordo com o arquivo aberto
+% % title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
 % % xlabel("Número da Jogada")
 % % ylabel("RTs")
 % % 

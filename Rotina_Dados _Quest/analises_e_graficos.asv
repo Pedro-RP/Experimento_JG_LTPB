@@ -1,6 +1,7 @@
 %%Preparando dados para inserção no Goalkeeper's Lab
 
 %%Dados Completos
+
 file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
 predata_full = readtable(file_full); 
 predata_full(: , 1) = [ ];
@@ -14,6 +15,7 @@ predata_control(: , 1) = [ ];
 data_control = table2array(predata_control);
 
 %%Grupo LTPB
+
 file_ltpb='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Patient.csv';
 predata_ltpb = readtable(file_ltpb);
 predata_ltpb(: , 1) = [ ];
@@ -94,7 +96,7 @@ end
 % 
 % hold on
 % for I= 1:(size(Z,1)/1000) ;
-% l = num2str(I);
+% l = strcat(num2str(Z(I*1000 ,10)),;
 % plot(x,M{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
 % ylim([0 1])
 % end
@@ -108,16 +110,15 @@ end
 % Construindo gráficos de análise individual com a linha mostrando os
 % contextos
 
-pa = 2; %participante que está sendo analisado.
+pa = 4; %participante que está sendo analisado.
 Id=Z(pa*1000 ,10);
 space='|';
-Name=strcat(num2str(pa),space,num2str(Id)) ;
+Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 
 x = linspace(1,1000,1000);
-title(strcat('Média Móvel de Acurácia participante:',spaces, Name,name))
+title(strcat('Média M. Acurácia participante:', Name))
 
 xlabel("Número da Jogada")
-ylabel("Taxa de acerto")
 
 set(0,'defaultaxescolororder', [[1 0 0]
                                 [0 0 1]
@@ -128,6 +129,7 @@ set(0,'defaultaxescolororder', [[1 0 0]
 
 yyaxis left
 ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [0 0 1]);
+ylabel("Taxa de acerto")
 
 ylim([0 1])
 
@@ -167,7 +169,7 @@ xline(668,'--','DisplayName','Intervalo 2');
 % % 
 % % x = linspace(1,1000,1000);
 % % 
-% % title('Média Móvel Temporal - Controle') %Mudar o nome de acordo com o arquivo aberto
+% % title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
 % % xlabel("Número da Jogada")
 % % ylabel("RTs")
 % % 
