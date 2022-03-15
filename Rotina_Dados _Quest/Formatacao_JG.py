@@ -72,12 +72,12 @@ for file in files_group:
         count1 += 1
         fl=[float(file[1:4])]*1000
         ID=pd.DataFrame(fl)
-        ID2=pd.DataFrame(data={"ID2":[file[0:4]]})
+
         temp_C = pd.DataFrame(pd.read_csv(path2 + "/" + file,delim_whitespace=True,header=None))
         #temp_C= temp_C.set_axis([1,2,3,4,5,6,7,8,9], axis=1, inplace=False)
         temp_C.iloc[:,6]=count1
         temp_C=pd.concat([temp_C ,ID], axis= 1 ,ignore_index=True)
-        temp_C = pd.concat([temp_C,ID2],axis= 1 ,ignore_index=True)
+
 
         Dset_Control.write(temp_C.to_string(header=False)+"\n")
 
@@ -90,12 +90,12 @@ for file in files_group:
         count2 += 1
         fl =[float(file[1:4])] * 1000
         ID = pd.DataFrame(fl)
-        ID2=pd.DataFrame(data={"ID2":[file[0:4]]})
+
         temp_P = pd.DataFrame(pd.read_csv(path2 + "/" + file ,delim_whitespace=True,header=None))
         #temp_P = temp_P.set_axis([1, 2, 3, 4, 5, 6, 7, 8, 9], axis=1, inplace=False)
         temp_P.iloc[:,6] = count2
         temp_P = pd.concat([temp_P, ID], axis=1, ignore_index=True)
-        temp_P = pd.concat([temp_P, ID2], axis = 1, ignore_index = True)
+
         Dset_Patient.write(temp_P.to_string(header=False)+"\n")
 
 

@@ -4,6 +4,7 @@ import csv
 from operator import index
 import numpy as np
 import pandas as pd
+from Formatacao_JG import ID
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 #pd.options.display.float_format = "{:,.2f}".format
 Dq_Full=pd.read_csv("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/processed/Data_questFull.csv")
@@ -120,7 +121,7 @@ for i in Dq_Full.axes[0]:
                                      "age": [age], "gender": [gender], "escolaridade": [scholarity],\
                                      "lat": [rel_handeness],"familiaridade": [game_fam], "dor no dia": [IBD_pain], \
                                      "região da dor": [IBD_region],"severidade": [IBD_severity], "medicação": [IBD_med],\
-                                     "inteferência": [IBD_interference], "interferencia atividades": [IBD_interference_atv],\
+                                     "interferencia": [IBD_interference], "interferencia atividades": [IBD_interference_atv],\
                                      "dor pre jogo": [init_pain], "dor pos jogo": [fin_pain],"prospmem": [prosp_mem], \
                                      "shorverbmem": [shortverb_mem], "workmem": [work_mem], "verbflu": [verb_flu],\
                                      "indrac": [ind_rac], "longverbmem": [longverb_mem],"Q_Lat":[Ql]})

@@ -1,4 +1,4 @@
-LS_code,Game_code,age,gender,escolaridade,lat,familiaridade,dor no dia,região da dor,severidade,medicação,inteferência,interferencia atividades,dor pre jogo,dor pos jogo,prospmem,shorverbmem,workmem,verbflu,indrac,longverbmem,Q_Lat
+LS_code,Game_code,age,gender,escolaridade,lat,familiaridade,dor no dia,região da dor,severidade,medicação,interferencia,interferencia atividades,dor pre jogo,dor pos jogo,prospmem,shorverbmem,workmem,verbflu,indrac,longverbmem,Q_Lat
 P002,T007,56,Masculino,Ensino superior completo,Destro,Alguma,Não,34.43,8.0,pregabalina e tramol ocasionalmente,8.0,8.5,5.0,8.0,0,8,12,33,0,8,100
 P010,T015,41,Feminino,Ensino superior completo,Destro,Nenhuma,Não,50,3.5,Pregabalina 75mg .só quando sente dor,,,0.0,0.0,1,7,5,32,1,8,-100
 P011,T016,26,Masculino,Ensino médio completo,Destro,Muita,Não,50,2.25,Sem medicacao,,,0.0,0.0,0,7,8,34,3,8,100

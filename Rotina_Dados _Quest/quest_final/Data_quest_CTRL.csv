@@ -1,4 +1,4 @@
-LS_code,Game_code,age,gender,escolaridade,lat,familiaridade,dor no dia,região da dor,severidade,medicação,inteferência,interferencia atividades,dor pre jogo,dor pos jogo,prospmem,shorverbmem,workmem,verbflu,indrac,longverbmem,Q_Lat
+LS_code,Game_code,age,gender,escolaridade,lat,familiaridade,dor no dia,região da dor,severidade,medicação,interferencia,interferencia atividades,dor pre jogo,dor pos jogo,prospmem,shorverbmem,workmem,verbflu,indrac,longverbmem,Q_Lat
 C001, T014,49,Masculino,Ensino superior completo,Destro,Alguma,,0,,NaN,,,,,0,4,5,23,2,4,100
 C005,T021,38,Masculino,Ensino superior completo,Destro,Alguma,,0,,,,,,,0,5,5,31,4,8,78
 C006,T022,29,Feminino,Ensino superior completo,Destro,Nenhuma,,,,,,,,,1,1,8,29,5,4,74
