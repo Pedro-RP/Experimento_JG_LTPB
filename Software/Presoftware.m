@@ -221,7 +221,7 @@ updateb.Callback = @upthedata;
     counts_total = zeros(length(t_id),treesizes(find(trees == tau)));
 
     for a = 1:length(t_id)
-       tree_file_address = ['C:\Users\Numec\Documents\GitHub\main\files_for_reference\tree_behave' num2str(tau) '.txt' ];
+       tree_file_address = ['C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\files_for_reference\tree_behave' num2str(tau) '.txt' ];
        % Creating table with the tree structure
        [contexts, PM, responses, rnds] = build_treePM (tree_file_address);
        colnames = {'0', '1', '2'}; rownames = {};
