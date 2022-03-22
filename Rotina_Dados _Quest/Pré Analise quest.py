@@ -117,6 +117,7 @@ for i in Dq_Full.axes[0]:
                 Ql=round((float(lat_D - lat_E)/float(lat_D + lat_E))*100)
             except ZeroDivisionError:
                 Ql=0
+    CT_Total=(7.2* prosp_mem)+(1* shortverb_mem)+(0.9* longverb_mem)+(0.8*work_mem)+(0.2*verb_flu)+(1.7*ind_rac)
     Final_series =pd.DataFrame(data={"LS_code": [Dq_Full.loc[i, "Codigo_de_acesso"]], "Game_code": [Dq_Full.loc[i, "IDLTPB[SQ002]"]],\
                                      "age": [age], "gender": [gender], "escolaridade": [scholarity],\
                                      "lat": [rel_handeness],"familiaridade": [game_fam], "dor no dia": [IBD_pain], \
@@ -124,7 +125,7 @@ for i in Dq_Full.axes[0]:
                                      "interferencia": [IBD_interference], "interferencia atividades": [IBD_interference_atv],\
                                      "dor pre jogo": [init_pain], "dor pos jogo": [fin_pain],"prospmem": [prosp_mem], \
                                      "shorverbmem": [shortverb_mem], "workmem": [work_mem], "verbflu": [verb_flu],\
-                                     "indrac": [ind_rac], "longverbmem": [longverb_mem],"Q_Lat":[Ql]})
+                                     "indrac": [ind_rac], "longverbmem": [longverb_mem],"Total_COGTEL":[CT_Total],"Q_Lat":[Ql]})
 
     Final_quest=pd.concat([Final_quest,Final_series])
     #print(Final_series)

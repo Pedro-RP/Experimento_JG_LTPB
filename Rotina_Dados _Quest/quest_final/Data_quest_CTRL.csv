@@ -1,9 +1,9 @@
-LS_code,Game_code,age,gender,escolaridade,lat,familiaridade,dor no dia,região da dor,severidade,medicação,interferencia,interferencia atividades,dor pre jogo,dor pos jogo,prospmem,shorverbmem,workmem,verbflu,indrac,longverbmem,Q_Lat
-C001, T014,49,Masculino,Ensino superior completo,Destro,Alguma,,0,,NaN,,,,,0,4,5,23,2,4,100
-C005,T021,38,Masculino,Ensino superior completo,Destro,Alguma,,0,,,,,,,0,5,5,31,4,8,78
-C006,T022,29,Feminino,Ensino superior completo,Destro,Nenhuma,,,,,,,,,1,1,8,29,5,4,74
-C007,T024,59,Masculino,Pós-graduação,Destro,Nenhuma,,,,,,,,,1,3,7,39,3,4,100
-C008,T027,25,Feminino,Ensino médio completo,Destro,Muita,,,,,,,,,1,5,4,37,4,6,68
-C009,T028,27,Masculino,Ensino superior completo,Destro,Muita,,0,,NaN,,,,,1,8,6,27,7,8,55
-C011,T030,31,Masculino,Pós-graduação,Destro,Alguma,,0,,NaN,,,,,0,8,12,40,3,8,100
-C012,T033,30,Masculino,Ensino superior completo,Destro,Alguma,,,,,,,,,1,5,8,30,2,6,90
+LS_code,Game_code,age,gender,escolaridade,lat,familiaridade,dor no dia,região da dor,severidade,medicação,interferencia,interferencia atividades,dor pre jogo,dor pos jogo,prospmem,shorverbmem,workmem,verbflu,indrac,longverbmem,Total_COGTEL,Q_Lat
+C001, T014,49,Masculino,Ensino superior completo,Destro,Alguma,,0,,NaN,,,,,0,4,5,23,2,4,19.599999999999998,100
+C005,T021,38,Masculino,Ensino superior completo,Destro,Alguma,,0,,,,,,,0,5,5,31,4,8,29.2,78
+C006,T022,29,Feminino,Ensino superior completo,Destro,Nenhuma,,,,,,,,,1,1,8,29,5,4,32.5,74
+C007,T024,59,Masculino,Pós-graduação,Destro,Nenhuma,,,,,,,,,1,3,7,39,3,4,32.3,100
+C008,T027,25,Feminino,Ensino médio completo,Destro,Muita,,,,,,,,,1,5,4,37,4,6,35.0,68
+C009,T028,27,Masculino,Ensino superior completo,Destro,Muita,,0,,NaN,,,,,1,8,6,27,7,8,44.5,55
+C011,T030,31,Masculino,Pós-graduação,Destro,Alguma,,0,,NaN,,,,,0,8,12,40,3,8,37.9,100
+C012,T033,30,Masculino,Ensino superior completo,Destro,Alguma,,,,,,,,,1,5,8,30,2,6,33.4,90
