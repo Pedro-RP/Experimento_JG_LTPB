@@ -1,5 +1,7 @@
 %%Preparando dados para inserção no Goalkeeper's Lab
 
+
+
 %%Dados Completos
 
 file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
@@ -25,9 +27,11 @@ data_ltpb = table2array(predata_ltpb);
 
 %%Lançar software:
 
-Z=data_control;  %arquivo sendo utilizado
-[filepath,name,ext] = fileparts(file_control);%Mudar de acordo com o arquivo
+Z=data_ltpb;  %arquivo sendo utilizado
+[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
+pa = 8; %participante que está sendo analisado.
 %Presoftware(Z) 
+
 
 %%Construindo um vetor C com os contextos que apareceram na sequência de
 %%cada jogador
@@ -70,55 +74,35 @@ i=1;
 for m=1:(size(Z,1)/1000) ;
 w=W(i:i+999);
 
-M{m}= movmean(w,101);
+M{m}= movmean(w,25);
 
 i=i+1000;
 
 end
-% 
+%% criar lista T com mil 0 
+tree_file_address= "C:\Users\vinivius valent\Documents\GitHub\main\files_for_reference\tree_behave12.txt";
+[ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data_ltpb,pa,1,1000,tree_file_address,0,12);
+
+T=repmat(0,1,1000);
+t=repmat(0,1,1000);
+%%loop q itera sobre o arquivo ctx_pos e pra cada posição da linha 4 muda 0 para 1 em T
+for k = drange(1:1000)
+   if ct_pos(4,k) ~= 0
+     T(ct_pos(4,k))=1;
+     t(k)=sum(T(1,1:k))/k;
+   elseif  ct_pos(4,k) == 0
+     t(k)=sum(T(1,1:k))/k;
+   end
+end
+
 % %Construindo o grafico de comparação entre indivíduos do mesmo grupo
 % 
 % %Dar "clear" sempre que for rodar um gráfico novo
-
-x = linspace(1,1000,1000);
-title('Média Móvel de Acurácia - Completo') %Mudar o nome de acordo com o arquivo aberto
-xlabel("Número da Jogada")
-ylabel("Taxa de acerto")
-
-set(0,'defaultaxescolororder', [[1 0 0]
-                                [0 0 1]
-                                [1 1 0]
-                                [0 0 0]
-                                [1 0 1]
-                                [0 1 1]]);
-                           
-set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
-
-hold on
-for I= 1:(size(Z,1)/1000) ;
-l = strcat('Participante:T0',num2str(Z(I*1000 ,10)));
-plot(x,M{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
-ylim([0 1])
-end
-
-xline(334,'--','DisplayName','Intervalo 1');
-xline(668,'--','DisplayName','Intervalo 2');
-
-hold off
-legend show
-
-% Construindo gráficos de análise individual com a linha mostrando os
-% contextos
-
-% pa = 4; %participante que está sendo analisado.
-% Id=Z(pa*1000 ,10);
-% space='|';
-% Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 % 
 % x = linspace(1,1000,1000);
-% title(strcat('Média M. Acurácia participante:', Name))
-% 
+% title('Média Móvel de Acurácia - Completo') %Mudar o nome de acordo com o arquivo aberto
 % xlabel("Número da Jogada")
+% ylabel("Taxa de acerto")
 % 
 % set(0,'defaultaxescolororder', [[1 0 0]
 %                                 [0 0 1]
@@ -126,23 +110,58 @@ legend show
 %                                 [0 0 0]
 %                                 [1 0 1]
 %                                 [0 1 1]]);
+%                            
+% set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
 % 
-% yyaxis left
-% ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [0 0 1]);
-% ylabel("Taxa de acerto")
-% 
+% hold on
+% for I= 1:(size(Z,1)/1000) ;
+% l = strcat('Participante:T0',num2str(Z(I*1000 ,10)));
+% plot(x,M{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
 % ylim([0 1])
-% 
-% yyaxis right
-% ct=plot(x,C2{pa},'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [1 1 0]);
-% ylim([0 2])
-% yticks([0 1 2])
-% 
-% legend show
+% end
 % 
 % xline(334,'--','DisplayName','Intervalo 1');
 % xline(668,'--','DisplayName','Intervalo 2');
 % 
+% hold off
+% legend show
+
+%Construindo gráficos de análise individual com a linha mostrando os
+%contextos
+
+
+Id=Z(pa*1000 ,10);
+space='|';
+Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
+
+x = linspace(1,1000,1000);
+title(strcat('Média M. Acurácia participante:', Name))
+
+xlabel("Número da Jogada")
+
+set(0,'defaultaxescolororder', [[1 0 0]
+                                [0 0 1]
+                                [1 1 0]
+                                [0 0 0]
+                                [1 0 1]
+                                [0 1 1]]);
+
+yyaxis left
+ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [1 0 0]);
+ylabel( "Taxa de acerto")
+
+ylim([0 1])
+
+yyaxis right
+ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
+ylim([0 0.2])
+yticks([0 0.2])
+
+legend show
+
+xline(334,'--','DisplayName','Intervalo 1');
+xline(668,'--','DisplayName','Intervalo 2');
+
 % % %%% Contruindo média móvel temporal
 % for i = 1:size(Z,1);
 %   P(i)=Z(i,7);
@@ -215,8 +234,5 @@ legend show
 % 
 % xline(334,'--','DisplayName','Intervalo 1');
 % xline(668,'--','DisplayName','Intervalo 2');
-
-
-
 
 
