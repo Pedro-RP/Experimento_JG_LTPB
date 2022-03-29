@@ -30,6 +30,7 @@ data_ltpb = table2array(predata_ltpb);
 Z=data_ltpb;  %arquivo sendo utilizado
 [filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 pa = 8; %participante que está sendo analisado.
+
 %Presoftware(Z) 
 
 
@@ -51,7 +52,25 @@ C2{c}=C1(d:d+999);
 d=d+1000;
 end
 
-%%% Média móvel de acurácia
+% %%% Contruindo média móvel temporal
+for i = 1:size(Z,1);
+  P(i)=Z(i,7);
+
+   end
+   
+% % Definindo a Cell N composta pelos vetores p equivalentes a média móvel de
+% % cada participante
+
+i=1;
+
+for p=1:(size(Z,1)/1000) ;
+u=P(i:i+999);
+N{p}= movmean(u,25);
+
+i=i+1000;
+
+end
+%%% Construindo Média móvel de acurácia
 
 %Construindo W ,como vetor de erros e acertos
 for i = 1:size(Z,1);
@@ -95,9 +114,13 @@ for k = drange(1:1000)
    end
 end
 
-% %Construindo o grafico de comparação entre indivíduos do mesmo grupo
+Id=Z(pa*1000 ,10);
+space='|';
+Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
+
+%%%Construindo o grafico de comparação entre indivíduos do mesmo grupo
 % 
-% %Dar "clear" sempre que for rodar um gráfico novo
+%%%Dar "clear" sempre que for rodar um gráfico novo
 % 
 % x = linspace(1,1000,1000);
 % title('Média Móvel de Acurácia - Completo') %Mudar o nome de acordo com o arquivo aberto
@@ -126,18 +149,51 @@ end
 % hold off
 % legend show
 
-%Construindo gráficos de análise individual com a linha mostrando os
+%%%%%%Construindo gráficos de análise individual com a linha mostrando os
 %contextos
 
 
-Id=Z(pa*1000 ,10);
-space='|';
-Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
+% 
+% x = linspace(1,1000,1000);
+% title(strcat('Média M. Acurácia participante:', Name))
+% 
+% xlabel("Número da Jogada")
+% 
+% set(0,'defaultaxescolororder', [[1 0 0]
+%                                 [0 0 1]
+%                                 [1 1 0]
+%                                 [0 0 0]
+%                                 [1 0 1]
+%                                 [0 1 1]]);
+% 
+% yyaxis left
+% ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [1 0 0]);
+% ylabel( "Taxa de acerto")
+% 
+% ylim([0 1])
+% 
+% yyaxis right
+% ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
+% ylim([0 0.2])
+% yticks([0 0.2])
+% 
+% legend show
+% 
+% xline(334,'--','DisplayName','Intervalo 1');
+% xline(668,'--','DisplayName','Intervalo 2');
+% 
+
+
+
+%Construindo o grafico de análise de indivíduos do grupo
+
+%Dar "clear" sempre que for rodar um gráfico novo
 
 x = linspace(1,1000,1000);
-title(strcat('Média M. Acurácia participante:', Name))
 
+title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
 xlabel("Número da Jogada")
+ylabel("RTs")
 
 set(0,'defaultaxescolororder', [[1 0 0]
                                 [0 0 1]
@@ -145,74 +201,29 @@ set(0,'defaultaxescolororder', [[1 0 0]
                                 [0 0 0]
                                 [1 0 1]
                                 [0 1 1]]);
+                           
+set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
 
-yyaxis left
-ac=plot(x,M{pa},'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Acurácia', 'color', [1 0 0]);
-ylabel( "Taxa de acerto")
+hold on
+for i= 1:(size(Z,1)/1000)
+l = num2str(i);
+end
+yyaxis left 
+plot(x,N{pa},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',num2str(pa))
+ylim ([0 5])
 
-ylim([0 1])
-
-yyaxis right
+yyaxis right 
 ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
 ylim([0 0.2])
 yticks([0 0.2])
 
-legend show
+
 
 xline(334,'--','DisplayName','Intervalo 1');
 xline(668,'--','DisplayName','Intervalo 2');
 
-% % %%% Contruindo média móvel temporal
-% for i = 1:size(Z,1);
-%   P(i)=Z(i,7);
-% 
-%    end
-%    
-% %Definindo a Cell N composta pelos vetores p equivalentes a média móvel de
-% %cada participante
-% 
-% i=1;
-% 
-% for p=1:(size(Z,1)/1000) ;
-% u=P(i:i+999);
-% N{p}= movmean(u,101);
-% 
-% i=i+1000;
-% 
-% end
-
-
-% % %Construindo o grafico de análise de indivíduos do grupo
-% % 
-% % %Dar "clear" sempre que for rodar um gráfico novo
-% % 
-% % x = linspace(1,1000,1000);
-% % 
-% % title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
-% % xlabel("Número da Jogada")
-% % ylabel("RTs")
-% % 
-% % set(0,'defaultaxescolororder', [[1 0 0]
-% %                                 [0 0 1]
-% %                                 [1 1 0]
-% %                                 [0 0 0]
-% %                                 [1 0 1]
-% %                                 [0 1 1]]);
-% %                            
-% % set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
-% % 
-% % hold on
-% % for i= 1:(size(Z,1)/1000)
-% % l = num2str(i);
-% % plot(x,N{i},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
-% % ylim ([0 5])
-% % end
-% % 
-% % xline(334,'--','DisplayName','Intervalo 1');
-% % xline(668,'--','DisplayName','Intervalo 2');
-% % 
-% % hold off
-% % legend show
+hold off
+legend show
 
 % Construindo gráficos de análise individual com a linha mostrando os
 % contextos
