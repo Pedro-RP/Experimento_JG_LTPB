@@ -215,7 +215,7 @@ ylim ([0 5])
 yyaxis right 
 ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
 ylim([0 0.2])
-yticks([0 0.2])
+yticks([0:0.05:0.2])
 
 
 
