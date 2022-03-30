@@ -1,16 +1,14 @@
 %%Preparando dados para inserção no Goalkeeper's Lab
 
-
-
 %%Dados Completos
 
-file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
+file_full='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_full.csv';
 predata_full = readtable(file_full); 
 predata_full(: , 1) = [ ];
 data_full = table2array(predata_full);
 
 %%Grupo Controle
-file_control='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_control.csv';
+file_control='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Control.csv';
 predata_control = readtable(file_control);
 predata_control(: , 1) = [ ]; 
 predata_control(: , 1) = [ ];
@@ -18,7 +16,7 @@ data_control = table2array(predata_control);
 
 %%Grupo LTPB
 
-file_ltpb='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Patient.csv';
+file_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Patient.csv';
 predata_ltpb = readtable(file_ltpb);
 predata_ltpb(: , 1) = [ ];
 predata_ltpb(: , 1) = [ ];
@@ -27,79 +25,79 @@ data_ltpb = table2array(predata_ltpb);
 
 %%Lançar software:
 
-Z=data_ltpb;  %arquivo sendo utilizado
+Z=data_control;  %arquivo sendo utilizado
 [filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
-pa = 8; %participante que está sendo analisado.
+pa = 5; %participante que está sendo analisado.
 
 %Presoftware(Z) 
 
 
 %%Construindo um vetor C com os contextos que apareceram na sequência de
 %%cada jogador
-
-for j= 1:size(Z,1) 
-
-C1(j)=Z(j,9); %Vetor com a sequencia do batedor para todos os jogadores
-
-end
-
-
-d=1;
-
-for c=1:(size(Z,1)/1000); %criando uma váriavel para a sequência de cada jogador
-C2{c}=C1(d:d+999);
-
-d=d+1000;
-end
-
-% %%% Contruindo média móvel temporal
-for i = 1:size(Z,1);
-  P(i)=Z(i,7);
-
-   end
-   
-% % Definindo a Cell N composta pelos vetores p equivalentes a média móvel de
-% % cada participante
-
-i=1;
-
-for p=1:(size(Z,1)/1000) ;
-u=P(i:i+999);
-N{p}= movmean(u,25);
-
-i=i+1000;
-
-end
+% 
+% for j= 1:size(Z,1) 
+% 
+% C1(j)=Z(j,9); %Vetor com a sequencia do batedor para todos os jogadores
+% 
+% end
+% 
+% 
+% d=1;
+% 
+% for c=1:(size(Z,1)/1000); %criando uma váriavel para a sequência de cada jogador
+% C2{c}=C1(d:d+999);
+% 
+% d=d+1000;
+% end
+% 
+% % %%% Contruindo média móvel temporal
+% for i = 1:size(Z,1);
+%   P(i)=Z(i,7);
+% 
+%    end
+%    
+% % % Definindo a Cell N composta pelos vetores p equivalentes a média móvel de
+% % % cada participante
+% 
+% i=1;
+% 
+% for p=1:(size(Z,1)/1000) ;
+% u=P(i:i+999);
+% N{p}= movmean(u,25);
+% 
+% i=i+1000;
+% 
+% end
 %%% Construindo Média móvel de acurácia
 
 %Construindo W ,como vetor de erros e acertos
-for i = 1:size(Z,1);
-  
-   if Z(i,8)== Z(i,9);
-       W(i)= 1;    
-   else 
-       W(i)= 0;
-   end
-   
-   
-end
+% for i = 1:size(Z,1);
+%   
+%    if Z(i,8)== Z(i,9);
+%        W(i)= 1;    
+%    else 
+%        W(i)= 0;
+%    end
+%    
+%    
+% end
 
 
 %Definindo a Cell M composta pelos vetores m equivalentes a média móvel de
 %cada participante
 
-i=1;
-
-for m=1:(size(Z,1)/1000) ;
-w=W(i:i+999);
-
-M{m}= movmean(w,25);
-
-i=i+1000;
-
-end
+% i=1;
+% 
+% for m=1:(size(Z,1)/1000) ;
+% w=W(i:i+999);
+% 
+% M{m}= movmean(w,25);
+% 
+% i=i+1000;
+% 
+% end
 %% criar lista T com mil 0 
-tree_file_address= "C:\Users\vinivius valent\Documents\GitHub\main\files_for_reference\tree_behave12.txt";
+tree_file_address= "C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\files_for_reference\tree_behave12.txt";
 [ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data_ltpb,pa,1,1000,tree_file_address,0,12);
 
 T=repmat(0,1,1000);
@@ -149,8 +147,7 @@ Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 % hold off
 % legend show
 
-%%%%%%Construindo gráficos de análise individual com a linha mostrando os
-%contextos
+%Construindo o grafico de análise de indivíduos do grupo (acurácia)
 
 
 % 
@@ -185,45 +182,46 @@ Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 
 
 
-%Construindo o grafico de análise de indivíduos do grupo
+%Construindo o grafico de análise de indivíduos do grupo (RTs)
 
 %Dar "clear" sempre que for rodar um gráfico novo
 
-x = linspace(1,1000,1000);
-
-title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
-xlabel("Número da Jogada")
-ylabel("RTs")
-
-set(0,'defaultaxescolororder', [[1 0 0]
-                                [0 0 1]
-                                [1 1 0]
-                                [0 0 0]
-                                [1 0 1]
-                                [0 1 1]]);
-                           
-set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
-
-hold on
-for i= 1:(size(Z,1)/1000)
-l = num2str(i);
-end
-yyaxis left 
-plot(x,N{pa},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',num2str(pa))
-ylim ([0 5])
-
-yyaxis right 
-ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
-ylim([0 0.2])
-yticks([0:0.05:0.2])
-
-
-
-xline(334,'--','DisplayName','Intervalo 1');
-xline(668,'--','DisplayName','Intervalo 2');
-
-hold off
-legend show
+% x = linspace(1,1000,1000);
+% 
+% title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
+% xlabel("Número da Jogada")
+% 
+% 
+% set(0,'defaultaxescolororder', [[1 0 0]
+%                                 [0 0 1]
+%                                 [1 1 0]
+%                                 [0 0 0]
+%                                 [1 0 1]
+%                                 [0 1 1]]);
+%                            
+% set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
+% 
+% hold on
+% for i= 1:(size(Z,1)/1000)
+% l = num2str(i);
+% end
+% yyaxis left 
+% plot(x,N{pa},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',num2str(pa))
+% ylim ([0 5])
+% ylabel("RTs")
+% 
+% yyaxis right 
+% ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
+% ylim([0 0.2])
+% yticks([0:0.05:0.2])
+% ylabel("Proporção de contextos infrequentes")
+% 
+% 
+% xline(334,'--','DisplayName','Intervalo 1');
+% xline(668,'--','DisplayName','Intervalo 2');
+% 
+% hold off
+% legend show
 
 % Construindo gráficos de análise individual com a linha mostrando os
 % contextos
@@ -246,4 +244,97 @@ legend show
 % xline(334,'--','DisplayName','Intervalo 1');
 % xline(668,'--','DisplayName','Intervalo 2');
 
+%%% Boxplot de acurácia por bloco - Grupo Controle
 
+for i = 1:size(data_control,1);
+  
+   if Z(i,8)== Z(i,9);
+       W(i)= 1;    
+   else 
+       W(i)= 0;
+   end
+   
+   
+end
+
+a=1;
+
+for par = 1:(size(data_control,1)/1000) ;
+A{par}=W(a:a+999); %Cria um vetor para cada participante dizendo em quais posições cada participante acertou ou errou
+
+a=a+1000;
+
+end
+
+%Bloco 1
+
+AC1 = 0;
+for par = 1:(size(data_control,1)/1000);
+    for k = drange(1:334); %numero de jogadas do bloco
+        
+        AC1 = AC1 + A{par}(k); %AC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
+    end
+    
+    MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
+    AC1=0;
+
+end
+%Bloco 2
+
+AC2 = 0;
+for par = 1:(size(data_control,1)/1000);
+    for k = drange(335:668); 
+        
+        AC2 = AC2 + A{par}(k); 
+    end
+    
+    MAC2(par) = AC2/334;  
+    AC2=0;
+end
+
+%Bloco 3
+
+AC3 = 0;
+for par = 1:(size(data_control,1)/1000);
+    for k = drange(669:1000); 
+        
+        AC3 = AC3 + A{par}(k); 
+    end
+    
+    MAC3(par) = AC3/332;  
+    AC3=0;
+end
+
+%Boxplot
+
+MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
+
+BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
+
+title('Média de acurácia de cada participante em cada bloco - Grupo Controle')
+ylabel("Acurácia");
+xlabel("Bloco")
+
+%%% Boxplot de acurácia por bloco - Grupo LTPB
+
+%Bloco 1
+
+%Bloco 2
+
+%Bloco 3
+
+%%% Boxplot dos RTs por bloco - Grupo Controle
+
+%Bloco 1
+
+%Bloco 2
+
+%Bloco 3
+
+%%% Boxplot dos RTs por bloco - Grupo LTPB
+
+%Bloco 1
+
+%Bloco 2
+
+%Bloco 3
