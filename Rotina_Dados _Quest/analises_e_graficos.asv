@@ -416,59 +416,59 @@ for par = 1:(size(data_control,1)/1000);
     MAC3(par) = AC3/332;  
     AC3=0;
 end
-
-%Boxplot
-
-MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
-
-BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
-
-title('Média de tempos de cada participante em cada bloco-Grupoltpb');
-ylabel("tempos");
-xlabel("Bloco");
+% 
+% %Boxplot
+% 
+% MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
+% 
+% BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
+% 
+% title('Média de tempos de cada participante em cada bloco-Grupoltpb');
+% ylabel("tempos");
+% xlabel("Bloco");
 
 
 %%% Boxplot dos RTs por bloco - Grupo LTPB
 
-% %Bloco 1
-% 
-% AC1 = 0;
-% for par = 1:(size(data_control,1)/1000);
-%     for k = drange(1:334); %numero de jogadas do bloco
-%         
-%         AC1 = AC1 + A{par}(k); %AC1 -> tempos do grupo ltpb no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
-%     end
-%     
-%     MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempo de um participante no primeiro bloco.
-%     AC1=0;
-% 
-% end
-% %Bloco 2
-% 
-% AC2 = 0;
-% for par = 1:(size(data_control,1)/1000);
-%     for k = drange(335:668); 
-%         
-%         AC2 = AC2 + A{par}(k); 
-%     end
-%     
-%     MAC2(par) = AC2/334;  
-%     AC2=0;
-% end
-% 
-% %Bloco 3
-% 
-% AC3 = 0;
-% for par = 1:(size(data_control,1)/1000);
-%     for k = drange(669:1000); 
-%         
-%         AC3 = AC3 + A{par}(k); 
-%     end
-%     
-%     MAC3(par) = AC3/332;  
-%     AC3=0;
-% end
-% %Boxplot
+%Bloco 1
+
+AC1 = 0;
+for par = 1:(size(data_control,1)/1000);
+    for k = drange(1:334); %numero de jogadas do bloco
+        
+        AC1 = AC1 + A{par}(k); %AC1 -> tempos do grupo ltpb no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
+    end
+    
+    MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempo de um participante no primeiro bloco.
+    AC1=0;
+
+end
+%Bloco 2
+
+AC2 = 0;
+for par = 1:(size(data_control,1)/1000);
+    for k = drange(335:668); 
+        
+        AC2 = AC2 + A{par}(k); 
+    end
+    
+    MAC2(par) = AC2/334;  
+    AC2=0;
+end
+
+%Bloco 3
+
+AC3 = 0;
+for par = 1:(size(data_control,1)/1000);
+    for k = drange(669:1000); 
+        
+        AC3 = AC3 + A{par}(k); 
+    end
+    
+    MAC3(par) = AC3/332;  
+    AC3=0;
+end
+%Boxplot
 % 
 % MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
 % 
