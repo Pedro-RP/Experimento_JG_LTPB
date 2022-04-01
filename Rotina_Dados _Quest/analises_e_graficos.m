@@ -26,7 +26,7 @@ data_ltpb = table2array(predata_ltpb);
 %%Lançar software:
 
 Z=data_ltpb;  %arquivo sendo utilizado
-[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
+[filepath,name,ext] = fileparts(file_control);%Mudar de acordo com o arquivo
 pa = 5; %participante que está sendo analisado.
 
 %Presoftware(Z) 
@@ -244,9 +244,9 @@ Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 % xline(334,'--','DisplayName','Intervalo 1');
 % xline(668,'--','DisplayName','Intervalo 2');
 
-%%% Boxplot de acurácia por bloco - Grupo Controle
+%%% Boxplot de acurácia por bloco 
 
-for i = 1:size(data_control,1);
+for i = 1:size(Z,1);
   
    if Z(i,8)== Z(i,9);
        W(i)= 1;    
@@ -259,142 +259,30 @@ end
 
 a=1;
 
-% for par = 1:(size(data_control,1)/1000) ;
-% A{par}=W(a:a+999); %Cria um vetor para cada participante dizendo em quais posições cada participante acertou ou errou
-% 
-% a=a+1000;
-% 
-% end
-
-% %Bloco 1
-% 
-% AC1 = 0;
-% for par = 1:(size(data_control,1)/1000);
-%     for k = drange(1:334); %numero de jogadas do bloco
-%         
-%         AC1 = AC1 + A{par}(k); %AC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
-%     end
-%     
-%     MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
-%     AC1=0;
-% 
-% end
-% %Bloco 2
-% 
-% AC2 = 0;
-% for par = 1:(size(data_control,1)/1000);
-%     for k = drange(335:668); 
-%         
-%         AC2 = AC2 + A{par}(k); 
-%     end
-%     
-%     MAC2(par) = AC2/334;  
-%     AC2=0;
-% end
-% 
-% %Bloco 3
-% 
-% AC3 = 0;
-% for par = 1:(size(data_control,1)/1000);
-%     for k = drange(669:1000); 
-%         
-%         AC3 = AC3 + A{par}(k); 
-%     end
-%     
-%     MAC3(par) = AC3/332;  
-%     AC3=0;
-% end
-% 
-% %Boxplot
-% 
-% MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
-% 
-% BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
-% 
-% title('Média de acurácia de cada participante em cada bloco-Grupo Controle');
-% ylabel("Acurácia");
-% xlabel("Bloco");
-
-%%% Boxplot de acurácia por bloco - Grupo LTPB
-
-%Bloco 1
-% AC1 = 0;
-% for par = 1:(size(data_ltpb,1)/1000);
-%     for k = drange(1:334); %numero de jogadas do bloco
-%         
-%         AC1 = AC1 + A{par}(k); %AC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
-%     end
-%     
-%     MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
-%     AC1=0;
-% 
-% end
-% %Bloco 2
-% AC2 = 0;
-% for par = 1:(size(data_ltpb,1)/1000);
-%     for k = drange(335:668); 
-%         
-%         AC2 = AC2 + A{par}(k); 
-%     end
-%     
-%     MAC2(par) = AC2/334;  
-%     AC2=0;
-% end
-% %Bloco 3
-% AC3 = 0;
-% for par = 1:(size(data_ltpb,1)/1000);
-%     for k = drange(669:1000); 
-%         
-%         AC3 = AC3 + A{par}(k); 
-%     end
-%     
-%     MAC3(par) = AC3/332;  
-%     AC3=0;
-% end
-% %Boxplot
-% 
-% MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
-% 
-% BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
-% 
-% title('Média de acurácia de cada participante em cada bloco - Grupo LTPB')
-% ylabel("Acurácia");
-% xlabel("Bloco")    
-
-
-%%% Boxplot dos RTs por bloco - Grupo Controle
-for i = 1:size(data_control,1);
-    
-       T(i)= Z(i,7);    
-   
-   end
-   
-a=1;
-
-for par = 1:(size(data_control,1)/1000) ;
-A{par}=T(a:a+999); %Cria um vetor para cada participante contendo seus tempos de resposta
-
+for par = 1:(size(Z,1)/1000) ;
+A{par}=W(a:a+999); %Cria um vetor para cada participante dizendo em quais posições cada participante acertou ou errou
 
 a=a+1000;
 
 end
+
 %Bloco 1
 
 AC1 = 0;
-for par = 1:(size(data_control,1)/1000);
+for par = 1:(size(Z,1)/1000);
     for k = drange(1:334); %numero de jogadas do bloco
         
-        AC1 = AC1 + A{par}(k); %AC1 -> tempos do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
+        AC1 = AC1 + A{par}(k); %AC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
     end
     
-    MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempos de um participante no primeiro bloco.
+    MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
     AC1=0;
 
 end
 %Bloco 2
 
 AC2 = 0;
-for par = 1:(size(data_control,1)/1000);
+for par = 1:(size(Z,1)/1000);
     for k = drange(335:668); 
         
         AC2 = AC2 + A{par}(k); 
@@ -407,7 +295,7 @@ end
 %Bloco 3
 
 AC3 = 0;
-for par = 1:(size(data_control,1)/1000);
+for par = 1:(size(Z,1)/1000);
     for k = drange(669:1000); 
         
         AC3 = AC3 + A{par}(k); 
@@ -423,30 +311,45 @@ MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do box
 
 BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
 
-title('Média de tempos de cada participante em cada bloco-Grupoltpb');
-ylabel("tempos");
+title (strcat('Média de acurácia de cada participante em cada bloco',space,'|',name));
+ylabel("Acurácia");
 xlabel("Bloco");
+ylim([0 1])
+yticks([0:0.2:1])
 
-
-%%% Boxplot dos RTs por bloco - Grupo LTPB
-
+%%% Boxplot dos RTs por bloco - Grupo Controle
+% for i = 1:size(Z,1);
+%     
+%        T(i)= Z(i,7);    
+%    
+%    end
+%    
+% a=1;
+% 
+% for par = 1:(size(Z,1)/1000) ;
+% A{par}=T(a:a+999); %Cria um vetor para cada participante contendo seus tempos de resposta
+% 
+% 
+% a=a+1000;
+% 
+% end
 % %Bloco 1
 % 
 % AC1 = 0;
-% for par = 1:(size(data_control,1)/1000);
+% for par = 1:(size(Z,1)/1000);
 %     for k = drange(1:334); %numero de jogadas do bloco
 %         
-%         AC1 = AC1 + A{par}(k); %AC1 -> tempos do grupo ltpb no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
+%         AC1 = AC1 + A{par}(k); %AC1 -> tempos do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
 %     end
 %     
-%     MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempo de um participante no primeiro bloco.
+%     MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempos de um participante no primeiro bloco.
 %     AC1=0;
 % 
 % end
 % %Bloco 2
 % 
 % AC2 = 0;
-% for par = 1:(size(data_control,1)/1000);
+% for par = 1:(size(Z,1)/1000);
 %     for k = drange(335:668); 
 %         
 %         AC2 = AC2 + A{par}(k); 
@@ -459,7 +362,7 @@ xlabel("Bloco");
 % %Bloco 3
 % 
 % AC3 = 0;
-% for par = 1:(size(data_control,1)/1000);
+% for par = 1:(size(Z,1)/1000);
 %     for k = drange(669:1000); 
 %         
 %         AC3 = AC3 + A{par}(k); 
@@ -468,12 +371,17 @@ xlabel("Bloco");
 %     MAC3(par) = AC3/332;  
 %     AC3=0;
 % end
+% 
 % %Boxplot
 % 
 % MACT = [MAC1;MAC2;MAC3].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
 % 
 % BMACT = boxplot(MACT); %boxplot mostrando evolução ao longo dos blocos.
 % 
-% title('Média de tempos de cada participante em cada bloco-Grupoltpb');
+% title(strcat('Média de tempo de resposta de cada participante em cada bloco',space,'|',name));
 % ylabel("tempos");
 % xlabel("Bloco");
+% ylim([0 2.5])
+% yticks([0:0.5:3])
+
+%%
