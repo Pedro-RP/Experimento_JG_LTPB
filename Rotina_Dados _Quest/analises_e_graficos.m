@@ -433,9 +433,19 @@ end
 for dc = drange(1:5)   
     pz=repmat(0,3,1000);
     for kl=drange(1:1000)
+        
         pz(1,kl)=contz{dc}(1,kl)/q(dc,kl);
+        if isnan(pz(1,kl))
+            pz(1,kl)=0;
+        end    
         pz(2,kl)=contz{dc}(2,kl)/q(dc,kl);
+        if isnan(pz(2,kl))
+            pz(2,kl)=0;
+        end    
         pz(3,kl)=contz{dc}(3,kl)/q(dc,kl); 
+        if isnan(pz(3,kl))
+            pz(3,kl)=0;
+        end    
     end
     conty{dc}=pz;
 end  
@@ -455,3 +465,16 @@ for tc = drange(1:5)
         PI_final(bk)=sum(PI(1:5,bk))*P_ctx(tc);
     end
 end    
+%Construindo o grafico de análise de performance
+x = linspace(1,1000,1000);
+title(strcat('Performance individual', Name))
+ 
+xlabel("Número da Jogada")
+
+
+yyaxis left
+ac=plot(x,PI_final,'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Performance', 'color', [1 0 0]);
+ylabel( "Taxa de acerto")
+
+ylim([0.3 1])
+ 
