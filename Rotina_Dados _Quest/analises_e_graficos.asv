@@ -25,9 +25,9 @@ data_ltpb = table2array(predata_ltpb);
 
 %%Lançar software:
 
-Z=data_control;  %arquivo sendo utilizado
+Z=data_ltpb;  %arquivo sendo utilizado
 [filepath,name,ext] = fileparts(file_control);%Mudar de acordo com o arquivo
-pa = 2; %participante que está sendo analisado.
+pa = 1; %participante que está sendo analisado.
 
 %Presoftware(Z) 
 
@@ -476,14 +476,14 @@ xlabel("Número da Jogada")
 
 
 yyaxis left
-ac=plot(x,PI_final,'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Performance', 'color', [0 0 1]);
-ylim([0 1])
-ylabel('performance')
-xline(334,'--','DisplayName','Intervalo 1');
-xline(668,'--','DisplayName','Intervalo 2');
- 
+ac=plot(x,PI_final,'LineWidth',2.5,'MarkerSize',2.5, 'DisplayName', 'Performance', 'color', [1 0 0]);
 yyaxis right 
-ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [1 0 0]);
+ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
+
 ylim([0 0.2])
 yticks([0:0.05:0.2])
 ylabel("Proporção de contextos infrequentes")
+
+
+ylim([0.3 1])
+ 
