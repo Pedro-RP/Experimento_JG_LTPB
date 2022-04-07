@@ -1,10 +1,11 @@
 %%Preparando dados para inserção no Goalkeeper's Lab
 
 %%Dados Completos
-% file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
-% predata_full = readtable(file_full); 
-% predata_full(: , 1) = [ ];
-% data_full = table2array(predata_full);
+
+file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
+predata_full = readtable(file_full); 
+predata_full(: , 1) = [ ];
+data_full = table2array(predata_full);
 
 %%Grupo Controle
 file_control='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Control.csv';
@@ -24,8 +25,8 @@ data_ltpb = table2array(predata_ltpb);
 Z=data_control;  %arquivo sendo utilizado
 ZC=data_control;
 ZL=data_ltpb;
-% [filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
-% pa = 8; %participante que está sendo analisado.
+[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
+pa = 8; %participante que está sendo analisado.
 
 %%
 %%Lançar software:
@@ -100,24 +101,24 @@ ZL=data_ltpb;
 % end
 
 %% criar lista T com mil 0 
-% tree_file_address= "C:\Users\vinivius valent\Documents\GitHub\main\files_for_reference\tree_behave12.txt";
-% [ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data_ltpb,pa,1,1000,tree_file_address,0,12);
-% 
-% T=repmat(0,1,1000);
-% t=repmat(0,1,1000);
-% %%loop q itera sobre o arquivo ctx_pos e pra cada posição da linha 4 muda 0 para 1 em T
-% for k = drange(1:1000)
-%    if ct_pos(4,k) ~= 0
-%      T(ct_pos(4,k))=1;
-%      t(k)=sum(T(1,1:k))/k;
-%    elseif  ct_pos(4,k) == 0
-%      t(k)=sum(T(1,1:k))/k;
-%    end
-% end
-% 
-% Id=ZC(pa*1000 ,10);
-% space='|';
-% Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
+tree_file_address= "C:\Users\vinivius valent\Documents\GitHub\main\files_for_reference\tree_behave12.txt";
+[ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data_ltpb,pa,1,1000,tree_file_address,0,12);
+
+T=repmat(0,1,1000);
+t=repmat(0,1,1000);
+%%loop q itera sobre o arquivo ctx_pos e pra cada posição da linha 4 muda 0 para 1 em T
+for k = drange(1:1000)
+   if ct_pos(4,k) ~= 0
+     T(ct_pos(4,k))=1;
+     t(k)=sum(T(1,1:k))/k;
+   elseif  ct_pos(4,k) == 0
+     t(k)=sum(T(1,1:k))/k;
+   end
+end
+
+Id=ZC(pa*1000 ,10);
+space='|';
+Name=strcat(num2str(pa),space,num2str(Id),space,name) ;
 
 %%
 %%%Construindo o grafico de comparação entre indivíduos do mesmo grupo
