@@ -57,6 +57,9 @@ for i =drange(1:9) ;
 end
 Lfam_freq=[lfam_m,lfam_a,lfam_n];
 %Lfam_chi=chi2gof(Lfam_freq)
+[tbl,chi2stat,pval] = crosstab(Cfam_freq,Lfam_freq)
+
+
 %%
 %comparaçao escolaridade(chi-squared)
 cesc_em = 0;
@@ -87,7 +90,7 @@ for i =drange(1:9) ;
 end
 Lesc_freq=[lesc_em,lesc_es,lesc_pos];
 %Lesc_chi=chi2gof(Lesc_freq)
-
+[tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
 
 %%
 %Comparação tempos de cada grupo entre os blocos(Kruskal-Wallis test)
@@ -207,7 +210,7 @@ end
 % 
 % TMC=[MAC3;MAC6];%comparação entre grupos bloco 3
 % CxL3=kruskalwallis(TMC.');%3
-% 
+
 % TMD=[MAC1,MAC2];%comparação grupo controle bloco 1&2
 % C1xC2=kruskalwallis(TMD.');%4
 % % 
