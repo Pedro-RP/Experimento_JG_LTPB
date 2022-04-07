@@ -11,18 +11,18 @@ pa = 8;
 %%
 %Comparação idades (Willcoxon test)
 
-[age_p,age_h]= ranksum(cell2mat(Q_control(2:9,3)),cell2mat(Q_ltpb(2:9,3)));
+[age_p,age_h]= ranksum(cell2mat(Q_control(2:9,3)),cell2mat(Q_ltpb(2:9,3)))
 
 %%
 %comparação cogtel(Willcoxon test)
 
-[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:9,8)),cell2mat(Q_ltpb(2:9,8)));
+[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:9,8)),cell2mat(Q_ltpb(2:9,8)))
 
 
 %%
 %comparação lateralidade(Willcoxon test)
 
-[lat_p,lat_h]= ranksum(cell2mat(Q_control(2:9,9)),cell2mat(Q_ltpb(2:9,9)));
+[lat_p,lat_h]= ranksum(cell2mat(Q_control(2:9,9)),cell2mat(Q_ltpb(2:9,9)))
 
 
 
@@ -44,7 +44,7 @@ for i =drange(1:9) ;
     end
 end
 Cfam_freq=[cfam_m,cfam_a,cfam_n];%ocorrencia de respostas muita, alguma e nenhuma
-%Cfam_chi=chi2gof(Cfam_freq)
+Cfam_chi=chi2gof(Cfam_freq)
 
 for i =drange(1:9) ;
     if  isequal(Q_ltpb(i,7),{'Muita'  }) 
@@ -56,7 +56,7 @@ for i =drange(1:9) ;
     end
 end
 Lfam_freq=[lfam_m,lfam_a,lfam_n];
-%Lfam_chi=chi2gof(Lfam_freq)
+Lfam_chi=chi2gof(Lfam_freq)
 [tbl,chi2stat,pval] = crosstab(Cfam_freq,Lfam_freq)
 
 
@@ -78,7 +78,7 @@ for i =drange(1:9) ;
     end
 end
 Cesc_freq=[cesc_em,cesc_es,cesc_pos];%ocorrencia de respostas muita, alguma e nenhuma
-%Cesc_chi=chi2gof(Cesc_freq)
+Cesc_chi=chi2gof(Cesc_freq)
 for i =drange(1:9) ;
     if  isequal(Q_ltpb(i,5),{'Ensino mÃ©dio completo'  }) 
         lesc_em = lesc_em + 1;
@@ -89,7 +89,7 @@ for i =drange(1:9) ;
     end
 end
 Lesc_freq=[lesc_em,lesc_es,lesc_pos];
-%Lesc_chi=chi2gof(Lesc_freq)
+Lesc_chi=chi2gof(Lesc_freq)
 [tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
 
 %%
@@ -202,14 +202,14 @@ for par = 1:(size(ZL,1)/1000);
     AC6=0;
 end
 %% Rodar o código analises e graficos antes de realizar a analise dos tempos
-% TMA=[MAC1;MAC4];%comparação entre grupos bloco 1 
-% CxL1=kruskalwallis(TMA.');%1
-% 
-% TMB=[MAC2;MAC5];%comparação entre grupos bloco 2
-% CxL2=kruskalwallis(TMB.');%2
-% 
-% TMC=[MAC3;MAC6];%comparação entre grupos bloco 3
-% CxL3=kruskalwallis(TMC.');%3
+TMA=[MAC1;MAC4];%comparação entre grupos bloco 1 
+CxL1=kruskalwallis(TMA.')%1
+
+TMB=[MAC2;MAC5];%comparação entre grupos bloco 2
+CxL2=kruskalwallis(TMB.')%2
+
+TMC=[MAC3;MAC6];%comparação entre grupos bloco 3
+CxL3=kruskalwallis(TMC.')%3
 
 % TMD=[MAC1,MAC2];%comparação grupo controle bloco 1&2
 % C1xC2=kruskalwallis(TMD.');%4
