@@ -7,21 +7,22 @@
 % data_full = table2array(predata_full);
 
 %%Grupo Controle
-file_control='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Control.csv';
+file_control='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Control.csv';
 predata_control = readtable(file_control);
 predata_control(: , 1) = [ ]; 
 predata_control(: , 1) = [ ];
 data_control = table2array(predata_control);
 
+
 %%Grupo LTPB
 
-file_ltpb='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_Patient.csv';
+file_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Patient.csv';
 predata_ltpb = readtable(file_ltpb);
 predata_ltpb(: , 1) = [ ];
 predata_ltpb(: , 1) = [ ];
 data_ltpb = table2array(predata_ltpb);
 
-Z=data_control;  %arquivo sendo utilizado
+Z=data_ltpb;  %arquivo sendo utilizado
 ZC=data_control;
 ZL=data_ltpb;
 % [filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
@@ -247,12 +248,12 @@ ZL=data_ltpb;
 % ylim([0 2])
 % yticks([0 1 2])
 % 
-% xline(334,'--','DisplayName','Intervalo 1');
-% xline(668,'--','DisplayName','Intervalo 2');
-
-
-
-%%
+% % xline(334,'--','DisplayName','Intervalo 1');
+% % xline(668,'--','DisplayName','Intervalo 2');
+% 
+% 
+% 
+% %%
 % *% Boxplot de RTs por bloco para os dois grupos*
 
 for i = 1:size(ZC,1);
@@ -379,7 +380,7 @@ xticklabels({'1° Bloco','2° Bloco','3° Bloco'})
 xline(2.5)
 xline(4.5)
 
-%%
+% %%
 % %%COntruindo calculo da performance individual
 % p_mod=[0 1 0
 %     0 1 0
