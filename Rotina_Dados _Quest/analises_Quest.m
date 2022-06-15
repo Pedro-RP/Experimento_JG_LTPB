@@ -11,84 +11,84 @@ pa = 8;
 %%
 %ComparaÁ„o idades (Willcoxon test)
 
-[age_p,age_h]= ranksum(cell2mat(Q_control(2:9,3)),cell2mat(Q_ltpb(2:9,3)))
+% [age_p,age_h]= ranksum(cell2mat(Q_control(2:9,3)),cell2mat(Q_ltpb(2:9,3)))
 
 %%
 %comparaÁ„o cogtel(Willcoxon test)
 
-[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:9,8)),cell2mat(Q_ltpb(2:9,8)))
+[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:9,8)),cell2mat(Q_ltpb(3:9,8))) %excluindo P002
 
 
 %%
 %comparaÁ„o lateralidade(Willcoxon test)
-
-[lat_p,lat_h]= ranksum(cell2mat(Q_control(2:9,9)),cell2mat(Q_ltpb(2:9,9)))
-
-
-
-%%
-%comparaÁao familiaridade(chi-squared)
-cfam_m = 0;
-cfam_a = 0;
-cfam_n = 0;
-lfam_m = 0;
-lfam_a = 0;
-lfam_n = 0;
-for i =drange(1:9) ;
-    if  isequal(Q_control(i,7),{'Muita'  }) 
-        cfam_m = cfam_m + 1;
-    elseif  isequal(Q_control(i,7),{'Alguma' })    
-        cfam_a = cfam_a + 1 ;
-    elseif isequal(Q_control(i,7),{'Nenhuma'})   
-        cfam_n = cfam_n + 1;
-    end
-end
-Cfam_freq=[cfam_m,cfam_a,cfam_n];%ocorrencia de respostas muita, alguma e nenhuma
-Cfam_chi=chi2gof(Cfam_freq)
-
-for i =drange(1:9) ;
-    if  isequal(Q_ltpb(i,7),{'Muita'  }) 
-        lfam_m = lfam_m + 1;
-    elseif  isequal(Q_ltpb(i,7),{'Alguma' })    
-        lfam_a = lfam_a + 1 ;
-    elseif isequal(Q_ltpb(i,7),{'Nenhuma'})   
-        lfam_n = lfam_n + 1;
-    end
-end
-Lfam_freq=[lfam_m,lfam_a,lfam_n];
-Lfam_chi=chi2gof(Lfam_freq)
-[tbl,chi2stat,pval] = crosstab(Cfam_freq,Lfam_freq)
-
-
-%%
-%comparaÁao escolaridade(chi-squared)
-cesc_em = 0;
-cesc_es = 0;
-cesc_pos = 0;
-lesc_em = 0;
-lesc_es = 0;
-lesc_pos = 0;
-for i =drange(1:9) ;
-    if  isequal(Q_control(i,5),{'Ensino m√©dio completo'  }) 
-        cesc_em = cesc_em + 1;
-    elseif  isequal(Q_control(i,5),{'Ensino superior completo'})    
-       cesc_es =cesc_es + 1 ;
-    elseif isequal(Q_control(i,5),{'P√≥s-gradua√ß√£o'        })   
-        cesc_pos = cesc_pos + 1;
-    end
-end
-Cesc_freq=[cesc_em,cesc_es,cesc_pos];%ocorrencia de respostas muita, alguma e nenhuma
-Cesc_chi=chi2gof(Cesc_freq)
-for i =drange(1:9) ;
-    if  isequal(Q_ltpb(i,5),{'Ensino m√©dio completo'  }) 
-        lesc_em = lesc_em + 1;
-    elseif  isequal(Q_ltpb(i,5),{'Ensino superior completo'})    
-        lesc_es = lesc_es + 1 ;
-    elseif isequal(Q_ltpb(i,5),{'P√≥s-gradua√ß√£o'        })   
-        lesc_pos = lesc_pos + 1;
-    end
-end
-Lesc_freq=[lesc_em,lesc_es,lesc_pos];
-Lesc_chi=chi2gof(Lesc_freq)
-[tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
-
+% 
+% [lat_p,lat_h]= ranksum(cell2mat(Q_control(2:9,9)),cell2mat(Q_ltpb(2:9,9)))
+% 
+% 
+% 
+% %%
+% %comparaÁao familiaridade(chi-squared)
+% cfam_m = 0;
+% cfam_a = 0;
+% cfam_n = 0;
+% lfam_m = 0;
+% lfam_a = 0;
+% lfam_n = 0;
+% for i =drange(1:9) ;
+%     if  isequal(Q_control(i,7),{'Muita'  }) 
+%         cfam_m = cfam_m + 1;
+%     elseif  isequal(Q_control(i,7),{'Alguma' })    
+%         cfam_a = cfam_a + 1 ;
+%     elseif isequal(Q_control(i,7),{'Nenhuma'})   
+%         cfam_n = cfam_n + 1;
+%     end
+% end
+% Cfam_freq=[cfam_m,cfam_a,cfam_n];%ocorrencia de respostas muita, alguma e nenhuma
+% Cfam_chi=chi2gof(Cfam_freq)
+% 
+% for i =drange(1:9) ;
+%     if  isequal(Q_ltpb(i,7),{'Muita'  }) 
+%         lfam_m = lfam_m + 1;
+%     elseif  isequal(Q_ltpb(i,7),{'Alguma' })    
+%         lfam_a = lfam_a + 1 ;
+%     elseif isequal(Q_ltpb(i,7),{'Nenhuma'})   
+%         lfam_n = lfam_n + 1;
+%     end
+% end
+% Lfam_freq=[lfam_m,lfam_a,lfam_n];
+% Lfam_chi=chi2gof(Lfam_freq)
+% [tbl,chi2stat,pval] = crosstab(Cfam_freq,Lfam_freq)
+% 
+% 
+% %%
+% %comparaÁao escolaridade(chi-squared)
+% cesc_em = 0;
+% cesc_es = 0;
+% cesc_pos = 0;
+% lesc_em = 0;
+% lesc_es = 0;
+% lesc_pos = 0;
+% for i =drange(1:9) ;
+%     if  isequal(Q_control(i,5),{'Ensino m√©dio completo'  }) 
+%         cesc_em = cesc_em + 1;
+%     elseif  isequal(Q_control(i,5),{'Ensino superior completo'})    
+%        cesc_es =cesc_es + 1 ;
+%     elseif isequal(Q_control(i,5),{'P√≥s-gradua√ß√£o'        })   
+%         cesc_pos = cesc_pos + 1;
+%     end
+% end
+% Cesc_freq=[cesc_em,cesc_es,cesc_pos];%ocorrencia de respostas muita, alguma e nenhuma
+% Cesc_chi=chi2gof(Cesc_freq)
+% for i =drange(1:9) ;
+%     if  isequal(Q_ltpb(i,5),{'Ensino m√©dio completo'  }) 
+%         lesc_em = lesc_em + 1;
+%     elseif  isequal(Q_ltpb(i,5),{'Ensino superior completo'})    
+%         lesc_es = lesc_es + 1 ;
+%     elseif isequal(Q_ltpb(i,5),{'P√≥s-gradua√ß√£o'        })   
+%         lesc_pos = lesc_pos + 1;
+%     end
+% end
+% Lesc_freq=[lesc_em,lesc_es,lesc_pos];
+% Lesc_chi=chi2gof(Lesc_freq)
+% [tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
+% 
