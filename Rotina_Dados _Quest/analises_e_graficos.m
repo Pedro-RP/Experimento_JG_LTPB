@@ -381,31 +381,31 @@ xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2°
 xline(2.5)
 xline(4.5)
 % 
-grp2=[zeros(1,8),ones(1,7)];
-% 
-% %comparação entre grupos bloco 1
-% CxL1=kruskalwallis(TMA, grp2);
-% 
-% %comparação entre grupos bloco 2
-% CxL2=kruskalwallis(TMB,grp2);%2
-% % 
-% %comparação entre grupos bloco 3
-% CxL3=kruskalwallis(TMC, grp2);%3
-% 
-% grp3 = [zeros(1,8),ones(1,8)];
-% TMD=[MAC1 MAC3];%comparação grupo controle bloco 1&2
-% C1xC3 = kruskalwallis(TMD, grp3);%4
-% 
-% grp4 = [zeros(1,7),ones(1,7)];
-% TME=[MAC4 MAC6];
-% L1xL3=kruskalwallis(TME, grp4; %5
+grp2=[zeros(1,7),ones(1,6)];
 
-% Media_temporal_total_c = (MAC1 + MAC2 + MAC3)/3;
-% Media_temporal_total_L = (MAC4 + MAC5 + MAC6)/3;
+%comparação entre grupos bloco 1
+CxL1=kruskalwallis(TMA, grp2)
+
+%comparação entre grupos bloco 2
+CxL2=kruskalwallis(TMB,grp2)%2
 % 
-% 
-% TMF = [Media_temporal_total_c Media_temporal_total_L];
-% CTxLT = kruskalwallis(TMF, grp2);
+%comparação entre grupos bloco 3
+CxL3=kruskalwallis(TMC, grp2)%3
+
+grp3 = [zeros(1,7),ones(1,7)];
+TMD=[MAC1 MAC3];%comparação grupo controle bloco 1&2
+C1xC3 = kruskalwallis(TMD, grp3)%4
+
+grp4 = [zeros(1,6),ones(1,6)];
+TME=[MAC4 MAC6];
+L1xL3=kruskalwallis(TME, grp4) %5
+
+Media_temporal_total_c = (MAC1 + MAC2 + MAC3)/3;
+Media_temporal_total_L = (MAC4 + MAC5 + MAC6)/3;
+
+
+TMF = [Media_temporal_total_c Media_temporal_total_L];
+CTxLT = kruskalwallis(TMF, grp2)
 
 
 

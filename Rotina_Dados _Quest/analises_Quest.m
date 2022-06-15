@@ -4,7 +4,7 @@ Q_control=d_control(1:9,1:10);
 f_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\Quests_LTPB.csv';
 d_ltpb = readcell(f_ltpb);
 Q_ltpb=d_ltpb(1:9,1:12);
-
+Q_ltpb (8, :) = [];
 %%
 [filepath,name,ext] = fileparts(f_ltpb);%Mudar de acordo com o arquivo
 pa = 8;
@@ -16,7 +16,7 @@ pa = 8;
 %%
 %comparação cogtel(Willcoxon test)
 
-[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:9,8)),cell2mat(Q_ltpb(3:9,8))) %excluindo P002
+[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:8,8)),cell2mat(Q_ltpb(3:8,8))) %excluindo T007 e 33
 
 
 %%
