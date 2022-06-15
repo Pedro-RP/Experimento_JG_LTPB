@@ -4,7 +4,7 @@ Q_control=d_control(1:9,1:10);
 f_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\Quests_LTPB.csv';
 d_ltpb = readcell(f_ltpb);
 Q_ltpb=d_ltpb(1:9,1:12);
-Q_ltpb (8, :) = [];
+Q_ltpb (8, :) = []; %Excluindo T012
 %%
 [filepath,name,ext] = fileparts(f_ltpb);%Mudar de acordo com o arquivo
 pa = 8;
