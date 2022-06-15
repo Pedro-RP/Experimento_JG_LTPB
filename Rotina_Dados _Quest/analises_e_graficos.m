@@ -369,10 +369,10 @@ TMB=[MAC2 MAC5];
 TMC=[MAC3 MAC6];
 MACT2 = [TMA TMB TMC]; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
 
-grp =[zeros(1,8),ones(1,7),2*ones(1,8),3*ones(1,7),4*ones(1,8),5*ones(1,7)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
+grp =[zeros(1,7),ones(1,6),2*ones(1,7),3*ones(1,6),4*ones(1,7),5*ones(1,6)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
 BMACT2 = boxplot(MACT2,grp); %boxplot mostrando evolução ao longo dos blocos.
 
-title(strcat('Distribuição de tempo de resposta dos grupos em cada bloco'));
+title(strcat('Distribuição dos tempos de resposta dos grupos em cada bloco'));
 ylabel("Tempos");
 ylim([0 2.5])
 yticks([0:0.2:2.5])
@@ -400,12 +400,12 @@ grp2=[zeros(1,8),ones(1,7)];
 % TME=[MAC4 MAC6];
 % L1xL3=kruskalwallis(TME, grp4; %5
 
-Media_temporal_total_c = (MAC1 + MAC2 + MAC3)/3;
-Media_temporal_total_L = (MAC4 + MAC5 + MAC6)/3;
-
-
-TMF = [Media_temporal_total_c Media_temporal_total_L];
-CTxLT = kruskalwallis(TMF, grp2);
+% Media_temporal_total_c = (MAC1 + MAC2 + MAC3)/3;
+% Media_temporal_total_L = (MAC4 + MAC5 + MAC6)/3;
+% 
+% 
+% TMF = [Media_temporal_total_c Media_temporal_total_L];
+% CTxLT = kruskalwallis(TMF, grp2);
 
 
 
