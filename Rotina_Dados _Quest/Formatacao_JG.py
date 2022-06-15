@@ -59,8 +59,8 @@ files_group = os.listdir(path2)
 file_Controls = len(files_group)
 file_Patients = len(files_group)
 #print(files_group)
-Controls= ["T014","T021","T022","T024","T027","T028","T030"] #mudar aqui caso seja necessário remover algum participante das análises posteriores.
-Patients= ["T006","T009","T010","T015","T016","T017"]    #mudar aqui caso seja necessário remover algum participante das análises posteriores.
+Controls= ["T015","T016","T010"] #grupo LTPB presencial.
+Patients= ["T006","T009","T012","T017"]    #mudar aqui caso seja necessário remover algum participante das análises posteriores.
 dataframes_control = []
 dataframes_patient = []
 Dset_Control=open("dataframe_Control.csv",'w')    #cria o arquivo com todos Controles
