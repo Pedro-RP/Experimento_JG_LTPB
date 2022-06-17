@@ -16,48 +16,49 @@ pa = 8;
 %%
 %comparação cogtel(Willcoxon test)
 
-[cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:8,8)),cell2mat(Q_ltpb(3:8,8))) %excluindo T007 e 33
+% [cogtel_p,cogtel_h]= ranksum(cell2mat(Q_control(2:8,8)),cell2mat(Q_ltpb(3:8,8))) %excluindo T007 e 33
 
 
 %%
 %comparação lateralidade(Willcoxon test)
 % 
-% [lat_p,lat_h]= ranksum(cell2mat(Q_control(2:9,9)),cell2mat(Q_ltpb(2:9,9)))
+% [lat_p,lat_h]= ranksum(cell2mat(Q_control(2:8,8)),cell2mat(Q_ltpb(3:8,8)))
 % 
 % 
 % 
 % %%
-% %comparaçao familiaridade(chi-squared)
-% cfam_m = 0;
-% cfam_a = 0;
-% cfam_n = 0;
-% lfam_m = 0;
-% lfam_a = 0;
-% lfam_n = 0;
-% for i =drange(1:9) ;
-%     if  isequal(Q_control(i,7),{'Muita'  }) 
-%         cfam_m = cfam_m + 1;
-%     elseif  isequal(Q_control(i,7),{'Alguma' })    
-%         cfam_a = cfam_a + 1 ;
-%     elseif isequal(Q_control(i,7),{'Nenhuma'})   
-%         cfam_n = cfam_n + 1;
-%     end
-% end
-% Cfam_freq=[cfam_m,cfam_a,cfam_n];%ocorrencia de respostas muita, alguma e nenhuma
-% Cfam_chi=chi2gof(Cfam_freq)
-% 
-% for i =drange(1:9) ;
-%     if  isequal(Q_ltpb(i,7),{'Muita'  }) 
-%         lfam_m = lfam_m + 1;
-%     elseif  isequal(Q_ltpb(i,7),{'Alguma' })    
-%         lfam_a = lfam_a + 1 ;
-%     elseif isequal(Q_ltpb(i,7),{'Nenhuma'})   
-%         lfam_n = lfam_n + 1;
-%     end
-% end
-% Lfam_freq=[lfam_m,lfam_a,lfam_n];
-% Lfam_chi=chi2gof(Lfam_freq)
-% [tbl,chi2stat,pval] = crosstab(Cfam_freq,Lfam_freq)
+%comparaçao familiaridade(chi-squared) 
+
+cfam_m = 0;
+cfam_a = 0;
+cfam_n = 0;
+lfam_m = 0;
+lfam_a = 0;
+lfam_n = 0;
+for i =drange(1:8) ;
+    if  isequal(Q_control(i,7),{'Muita'  }) 
+        cfam_m = cfam_m + 1;
+    elseif  isequal(Q_control(i,7),{'Alguma' })    
+        cfam_a = cfam_a + 1 ;
+    elseif isequal(Q_control(i,7),{'Nenhuma'})   
+        cfam_n = cfam_n + 1;
+    end
+end
+Cfam_freq=[cfam_m,cfam_a,cfam_n];%ocorrencia de respostas muita, alguma e nenhuma
+Cfam_chi=chi2gof(Cfam_freq)
+
+for i =drange(3:8) ;
+    if  isequal(Q_ltpb(i,7),{'Muita'  }) 
+        lfam_m = lfam_m + 1;
+    elseif  isequal(Q_ltpb(i,7),{'Alguma' })    
+        lfam_a = lfam_a + 1 ;
+    elseif isequal(Q_ltpb(i,7),{'Nenhuma'})   
+        lfam_n = lfam_n + 1;
+    end
+end
+Lfam_freq=[lfam_m,lfam_a,lfam_n];
+Lfam_chi=chi2gof(Lfam_freq)
+[tbl,chi2stat,pval] = crosstab(Cfam_freq,Lfam_freq)
 % 
 % 
 % %%
@@ -68,7 +69,7 @@ pa = 8;
 % lesc_em = 0;
 % lesc_es = 0;
 % lesc_pos = 0;
-% for i =drange(1:9) ;
+% for i =drange(1:8) ;
 %     if  isequal(Q_control(i,5),{'Ensino mÃ©dio completo'  }) 
 %         cesc_em = cesc_em + 1;
 %     elseif  isequal(Q_control(i,5),{'Ensino superior completo'})    
@@ -79,7 +80,7 @@ pa = 8;
 % end
 % Cesc_freq=[cesc_em,cesc_es,cesc_pos];%ocorrencia de respostas muita, alguma e nenhuma
 % Cesc_chi=chi2gof(Cesc_freq)
-% for i =drange(1:9) ;
+% for i =drange(3:8) ;
 %     if  isequal(Q_ltpb(i,5),{'Ensino mÃ©dio completo'  }) 
 %         lesc_em = lesc_em + 1;
 %     elseif  isequal(Q_ltpb(i,5),{'Ensino superior completo'})    
@@ -89,28 +90,28 @@ pa = 8;
 %     end
 % end
 % Lesc_freq=[lesc_em,lesc_es,lesc_pos];
-% Lesc_chi=chi2gof(Lesc_freq)
+% Lesc_chi=chi2gof(Lesc_freq);
 % [tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
-% 
+
 
 %%% Correlação Severidade de Dor x RTs globais médios (Rodar
 %%% analises_e_graficos.m antes)
-
-Severidade = cell2mat(Q_ltpb(3:8,10));
-
-MTTT = Media_temporal_total_L.'; %Transposição da média temporal total_L
-
-RTxS = [MTTT Severidade];
-
-% [R,PValue] = corrplot(RTxS);
-
-%%% Correlação Interferencia da Dor x RTs globais médios (Rodar
-%%% analises_e_graficos.m antes)
-
-Interferencia = cell2mat(Q_ltpb(3:8,11));
-
-RTxI = [MTTT Interferencia];
-
-[R,PValue] = corrplot(RTxI)
+% 
+% Severidade = cell2mat(Q_ltpb(3:8,10));
+% 
+% MTTT = Media_temporal_total_L.'; %Transposição da média temporal total_L
+% 
+% RTxS = [MTTT Severidade];
+% 
+% % [R,PValue] = corrplot(RTxS);
+% 
+% %%% Correlação Interferencia da Dor x RTs globais médios (Rodar
+% %%% analises_e_graficos.m antes)
+% 
+% Interferencia = cell2mat(Q_ltpb(3:8,11));
+% 
+% RTxI = [MTTT Interferencia];
+% 
+% [R,PValue] = corrplot(RTxI)
 
 
