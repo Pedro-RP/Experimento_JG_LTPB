@@ -368,44 +368,44 @@ TMA=[MAC1 MAC4];
 TMB=[MAC2 MAC5];
 TMC=[MAC3 MAC6];
 MACT2 = [TMA TMB TMC]; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
-
-grp =[zeros(1,7),ones(1,6),2*ones(1,7),3*ones(1,6),4*ones(1,7),5*ones(1,6)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
-BMACT2 = boxplot(MACT2,grp); %boxplot mostrando evolução ao longo dos blocos.
-
-title(strcat('Distribuição dos tempos de resposta dos grupos em cada bloco'));
-ylabel("Tempos");
-ylim([0 2.5])
-yticks([0:0.2:2.5])
-xticks([1 2 3 4 5 6])
-xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2° Bloco - LTPB','3° Bloco - Controle', '3° Bloco - LTPB'})
-xline(2.5)
-xline(4.5)
 % 
-grp2=[zeros(1,7),ones(1,6)];
-
-%comparação entre grupos bloco 1
-CxL1=kruskalwallis(TMA, grp2)
-
-%comparação entre grupos bloco 2
-CxL2=kruskalwallis(TMB,grp2)%2
+% grp =[zeros(1,7),ones(1,6),2*ones(1,7),3*ones(1,6),4*ones(1,7),5*ones(1,6)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
+% BMACT2 = boxplot(MACT2,grp); %boxplot mostrando evolução ao longo dos blocos.
 % 
-%comparação entre grupos bloco 3
-CxL3=kruskalwallis(TMC, grp2)%3
-
-grp3 = [zeros(1,7),ones(1,7)];
-TMD=[MAC1 MAC3];%comparação grupo controle bloco 1&2
-C1xC3 = kruskalwallis(TMD, grp3)%4
-
-grp4 = [zeros(1,6),ones(1,6)];
-TME=[MAC4 MAC6];
-L1xL3=kruskalwallis(TME, grp4) %5
+% title(strcat('Distribuição dos tempos de resposta dos grupos em cada bloco'));
+% ylabel("Tempos");
+% ylim([0 2.5])
+% yticks([0:0.2:2.5])
+% xticks([1 2 3 4 5 6])
+% xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2° Bloco - LTPB','3° Bloco - Controle', '3° Bloco - LTPB'})
+% xline(2.5)
+% xline(4.5)
+% % 
+% grp2=[zeros(1,7),ones(1,6)];
+% 
+% %comparação entre grupos bloco 1
+% CxL1=kruskalwallis(TMA, grp2);
+% 
+% %comparação entre grupos bloco 2
+% CxL2=kruskalwallis(TMB,grp2);%2
+% % 
+% %comparação entre grupos bloco 3
+% CxL3=kruskalwallis(TMC, grp2);%3
+% 
+% grp3 = [zeros(1,7),ones(1,7)];
+% TMD=[MAC1 MAC3];%comparação grupo controle bloco 1&2
+% C1xC3 = kruskalwallis(TMD, grp3);%4
+% 
+% grp4 = [zeros(1,6),ones(1,6)];
+% TME=[MAC4 MAC6];
+% L1xL3=kruskalwallis(TME, grp4); %5
 
 Media_temporal_total_c = (MAC1 + MAC2 + MAC3)/3;
 Media_temporal_total_L = (MAC4 + MAC5 + MAC6)/3;
 
 
 TMF = [Media_temporal_total_c Media_temporal_total_L];
-CTxLT = kruskalwallis(TMF, grp2)
+% CTxLT = kruskalwallis(TMF, grp2);
 
 
 

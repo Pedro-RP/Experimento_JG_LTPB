@@ -92,3 +92,25 @@ pa = 8;
 % Lesc_chi=chi2gof(Lesc_freq)
 % [tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
 % 
+
+%%% Correlação Severidade de Dor x RTs globais médios (Rodar
+%%% analises_e_graficos.m antes)
+
+Severidade = cell2mat(Q_ltpb(3:8,10));
+
+MTTT = Media_temporal_total_L.'; %Transposição da média temporal total_L
+
+RTxS = [MTTT Severidade];
+
+% [R,PValue] = corrplot(RTxS);
+
+%%% Correlação Interferencia da Dor x RTs globais médios (Rodar
+%%% analises_e_graficos.m antes)
+
+Interferencia = cell2mat(Q_ltpb(3:8,11));
+
+RTxI = [MTTT Interferencia];
+
+[R,PValue] = corrplot(RTxI)
+
+
