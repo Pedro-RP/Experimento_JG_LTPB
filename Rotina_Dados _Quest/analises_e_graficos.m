@@ -368,19 +368,19 @@ TMA=[MAC1 MAC4];
 TMB=[MAC2 MAC5];
 TMC=[MAC3 MAC6];
 MACT2 = [TMA TMB TMC]; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
-% 
-% grp =[zeros(1,7),ones(1,6),2*ones(1,7),3*ones(1,6),4*ones(1,7),5*ones(1,6)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
-% BMACT2 = boxplot(MACT2,grp); %boxplot mostrando evolução ao longo dos blocos.
-% 
-% title(strcat('Distribuição dos tempos de resposta dos grupos em cada bloco'));
-% ylabel("Tempos");
-% ylim([0 2.5])
-% yticks([0:0.2:2.5])
-% xticks([1 2 3 4 5 6])
-% xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2° Bloco - LTPB','3° Bloco - Controle', '3° Bloco - LTPB'})
-% xline(2.5)
-% xline(4.5)
-% % 
+
+grp =[zeros(1,7),ones(1,6),2*ones(1,7),3*ones(1,6),4*ones(1,7),5*ones(1,6)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
+BMACT2 = boxplot(MACT2,grp); %boxplot mostrando evolução ao longo dos blocos.
+
+title(strcat('Distribuição dos tempos de resposta dos grupos em cada bloco'));
+ylabel("Tempos");
+ylim([0 2.5])
+yticks([0:0.2:2.5])
+xticks([1 2 3 4 5 6])
+xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2° Bloco - LTPB','3° Bloco - Controle', '3° Bloco - LTPB'})
+xline(2.5)
+xline(4.5)
+
 % grp2=[zeros(1,7),ones(1,6)];
 % 
 % %comparação entre grupos bloco 1

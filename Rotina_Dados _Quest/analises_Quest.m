@@ -101,15 +101,15 @@ Lesc_chi=chi2gof(Lesc_freq);
 % 
 % RTxS = [MTTT Severidade];
 % 
-% % [R,PValue] = corrplot(RTxS);
+% [R,PValue] = corrplot(RTxS);
 % 
 % %%% Correlação Interferencia da Dor x RTs globais médios (Rodar
 % %%% analises_e_graficos.m antes)
 % 
-% Interferencia = cell2mat(Q_ltpb(3:8,11));
-% 
-% RTxI = [MTTT Interferencia];
-% 
-% [R,PValue] = corrplot(RTxI)
+Interferencia = cell2mat(Q_ltpb(3:8,11));
+
+RTxI = [MTTT Interferencia];
+
+[R,PValue] = corrplot(RTxI)
 
 
