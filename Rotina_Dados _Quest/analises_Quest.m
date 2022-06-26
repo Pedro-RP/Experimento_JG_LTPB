@@ -62,33 +62,31 @@ Q_ltpb=d_ltpb(1:9,1:12);
 
 % %%
 % %comparaçao escolaridade(chi-squared)
-cesc_em = 0;
-cesc_es = 0;
-cesc_pos = 0;
+cesc_em = 0; %quem só fez até ensino médio
+cesc_sm = 0; %quem teve ensino acima do ensino médio
 lesc_em = 0;
-lesc_es = 0;
-lesc_pos = 0;
+lesc_sm = 0;
 for i =drange(1:9) ;
     if  isequal(Q_control(i,5),{'Ensino mÃ©dio completo'  }) 
         cesc_em = cesc_em + 1;
     elseif  isequal(Q_control(i,5),{'Ensino superior completo'})    
-       cesc_es =cesc_es + 1 ;
+       cesc_sm =cesc_sm + 1 ;
     elseif isequal(Q_control(i,5),{'PÃ³s-graduaÃ§Ã£o'        })   
-        cesc_pos = cesc_pos + 1;
+        cesc_sm = cesc_sm + 1;
     end
 end
-Cesc_freq=[cesc_em,cesc_es,cesc_pos];%ocorrencia de respostas muita, alguma e nenhuma
+Cesc_freq=[cesc_em,cesc_sm];
 Cesc_chi=chi2gof(Cesc_freq)
 for i =drange(3:9) ;
     if  isequal(Q_ltpb(i,5),{'Ensino mÃ©dio completo'  }) 
         lesc_em = lesc_em + 1;
     elseif  isequal(Q_ltpb(i,5),{'Ensino superior completo'})    
-        lesc_es = lesc_es + 1 ;
+        lesc_sm = lesc_sm + 1 ;
     elseif isequal(Q_ltpb(i,5),{'PÃ³s-graduaÃ§Ã£o'        })   
-        lesc_pos = lesc_pos + 1;
+        lesc_sm = lesc_sm + 1;
     end
 end
-Lesc_freq=[lesc_em,lesc_es,lesc_pos];
+Lesc_freq=[lesc_em,lesc_sm];
 Lesc_chi=chi2gof(Lesc_freq)
 [tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
 
