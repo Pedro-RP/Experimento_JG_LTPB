@@ -62,33 +62,33 @@ Q_ltpb=d_ltpb(1:9,1:12);
 
 % %%
 % %comparaçao escolaridade(chi-squared)
-cesc_em = 0; %quem só fez até ensino médio
-cesc_sm = 0; %quem teve ensino acima do ensino médio
-lesc_em = 0;
-lesc_sm = 0;
-for i =drange(1:9) ;
-    if  isequal(Q_control(i,5),{'Ensino mÃ©dio completo'  }) 
-        cesc_em = cesc_em + 1;
-    elseif  isequal(Q_control(i,5),{'Ensino superior completo'})    
-       cesc_sm =cesc_sm + 1 ;
-    elseif isequal(Q_control(i,5),{'PÃ³s-graduaÃ§Ã£o'        })   
-        cesc_sm = cesc_sm + 1;
-    end
-end
-Cesc_freq=[cesc_em,cesc_sm];
-Cesc_chi=chi2gof(Cesc_freq)
-for i =drange(3:9) ;
-    if  isequal(Q_ltpb(i,5),{'Ensino mÃ©dio completo'  }) 
-        lesc_em = lesc_em + 1;
-    elseif  isequal(Q_ltpb(i,5),{'Ensino superior completo'})    
-        lesc_sm = lesc_sm + 1 ;
-    elseif isequal(Q_ltpb(i,5),{'PÃ³s-graduaÃ§Ã£o'        })   
-        lesc_sm = lesc_sm + 1;
-    end
-end
-Lesc_freq=[lesc_em,lesc_sm];
-Lesc_chi=chi2gof(Lesc_freq)
-[tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
+% cesc_em = 0; %quem só fez até ensino médio
+% cesc_sm = 0; %quem teve ensino acima do ensino médio
+% lesc_em = 0;
+% lesc_sm = 0;
+% for i =drange(1:9) ;
+%     if  isequal(Q_control(i,5),{'Ensino mÃ©dio completo'  }) 
+%         cesc_em = cesc_em + 1;
+%     elseif  isequal(Q_control(i,5),{'Ensino superior completo'})    
+%        cesc_sm =cesc_sm + 1 ;
+%     elseif isequal(Q_control(i,5),{'PÃ³s-graduaÃ§Ã£o'        })   
+%         cesc_sm = cesc_sm + 1;
+%     end
+% end
+% Cesc_freq=[cesc_em,cesc_sm];
+% Cesc_chi=chi2gof(Cesc_freq)
+% for i =drange(3:9) ;
+%     if  isequal(Q_ltpb(i,5),{'Ensino mÃ©dio completo'  }) 
+%         lesc_em = lesc_em + 1;
+%     elseif  isequal(Q_ltpb(i,5),{'Ensino superior completo'})    
+%         lesc_sm = lesc_sm + 1 ;
+%     elseif isequal(Q_ltpb(i,5),{'PÃ³s-graduaÃ§Ã£o'        })   
+%         lesc_sm = lesc_sm + 1;
+%     end
+% end
+% Lesc_freq=[lesc_em,lesc_sm];
+% Lesc_chi=chi2gof(Lesc_freq)
+% [tbl,chi2stat,pval] = crosstab(Cesc_freq,Lesc_freq)
 
 
 %%% Correlação Severidade de Dor x RTs globais médios (Rodar
@@ -99,15 +99,15 @@ Lesc_chi=chi2gof(Lesc_freq)
 % MTTT = Media_temporal_total_L.'; %Transposição da média temporal total_L
 % 
 % RTxS = [MTTT Severidade];
-% % 
-% % [R,PValue] = corrplot(RTxS)
-% % 
-% % %%% Correlação Interferencia da Dor x RTs globais médios (Rodar
-% % %%% analises_e_graficos.m antes)
-% % 
 % 
-% Interferencia = cell2mat(Q_ltpb(3:9,11));
+% [R,PValue] = corrplot(RTxS)
+% % % 
+% %%% Correlação Interferencia da Dor x RTs globais médios (Rodar
+% %%% analises_e_graficos.m antes)
 % 
-% RTxI = [MTTT Interferencia];
-% 
-% [R,PValue] = corrplot(RTxI)
+
+Interferencia = cell2mat(Q_ltpb(3:9,11));
+
+RTxI = [MTTT Interferencia];
+
+[R,PValue] = corrplot(RTxI)
