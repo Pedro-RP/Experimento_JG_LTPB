@@ -381,10 +381,10 @@ xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2°
 xline(2.5)
 xline(4.5)
 
-% grp2=[zeros(1,7),ones(1,6)];
-% 
-% %comparação entre grupos bloco 1
-% CxL1=kruskalwallis(TMA, grp2);
+grp2=[zeros(1,7),ones(1,6)];
+
+%comparação entre grupos bloco 1
+CxL1=kruskalwallis(TMA, grp2);
 % 
 % %comparação entre grupos bloco 2
 % CxL2=kruskalwallis(TMB,grp2);%2
