@@ -3,14 +3,11 @@
 %%Dados Completos
 % file_full='C:\Users\vinivius valent\Documents\GitHub\main\Rotina_Dados _Quest\dataframe_full.csv';
 % predata_full = readtable(file_full); 
-% predata_full(: , 1) = [ ];
 % data_full = table2array(predata_full);
 
 %%Grupo Controle
 file_control='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Control.csv';
 predata_control = readtable(file_control);
-predata_control(: , 1) = [ ]; 
-predata_control(: , 1) = [ ];
 data_control = table2array(predata_control);
 
 
@@ -18,8 +15,6 @@ data_control = table2array(predata_control);
 
 file_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Patient.csv';
 predata_ltpb = readtable(file_ltpb);
-predata_ltpb(: , 1) = [ ];
-predata_ltpb(: , 1) = [ ];
 data_ltpb = table2array(predata_ltpb);
 
 Z=data_ltpb;  %arquivo sendo utilizado
@@ -27,8 +22,8 @@ ZC=data_control;
 ZL=data_ltpb;
 % [filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 % pa = 8; %participante que está sendo analisado.
-
-%%
+% 
+% %%
 %%Lançar software:
 
 %Presoftware(Z) 
