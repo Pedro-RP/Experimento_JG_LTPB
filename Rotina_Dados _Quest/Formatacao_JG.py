@@ -21,7 +21,6 @@ for j in range(file_count):
     temp_df = pd.read_csv(path +"/"+ files[j])
     dataframes_list.append(temp_df)
 new_index=list(range(1,1001))
-#Dsetwlist=open("dataframe_full.csv",'w')    #cria o arquivo com todos os dados
 
  ##reorganizando e escrevendo as tabelas para ficarem compatíveis às rotinas de análise
 count=0
@@ -44,7 +43,7 @@ for dataset in dataframes_list:
 
 
 Dset = Dset.set_axis([1,2,3,4,5,6,7,8,9], axis=1, inplace=False)
-Dset.to_csv('dataframe_full.csv', index=True)
+Dset.to_csv('dataframe_full.csv', index=True, header = False)
 
  ## #criando os arquivos individuais
 #df_full = pd.read_csv("dataframe_full.csv")
