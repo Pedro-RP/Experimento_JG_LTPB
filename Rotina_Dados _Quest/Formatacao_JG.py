@@ -45,63 +45,14 @@ for dataset in dataframes_list:
 
 Dset = Dset.set_axis([1,2,3,4,5,6,7,8,9], axis=1, inplace=False)
 Dset.to_csv('dataframe_full.csv', index=True)
- ## #criando os arquivos individuais
-df_full = pd.read_csv("dataframe_full.csv")
-print(df_full)
 
-for i in range (file_count):
-    Df_set = df_full[:1000].to_csv(path2 + "/" + files[i], sep=',', index=False, header=False)
-    df_full = df_full.drop(df_full.index[range(1000)])
-    df_full = df_full.drop(df_full.iloc[:, 1:])
+ ## #criando os arquivos individuais
+#df_full = pd.read_csv("dataframe_full.csv")
+#print(df_full)
+
+#for i in range (file_count):
+ #   Df_set = df_full[:1000].to_csv(path2 + "/" + files[i], sep=',', index=False, header=False)
+  #  df_full = df_full.drop(df_full.index[range(1000)])
+   # df_full = df_full.drop(df_full.iloc[:, 1:])
 #print(Df_set)
 
-#criando os arquivos para os grupos
-files_group = os.listdir(path2)
-file_Controls = len(files_group)
-file_Patients = len(files_group)
-#print(files_group)
-Controls= ["T014","T021","T022","T024","T027","T028","T030","T033"] #mudar aqui caso seja necessário remover algum participante das análises posteriores.
-Patients= ["T006","T009","T010","T012","T015","T016","T017"]    #mudar aqui caso seja necessário remover algum participante das análises posteriores.
-dataframes_control = []
-dataframes_patient = []
-Dset_Control=open("dataframe_Control.csv",'w')    #cria o arquivo com todos Controles
-Dset_Patient=open("dataframe_Patient.csv",'w')    #cria o arquivo com todos Pacientes
-
-count1=0
-for file in files_group:
-    if file[0:4] in Controls:
-        count1 += 1
-        fl=[float(file[1:4])]*1000
-        ID=pd.DataFrame(fl)
-
-        temp_C = pd.DataFrame(pd.read_csv(path2 + "/" + file,delim_whitespace=True,header=None))
-        #temp_C= temp_C.set_axis([1,2,3,4,5,6,7,8,9], axis=1, inplace=False)
-        temp_C.iloc[:,6]=count1
-        temp_C=pd.concat([temp_C ,ID], axis= 1 ,ignore_index=True)
-
-
-        Dset_Control.write(temp_C.to_string(header=False)+"\n")
-
-
-
-
-count2 = 0
-for file in files_group:
-    if file[0:4] in Patients:
-        count2 += 1
-        fl =[float(file[1:4])] * 1000
-        ID = pd.DataFrame(fl)
-
-        temp_P = pd.DataFrame(pd.read_csv(path2 + "/" + file ,delim_whitespace=True,header=None))
-        #temp_P = temp_P.set_axis([1, 2, 3, 4, 5, 6, 7, 8, 9], axis=1, inplace=False)
-        temp_P.iloc[:,6] = count2
-        temp_P = pd.concat([temp_P, ID], axis=1, ignore_index=True)
-
-        Dset_Patient.write(temp_P.to_string(header=False)+"\n")
-
-
-    #print(file[0:4])
-
-print(Dset_Control)
-Dset_Control.close()
-Dset_Patient.close()
