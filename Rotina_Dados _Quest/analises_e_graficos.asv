@@ -92,7 +92,7 @@ end
 ex = 1;
 for par = 1:(size(ZF,1)/1000)
     if MRF2(par) > MRF1(par) || MRF3(par) > MRF1(par)
-        excluir(ex) = ZF((par*1000),10); %lista de participantes do tipo "T0__" que devem ser excluidos por não terem aprendido a sequência
+        excluir(ex) = ZF((par*1000),10); %lista de participantes do tipo 
         ex=ex+1;
     end
 end
