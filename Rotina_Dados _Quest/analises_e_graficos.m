@@ -5,17 +5,17 @@ file_full='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\da
 predata_full = readtable(file_full);
 data_full = table2array(predata_full);
 
-% %%Grupo Controle
-% file_control='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Control.csv';
-% predata_control = readtable(file_control);
-% data_control = table2array(predata_control);
-% 
-% 
-% %%Grupo LTPB
-% 
-% file_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Patient.csv';
-% predata_ltpb = readtable(file_ltpb);
-% data_ltpb = table2array(predata_ltpb);
+%%Grupo Controle
+file_control='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Control.csv';
+predata_control = readtable(file_control);
+data_control = table2array(predata_control);
+
+
+%%Grupo LTPB
+
+file_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Rotina_Dados _Quest\dataframe_Patient.csv';
+predata_ltpb = readtable(file_ltpb);
+data_ltpb = table2array(predata_ltpb);
 
 ZF=data_full;
 
@@ -89,7 +89,7 @@ for par = 1:(size(ZF,1)/1000);
     RF3=0;
 end
 
-ex = 1;
+ex=1;
 for par = 1:(size(ZF,1)/1000)
     if MRF2(par) > MRF1(par) || MRF3(par) > MRF1(par)
         excluir(ex) = ZF((par*1000),10); %lista de participantes do tipo "T0__" que devem ser excluidos por não terem aprendido a sequência
