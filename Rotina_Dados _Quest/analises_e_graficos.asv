@@ -25,12 +25,14 @@ ZL=data_ltpb;
 %[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 % pa = 8; %participante que está sendo analisado.
 
- 
+data_setaspects(ZF, 1000)
+
 %%Lançar software:
 
 %Presoftware(Z) 
 
-
+%%Código para ver se a média dos RTs dos últimos blocos superam a do
+%%primeiro (critério de exclusão de participantes)
 
 
 
