@@ -20,8 +20,8 @@ data_ltpb = table2array(predata_ltpb);
 ZF=data_full;
 
 % Z=data_control;  %arquivo sendo utilizado
-% ZC=data_control;
-% ZL=data_ltpb;
+ZC=data_control;
+ZL=data_ltpb;
 %[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 % pa = 8; %participante que está sendo analisado.
 
@@ -30,73 +30,7 @@ ZF=data_full;
 
 %Presoftware(Z) 
 
-%%Código para ver se a média dos RTs dos últimos blocos superam a do
-%%primeiro (critério de exclusão de participantes)
-
-for i = 1:size(ZF,1);
-   
-    RT(i)= ZF(i,7);
-   
-   
-end
-
-a=1;
-
-for par = 1:(size(ZF,1)/1000) ;
-P{par}=RT(a:a+999); 
-
-a=a+1000;
-
-end
-
-%Bloco 1
-
-RF1 = 0;
-for par = 1:(size(ZF,1)/1000);
-    for k = drange(1:334); %numero de jogadas do bloco
-        
-        RF1 = RF1 + P{par}(k); %RF1 (RTs full bloco 1) -> Tempos de respostas no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
-    end
-    
-    MRF1(par) = RF1/334;  %MRF1 (mpedia de RTs Full bloco 1) é um vetor em que cada termo corresponde a média de RTs de um participante no primeiro bloco.
-    RF1=0;
-
-end
-
-%Bloco 2
-
-RF2 = 0;
-for par = 1:(size(ZF,1)/1000);
-    for k = drange(335:668); 
-        
-        RF2 = RF2 + P{par}(k); 
-    end
-    
-    MRF2(par) = RF2/334;  
-    RF2=0;
-end
-
-%Bloco 3
-
-RF3 = 0;
-for par = 1:(size(ZF,1)/1000);
-    for k = drange(669:1000); 
-        
-        RF3 = RF3 + P{par}(k); 
-    end
-    
-    MRF3(par) = RF3/332;  
-    RF3=0;
-end
-
-ex=1;
-for par = 1:(size(ZF,1)/1000)
-    if MRF2(par) > MRF1(par) || MRF3(par) > MRF1(par)
-        excluir(ex) = ZF((par*1000),10); %lista de participantes do tipo "T0__" que devem ser excluidos por não terem aprendido a sequência
-        ex=ex+1;
-    end
-end
-
+%%
 %%Construindo um vetor C com os contextos que apareceram na sequência de
 %%cada jogador
 % 
@@ -311,145 +245,173 @@ end
 % ylim([0 2])
 % yticks([0 1 2])
 % 
-% xline(334,'--','DisplayName','Intervalo 1');
-% xline(668,'--','DisplayName','Intervalo 2');
-
-
-
-%%
+% % xline(334,'--','DisplayName','Intervalo 1');
+% % xline(668,'--','DisplayName','Intervalo 2');
+% 
+% 
+% 
+% %%
 % *% Boxplot de RTs por bloco para os dois grupos*
+
+for i = 1:size(ZC,1);
+   
+    T(i)= ZC(i,7);
+   
+   
+end
+
+a=1;
+
+for par = 1:(size(ZC,1)/1000) ;
+A{par}=T(a:a+999); 
+
+a=a+1000;
+
+end
+
+%Bloco 1-controle
+
+AC1 = 0;
+for par = 1:(size(ZC,1)/1000);
+    for k = drange(1:334); %numero de jogadas do bloco
+        
+        AC1 = AC1 + A{par}(k); %AC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
+    end
+    
+    MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
+    AC1=0;
+
+end
+%Bloco 2-controle
+
+AC2 = 0;
+for par = 1:(size(ZC,1)/1000);
+    for k = drange(335:668); 
+        
+        AC2 = AC2 + A{par}(k); 
+    end
+    
+    MAC2(par) = AC2/334;  
+    AC2=0;
+end
+
+%Bloco 3-controle
+
+AC3 = 0;
+for par = 1:(size(ZC,1)/1000);
+    for k = drange(669:1000); 
+        
+        AC3 = AC3 + A{par}(k); 
+    end
+    
+    MAC3(par) = AC3/332;  
+    AC3=0;
+end
+
+for i = 1:size(ZL,1);
+    
+    T2(i)= ZL(i,7);
+end     
+a=1;
+
+for par = 1:(size(ZL,1)/1000) ;
+A{par}=T2(a:a+999); %Cria um vetor para cada participante contendo seus tempos de resposta
+
+
+a=a+1000;
+
+end
+%Bloco 1-ltpb
+
+AC4 = 0;
+for par = 1:(size(ZL,1)/1000);
+    for k = drange(1:334); %numero de jogadas do bloco
+        
+        AC4 = AC4 + A{par}(k); %AC4 -> tempos do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
+    end
+    
+    MAC4(par) = AC4/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempos de um participante no primeiro bloco.
+    AC4=0;
+
+end
+%Bloco 2-ltpb
+
+AC5 = 0;
+for par = 1:(size(ZL,1)/1000);
+    for k = drange(335:668); 
+        
+        AC5 = AC5 + A{par}(k); 
+    end
+    
+    MAC5(par) = AC5/334;  
+    AC5=0;
+end
+
+%Bloco 3-ltpb
+
+AC6 = 0;
+for par = 1:(size(ZL,1)/1000);
+    for k = drange(669:1000); 
+        
+        AC6 = AC6 + A{par}(k); 
+    end
+    
+    MAC6(par) = AC6/332;  
+    AC6=0;
+end
+
+%Boxplot
+TMA=[MAC1 MAC4];
+TMB=[MAC2 MAC5];
+TMC=[MAC3 MAC6];
+MACT2 = [TMA TMB TMC]; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
+
+grp =[zeros(1,7),ones(1,8),2*ones(1,7),3*ones(1,8),4*ones(1,7),5*ones(1,8)]; %grouping variable. Para casos em que as colunas que estamos comparando não tem o mesmo número de individuos, colocamos tudo em uma linha e usamos essa notação pra discernir quais valores são de quais grupos. Valores iguais pertencem ao mesmo grupo. Um valor para cada coluna.
+%o segundo argumento das funções ímpares é o número de partcipantes no
+%grupo controle e o segundo argumento das funções pares é o número de
+%participantes do grupo LTPB
+
+BMACT2 = boxplot(MACT2,grp); %boxplot mostrando evolução ao longo dos blocos.
+
+title(strcat('Distribuição dos tempos de resposta dos grupos em cada bloco'));
+ylabel("Tempos");
+ylim([0 2.5])
+yticks([0:0.2:2.5])
+xticks([1 2 3 4 5 6])
+xticklabels({'1° Bloco - Controle','1° Bloco - LTPB', '2° Bloco - Controle', '2° Bloco - LTPB','3° Bloco - Controle', '3° Bloco - LTPB'})
+xline(2.5)
+xline(4.5)
+
+grp2=[zeros(1,7),ones(1,8)];
+
+%comparação entre grupos bloco 1
+%CxL1=kruskalwallis(TMA, grp2);
+% 
+% %comparação entre grupos bloco 2
+% CxL2=kruskalwallis(TMB,grp2);%2
 % % 
-% % for i = 1:size(ZC,1);
-% %    
-% %     T(i)= ZC(i,7);
-% %    
-% %    
-% % end
-% % 
-% % a=1;
-% % 
-% % for par = 1:(size(ZC,1)/1000) ;
-% % A{par}=T(a:a+999); 
-% % 
-% % a=a+1000;
-% % 
-% % end
-% % 
-% % Bloco 1-controle
-% % 
-% % AC1 = 0;
-% % for par = 1:(size(ZC,1)/1000);
-% %     for k = drange(1:334); %numero de jogadas do bloco
-% %         
-% %         AC1 = AC1 + A{par}(k); %AC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
-% %     end
-% %     
-% %     MAC1(par) = AC1/334;  %MAC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
-% %     AC1=0;
-% % 
-% % end
-% % Bloco 2-controle
-% % 
-% % AC2 = 0;
-% % for par = 1:(size(ZC,1)/1000);
-% %     for k = drange(335:668); 
-% %         
-% %         AC2 = AC2 + A{par}(k); 
-% %     end
-% %     
-% %     MAC2(par) = AC2/334;  
-% %     AC2=0;
-% % end
-% % 
-% % Bloco 3-controle
-% % 
-% % AC3 = 0;
-% % for par = 1:(size(ZC,1)/1000);
-% %     for k = drange(669:1000); 
-% %         
-% %         AC3 = AC3 + A{par}(k); 
-% %     end
-% %     
-% %     MAC3(par) = AC3/332;  
-% %     AC3=0;
-% % end
-% % 
-% % for i = 1:size(ZL,1);
-% %     
-% %     T2(i)= ZL(i,7);
-% % end     
-% % a=1;
-% % 
-% % for par = 1:(size(ZL,1)/1000) ;
-% % Aa{par}=T2(a:a+999); %Cria um vetor para cada participante contendo seus tempos de resposta
-% % 
-% % 
-% % a=a+1000;
-% % 
-% % end
-% % Bloco 1-ltpb
-% % 
-% % AC4 = 0;
-% % for par = 1:(size(ZL,1)/1000);
-% %     for k = drange(1:334); %numero de jogadas do bloco
-% %         
-% %         AC4 = AC4 + Aa{par}(k); %AC4 -> tempos do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para A{par}
-% %     end
-% %     
-% %     MAC4(par) = AC4/334;  %MAC1 é um vetor em que cada termo corresponde a média de tempos de um participante no primeiro bloco.
-% %     AC4=0;
-% % 
-% % end
-% % Bloco 2-ltpb
-% % 
-% % AC5 = 0;
-% % for par = 1:(size(ZL,1)/1000);
-% %     for k = drange(335:668); 
-% %         
-% %         AC5 = AC5 + Aa{par}(k); 
-% %     end
-% %     
-% %     MAC5(par) = AC5/334;  
-% %     AC5=0;
-% % end
-% % 
-% % Bloco 3-ltpb
-% % 
-% % AC6 = 0;
-% % for par = 1:(size(ZL,1)/1000);
-% %     for k = drange(669:1000); 
-% %         
-% %         AC6 = AC6 + Aa{par}(k); 
-% %     end
-% %     
-% %     MAC6(par) = AC6/332;  
-% %     AC6=0;
-% % end
-% % 
-% % Boxplot
-% % TMA=[MAC1;MAC4];
-% % TMB=[MAC2;MAC5];
-% % TMC=[MAC3;MAC6];
-% % MACT2 = [TMA;TMB;TMC].'; %ordena dados em uma matriz para que o comando do boxplot possa funcionar.
-% % 
-% % BMACT2 = boxplot(MACT2); %boxplot mostrando evolução ao longo dos blocos.
-% % 
-% % title(strcat('Distribuição de tempo de resposta do grupos em cada bloco'));
-% % ylabel("tempos");
-% % ylim([0 2.5])
-% % yticks([0:0.2:2.5])
-% % xticks([1.5 3.5 5.5])
-% % xticklabels({'1° Bloco','2° Bloco','3° Bloco'})
-% % xline(2.5)
-% % xline(4.5)
-% % 
-% % %Verificando quais participantes apresentam médias temporais nos últimos blocos
-%%maiorees do que as do primeiro
+% %comparação entre grupos bloco 3
+CxL3=kruskalwallis(TMC, grp2);%3
+% 
+% grp3 = [zeros(1,7),ones(1,7)];
+% TMD=[MAC1 MAC3];%comparação grupo controle bloco 1&3
+% C1xC3 = kruskalwallis(TMD, grp3);%4
+% 
+% grp4 = [zeros(1,8),ones(1,8)];
+% TME=[MAC4 MAC6];
+% L1xL3=kruskalwallis(TME, grp4); %5
+
+Media_temporal_total_c = (MAC1 + MAC2 + MAC3)/3;
+Media_temporal_total_L = (MAC4 + MAC5 + MAC6)/3;
+
+
+TMF = [Media_temporal_total_c Media_temporal_total_L];
+% CTxLT = kruskalwallis(TMF, grp2);
 
 
 
-%%
-% %%COntruindo calculo da performance individual
+% %%
+% %%Construindo calculo da performance individual
 % p_mod=[0 1 0
 %     0 1 0
 %     0 0 1
