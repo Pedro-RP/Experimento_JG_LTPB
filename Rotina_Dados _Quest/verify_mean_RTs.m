@@ -10,7 +10,7 @@
 % OUTPUT:
 % exclude = list of the Goalkeeper Game IDs of the participants that had a mean response
 % time in the third or second blocks higher then the mean response time of
-% the first block. Empty list means that there isn't any participant that
+% the first block. An empty list means that there isn't any participant that
 % matches this description. 
 %
 % Example: if the output variable "exclude" is the list "1,2", that means

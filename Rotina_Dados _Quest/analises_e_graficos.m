@@ -25,7 +25,7 @@ ZL=data_ltpb;
 %[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 % pa = 8; %participante que está sendo analisado.
 
- 
+
 %%Lançar software:
 
 %Presoftware(Z) 
