@@ -71,7 +71,7 @@ tauofid = aux_tab;
 treesizes = zeros(length(trees),1);
 
 for a = 1:ntau
-   tree_file_address = ['C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\files_for_reference\tree_behave' num2str(trees(a)) '.txt' ];
+   tree_file_address = ['C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\files_for_reference\tree_behave' num2str(trees(a)) '.txt' ];
    [contexts, ~, ~, ~] = build_treePM (tree_file_address);
    treesizes(a) = length(contexts);
 end
