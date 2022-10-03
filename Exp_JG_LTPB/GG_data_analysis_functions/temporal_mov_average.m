@@ -1,19 +1,48 @@
-% [mov_average] = temporal_mov_average(data,data_name,condition,window, pa)
+% [mov_average] = temporal_mov_average(data,data_name,mode,window,pa)
 %
-
-% end
+% This function has a myriad of features related to the moving averages technique. As output, it returns a list containg the moving averages of the response times of
+% all the participants in the desired group, using a moving window of your
+% choosing. Using the mode "group", the functions plots the moving averages
+% of the response times of each trial of each participant of the desired group all at once as a function of time. In the
+% mode "participant", the function plots individual moving averages graphs
+% of the response times alongside the proportion of infrequent contexts
+% (211)that the participant has encountered until the current trial.
+%
+% INPUT:
+%
+% data = data matrix.
+%
+% data_name = name of the data matrix variable as a string. THE INFORMATION HAS TO
+% ALWAYS BE THE SAME AS THE ONE IN DATA.
+% Example: If data is "data_control", data_name should be "'data_control'".
+%
+% mode =  The mode of analysis that the function will use. This accepts the following parameters:
+%"group"-> enables the function to plot the moving averages
+% of the response times of each trial of each participant of the desired
+% group all at once as a function of time.
+%"participant"-> enables the function to plot individual moving averages graphs
+% of the response times alongside the proportion of infrequent contexts
+% that the participant has encountered until the current trial.
+%
+% window =  the moving window that you would like to analyse. It is recommended a window of 101. 
+% Example: Setting the window to 100, will make each trial value to be the
+% mean of the 50 numbers after it, the 50 numbers before it and itself.
+%
+% pa = the number of the participant in the current group that you would
+% like to analyse. If mode is set to "group", this value doesn't matter and
+% you can write anything in it.
+%
+% OUTPUT:
+% mov_average = a list containg the moving averages of the response times of
+% all the participants in the desired group, using a moving window of your
+% choosing
+%
+%03/10/2022 by Pedro R. Pinheiro
 %
 
 
 function [mov_average] = temporal_mov_average(data,data_name,condition,window, pa)
 
-% data = data_full;
-% data_name = 'data_full';
-% window = 100;
-% condition = 'participant';
-% pa = 1;
-
-% Contruindo média móvel temporal
 for i = 1:size(data,1)
    P(i)=data(i,7);
 end
@@ -31,51 +60,51 @@ end
 
 if strcmpi(condition,'group')
 
-x = linspace(1,1000,1000);
-if strcmpi(data_name,'data_control') %unlike '==', strcmpi allows comparsions between matrixes of different dimensions
-    title(append('Temporal Moving Average -', ' Control Group')) %Mudar o nome de acordo com o arquivo aberto
-elseif strcmpi(data_name,'data_LTPB')
-     title(append('Temporal Moving Average -', ' LTPB Group'))
-elseif strcmpi(data_name,'data_full')
-     title(append('Temporal Moving Average -', ' Full'))
-end
+    x = linspace(1,1000,1000);
+    if strcmpi(data_name,'data_control') %unlike '==', strcmpi allows comparsions between matrixes of different dimensions
+        title(append('Temporal Moving Average -', ' Control Group')) 
+    elseif strcmpi(data_name,'data_LTPB')
+        title(append('Temporal Moving Average -', ' LTPB Group'))
+    elseif strcmpi(data_name,'data_full')
+        title(append('Temporal Moving Average -', ' Full'))
+    end
     
     
-xlabel("Número da Jogada")
-ylabel("RT(s/trial)")
+    xlabel("Trial Number")
+    ylabel("RT(s/trial)")
 
-set(0,'defaultaxescolororder', [[1 0 0]
-                                [0 0 1]
-                                [1 1 0]
-                                [0 0 0]
-                                [1 0 1]
-                                [0 1 1]]);
+    set(0,'defaultaxescolororder', [[1 0 0]
+                                    [0 0 1]
+                                    [1 1 0]
+                                    [0 0 0]
+                                    [1 0 1]
+                                    [0 1 1]]);
                            
-set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
+    set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
 
-hold on
-for I= 1:(size(data,1)/1000) 
-l = strcat('Participant:T0',num2str(data(I*1000 ,11)));
-plot(x, mov_average{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
-ylim([0 5])
-end
+    hold on
+    for I= 1:(size(data,1)/1000) 
+    l = strcat('Participant:T0',num2str(data(I*1000 ,11)));
+    plot(x, mov_average{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
+    ylim([0 5])
+    end
 
-xline(334,'--','DisplayName','Break 1');
-xline(668,'--','DisplayName','Break 2');
-plot(NaN,NaN,'display',append('Window =', num2str(window)), 'linestyle', 'none') %put the window information in the legend
+    xline(334,'--','DisplayName','Break 1');
+    xline(668,'--','DisplayName','Break 2');
+    plot(NaN,NaN,'display',append('Window =', num2str(window)), 'linestyle', 'none') %put the window information in the legend
 
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+    figureHandle = gcf;
+    set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
-hold off
-legend show
+    hold off
+    legend show
 
 
 elseif strcmpi(condition,'participant')
 
     tree_file_address= "C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\files_for_reference\tree_behave12.txt";
     
-    [ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data,pa,1,1000,tree_file_address,0,12);
+    [~,~,~,~,~,ct_pos]=rtanderperctx(data,pa,1,1000,tree_file_address,0,12); %output arguments marked with tilde (~~) are ignored.
 
     T=repmat(0,1,1000); %marca quando houveram contextos infrequentes
     t=repmat(0,1,1000); %proporção de contextos infrequentes a cada jogada
@@ -104,8 +133,7 @@ elseif strcmpi(condition,'participant')
    x = linspace(1,1000,1000);
 
    title(strcat('Temporal Moving Average of participant ', Name)) 
-   xlabel("Número da Jogada")
-
+   xlabel("Trial Number")
 
    set(0,'defaultaxescolororder', [[1 0 0]
                                 [0 0 1]
