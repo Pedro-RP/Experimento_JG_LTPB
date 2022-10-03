@@ -4,7 +4,6 @@ ZC=data_control;
 ZL=data_ltpb;
 
 %Z = data_control %arquivo sendo usado no momento
-%[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 % pa = 8; %participante que está sendo analisado.
 
 
@@ -177,7 +176,7 @@ ZL=data_ltpb;
 
 % x = linspace(1,1000,1000);
 % 
-% title(strcat('Média M. temporal participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
+% title(strcat('Média Móvel temporal do participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
 % xlabel("Número da Jogada")
 % 
 % 

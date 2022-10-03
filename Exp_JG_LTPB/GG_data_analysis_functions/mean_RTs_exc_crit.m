@@ -1,6 +1,6 @@
-% [exclude] = verify_mean_RTs (data) 
+% [exclude] = mean_RTs_exc_crit (data) 
 %
-% This function returns which participant(s), if any, have a mean response
+% This function checks the mean RTs exclusion criteria. It returns which participant(s), if any, have a mean response
 % time in the third or second blocks higher then the mean response time of
 % the first block. 
 %
@@ -18,7 +18,7 @@
 %
 %03/10/2022 by Pedro R. Pinheiro
 
-function [exclude] = verify_mean_RTs(data)
+function [exclude] = mean_RTs_exc_crit(data)
 for i = 1:size(data,1)
    
     RT(i)= data(i,7);
