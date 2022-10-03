@@ -7,7 +7,7 @@
 % Note thas this function needs only to be used once with each new dataset. When working with a
 % previous dataset, you only need to open the data saved in the directory
 % that you choose when using this function. This will load the data
-% directly into matlab.
+% directly into matlab .
 %
 % INPUT:
 % file_path = path to a dataframe generated with the "Formatacao_JG"
