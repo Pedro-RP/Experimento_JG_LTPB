@@ -21,7 +21,7 @@
 % data_control -> for the dataframe with data from the control group
 % (dataframe_Control).
 % data_LTPB -> for the dataframe with data from the LTPB group
-% (dataframe_Patient).
+% (dataframe_Patient) .
 %
 % directory_path = the directory in which the formated data will be saved.
 % Example: 'C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Exp_JG_LTPB\GGxLTPB_gamedata\'
