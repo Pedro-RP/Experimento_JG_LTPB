@@ -1,27 +1,9 @@
-%%Preparando dados para inserção no Goalkeeper's Lab
-
-%%Dados Completos
-file_full='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Exp_JG_LTPB\dataframe_full.csv';
-predata_full = readtable(file_full);
-data_full = table2array(predata_full);
-
-%%Grupo Controle
-file_control='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Exp_JG_LTPB\dataframe_Control.csv';
-predata_control = readtable(file_control);
-data_control = table2array(predata_control);
-
-
-%%Grupo LTPB
-
-file_ltpb='C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\Exp_JG_LTPB\dataframe_Patient.csv';
-predata_ltpb = readtable(file_ltpb);
-data_ltpb = table2array(predata_ltpb);
 
 ZF=data_full;
-
-% Z=data_control;  %arquivo sendo utilizado
 ZC=data_control;
 ZL=data_ltpb;
+
+%Z = data_control %arquivo sendo usado no momento
 %[filepath,name,ext] = fileparts(file_ltpb);%Mudar de acordo com o arquivo
 % pa = 8; %participante que está sendo analisado.
 
@@ -514,5 +496,3 @@ ZL=data_ltpb;
 % yticks([0:0.05:0.2])
 % ylabel("ProporÃ§Ã£o de contextos infrequentes")
 
-%%
-%%analises 
