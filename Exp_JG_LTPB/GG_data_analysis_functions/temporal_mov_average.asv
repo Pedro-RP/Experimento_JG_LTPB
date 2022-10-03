@@ -5,13 +5,13 @@
 %
 
 
-%function [mov_average] = temporal_mov_average(data,window)
+function [mov_average] = temporal_mov_average(data,data_name,window, pa = 1)
 
-data = data_full;
-data_name
-window = 100;
-condition = 'group';
-pa = 1;
+% data = data_full;
+% data_name = 'data_full';
+% window = 100;
+% condition = 'participant';
+% pa = 1;
 
 % Contruindo média móvel temporal
 for i = 1:size(data,1)
@@ -32,11 +32,11 @@ end
 if strcmpi(condition,'group')
 
 x = linspace(1,1000,1000);
-if strcmpi(data,data_control) %unlike '==', strcmpi allows comparsions between matrixes of different dimensions
+if strcmpi(data_name,'data_control') %unlike '==', strcmpi allows comparsions between matrixes of different dimensions
     title(append('Temporal Moving Average -', ' Control Group')) %Mudar o nome de acordo com o arquivo aberto
-elseif strcmpi(data,data_LTPB)
+elseif strcmpi(data_name,'data_LTPB')
      title(append('Temporal Moving Average -', ' LTPB Group'))
-elseif strcmpi(data,data_full)
+elseif strcmpi(data_name,'data_full')
      title(append('Temporal Moving Average -', ' Full'))
 end
     
@@ -93,11 +93,11 @@ elseif strcmpi(condition,'participant')
    Id=data(pa*1000 ,11);
    space='|';
    
-   if strcmpi(data,data_control)
+   if strcmpi(data_name,'data_control')
        Name=append(' ', num2str(pa),' in the Control Group ',space,' T ',num2str(Id), ' in the GG');
-   elseif strcmpi(data,data_LTPB)
+   elseif strcmpi(data_name,'data_LTPB')
        Name=append(' ', num2str(pa),' in the LTPB Group ',space,' T ',num2str(Id), ' in the GG');
-   elseif strcmpi(data,data_full)
+   elseif strcmpi(data_name,'data_full')
        Name=append(' ', num2str(pa),' overall ',space,' T ',num2str(Id), ' in the GG');
    end
    
@@ -135,7 +135,14 @@ elseif strcmpi(condition,'participant')
    xline(334,'--','DisplayName','Break 1');
    xline(668,'--','DisplayName','Break 2');
 
+   plot(NaN,NaN,'display',append('Window =', num2str(window)), 'linestyle', 'none')
+
+   figureHandle = gcf;
+   set(findall(figureHandle,'type','text'),'fontSize',14)
+   
    hold off
    legend show
+   
+end
 
 end

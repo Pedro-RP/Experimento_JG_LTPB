@@ -129,6 +129,51 @@ ZL=data_ltpb;
 % xline(334,'--','DisplayName','Intervalo 1');
 % xline(668,'--','DisplayName','Intervalo 2');
 % 
+
+
+%%
+%Construindo o grafico de análise de indivíduos do grupo (RTs)
+
+%Dar "clear" sempre que for rodar um gráfico novo
+
+% x = linspace(1,1000,1000);
+% 
+% title(strcat('Média Móvel temporal do participante:', Name)) %Mudar o nome de acordo com o arquivo aberto
+% xlabel("Número da Jogada")
+% 
+% 
+% set(0,'defaultaxescolororder', [[1 0 0]
+%                                 [0 0 1]
+%                                 [1 1 0]
+%                                 [0 0 0]
+%                                 [1 0 1]
+%                                 [0 1 1]]);
+%                            
+% set(0,'defaultaxeslinestyleorder',{'-',':','-.'})
+% 
+% hold on
+% for i= 1:(size(Z,1)/1000)
+% l = num2str(i);
+% end
+% yyaxis left 
+% plot(x,N{pa},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',num2str(pa))
+% ylim ([0 5])
+% ylabel("RTs")
+% 
+% yyaxis right 
+% ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Contextos', 'color', [0 0 1]);
+% ylim([0 0.2])
+% yticks([0:0.05:0.2])
+% ylabel("Proporção de contextos infrequentes")
+% 
+% 
+% xline(334,'--','DisplayName','Intervalo 1');
+% xline(668,'--','DisplayName','Intervalo 2');
+% 
+% hold off
+% legend show
+
+%%
 % Construindo gráficos de análise individual com a linha mostrando os
 % contextos
 

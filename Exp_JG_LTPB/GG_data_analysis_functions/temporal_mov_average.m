@@ -1,17 +1,17 @@
-% function [mov_average] = temporal_mov_average(data,data_name,window, pa = 1)
+% [mov_average] = temporal_mov_average(data,data_name,condition,window, pa)
 %
 
 % end
 %
 
 
-%function [mov_average] = temporal_mov_average(data,data_name,window, pa = 1)
+function [mov_average] = temporal_mov_average(data,data_name,condition,window, pa)
 
-data = data_full;
-data_name = 'data_full';
-window = 100;
-condition = 'participant';
-pa = 1;
+% data = data_full;
+% data_name = 'data_full';
+% window = 100;
+% condition = 'participant';
+% pa = 1;
 
 % Contruindo média móvel temporal
 for i = 1:size(data,1)
@@ -75,7 +75,7 @@ elseif strcmpi(condition,'participant')
 
     tree_file_address= "C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\files_for_reference\tree_behave12.txt";
     
-    [ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data_LTPB,pa,1,1000,tree_file_address,0,12);
+    [ctx_rtime,ctx_er,ctx_resp,contexts,ctxrnds,ct_pos]=rtanderperctx(data,pa,1,1000,tree_file_address,0,12);
 
     T=repmat(0,1,1000); %marca quando houveram contextos infrequentes
     t=repmat(0,1,1000); %proporção de contextos infrequentes a cada jogada
@@ -142,5 +142,7 @@ elseif strcmpi(condition,'participant')
    
    hold off
    legend show
+   
+end
 
 end
