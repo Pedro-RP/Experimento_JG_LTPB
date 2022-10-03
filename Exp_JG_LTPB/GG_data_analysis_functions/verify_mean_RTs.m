@@ -1,4 +1,4 @@
-% [exclude] = verify_mean_RTs (data)
+% [exclude] = verify_mean_RTs (data) 
 %
 % This function returns which participant(s), if any, have a mean response
 % time in the third or second blocks higher then the mean response time of
@@ -16,6 +16,8 @@
 % Example: if the output variable "exclude" is the list "1,2", that means
 % participants T001 and T002 had a mean response time in the third or second blocks higher then the mean response time of
 % the first block.
+%
+%03/10/2022 by Pedro R. Pinheiro
 
 function [exclude] = verify_mean_RTs(data)
 for i = 1:size(data,1)

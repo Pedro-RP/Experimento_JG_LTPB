@@ -28,7 +28,7 @@ ZL=data_ltpb;
 
 %%Lançar software:
 
-Presoftware(ZC) 
+%Presoftware(ZC) 
 
 
 
