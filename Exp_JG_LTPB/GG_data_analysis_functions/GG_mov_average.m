@@ -40,7 +40,7 @@
 % all the participants in the desired group, using a moving window of your
 % choosing
 %
-%03/10/2022 by Pedro R. Pinheiro
+%08/10/2022 by Pedro R. Pinheiro
 
 
 
