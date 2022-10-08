@@ -8,12 +8,12 @@
 % INPUT:
 % data = data matrix of the control or the LTPB group
 %
+% group_name = the name of the group that you want to analyse. You can type
+% 'Control' or 'LTPB'.
 %
 %08/10/2022 by Pedro R. Pinheiro
 
-group_name = 'LTPB';
-data = data_LTPB
-
+function RT_boxplot_same(data, group_name)
 for i = 1:size(data,1)
 
     T1(i)= data(i,7);
@@ -88,3 +88,4 @@ xline(1.5)
 figureHandle = gcf;
 set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
+end
