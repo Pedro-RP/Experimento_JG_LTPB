@@ -35,14 +35,14 @@ end
 
 %Block 1 - Control
 
-RTC1 = 0;
+RTC1 = 0; %Response Time Control
 for par = 1:(size(data_control,1)/1000)
     for k = drange(1:334) %number os trials in the block
 
-        RTC1 = RTC1 + RT{par}(k); %RTC1 -> Acurácia do grupo controle no bloco 1. É a soma dos termos contidos no intervalo k para RT{par}
+        RTC1 = RTC1 + RT{par}(k); %RTC1 -> Response times of each control group participant in block 1
     end
 
-    MRTC1(par) = RTC1/334;  %MRTC1 é um vetor em que cada termo corresponde a média de acurácia de um participante no primeiro bloco.
+    MRTC1(par) = RTC1/334;  %Mean Response Time Control 1 (MRTC1) is a vector with mean response time of each participant of the control group for block 1.
     RTC1=0;
 
 end
@@ -129,10 +129,10 @@ for par = 1:(size(data_LTPB,1)/1000)
 end
 
 %Boxplot
-MRT1=[MRTC1 MRTL1];
+MRT1=[MRTC1 MRTL1]; %Mean response times block 1
 MRT2=[MRTC2 MRTL2];
 MRT3=[MRTC3 MRTL3];
-MRTF = [MRT1 MRT1 MRT3]; %arrange the data in a single vector so the boxplot function can work.
+MRTF = [MRT1 MRT1 MRT3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
 
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
@@ -140,7 +140,7 @@ LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
 
 
-BRTF = boxplot(MRTF,grp); %boxplot showing the mean response time evolution between each experimental block.
+BRTF = boxplot(MRTF,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
 title('Distribution of the response times of each group in each block');
 ylabel("Mean RTs(s/trial)");
