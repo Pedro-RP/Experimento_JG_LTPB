@@ -220,7 +220,7 @@ elseif strcmpi(interest,'acc')
 
 
             xlabel("Trial Number")
-            ylabel("Mean Accuracy")
+            ylabel("Mean Accuracy (correct predictions/number of trials)")
 
             set(0,'defaultaxescolororder', [[1 0 0]
                                             [0 0 1]
@@ -258,10 +258,10 @@ elseif strcmpi(interest,'acc')
 
             [~,~,~,~,~,ct_pos]=rtanderperctx(data,pa,1,1000,tree_file_address,0,12); %output arguments marked with tilde (~~) are ignored.
 
-            T=repmat(0,1,1000); 
-            t=repmat(0,1,1000); 
+            T=repmat(0,1,1000); %marca quando houveram contextos infrequentes
+            t=repmat(0,1,1000); %proporção de contextos infrequentes a cada jogada
 
-            %%loop that works with ct_pos and for each position on line 4 (the most infrequent context), changes 0 to 1 in T.
+            %%loop que itera sobre o arquivo ctx_pos e pra cada posição da linha 4 muda 0 para 1 em T
             for k = drange(1:1000)
                 if ct_pos(4,k) ~= 0
                     T(ct_pos(4,k))=1;

@@ -5,6 +5,9 @@
 % the indivual in the last 2 blocks of the experiment alongside the
 % proportion of infrequent contexts.
 %
+% NOTE: Uptade the tree_file_address to the file in your machine the
+% corresponds to tree 12.
+%
 % INPUT:
 %
 % data = data matrix.
