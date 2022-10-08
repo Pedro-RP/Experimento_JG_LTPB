@@ -170,7 +170,7 @@
 % %     0.23
 % %     0.33];
 % % 
-% % %Ocorrencia de cada contexto até determinada jogada 
+% % %Ocorrencia de cada contexto até derteminada jogada 
 % % Q=repmat(0,5,1000);
 % % for mc = drange(1:5)
 % %     for j = drange(1:1000)
@@ -241,7 +241,7 @@
 % 
 % title(strcat('Performance individual', Name))
 %  
-% xlabel("Número da Jogada")
+% xlabel("Número  da Jogada")
 % 
 % 
 % yyaxis left
