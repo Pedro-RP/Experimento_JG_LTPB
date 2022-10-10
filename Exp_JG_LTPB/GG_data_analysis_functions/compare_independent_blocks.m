@@ -3,8 +3,8 @@
 % This function compares the distribuction of the response times of both
 % groups in every block using the two-sample t-test statistical method. As
 % output, it returns not only the p-value of each comparasion, but also the
-% relative effect size that the LTPB group has compared to the control
-% group using the relative mean difference method.
+% relative effect size (using the relative mean difference method) and the hedge's g value that the LTPB group has compared to the control
+% group. 
 %
 % INPUT:
 %
