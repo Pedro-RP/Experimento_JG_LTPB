@@ -2,7 +2,7 @@
 %
 % This function checks the normality of the data contained in each of the
 % experimental blocks of the group presented using the shapiro-wilk test.
-% p-values below 0.05 indicate that the date isn't normal.
+% p-values below 0.05 indicate that the data isn't normal.
 %
 % INPUT:
 % data = data matrix of the control or the LTPB group
