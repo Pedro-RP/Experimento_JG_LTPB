@@ -3,8 +3,8 @@
 % This function compares the distribuction of the response times of both
 % groups in every block using the two-sample t-test statistical method. As
 % output, it returns not only the p-value of each comparasion, but also the
-% relative effect size (using the relative mean difference method) and the hedge's g value that the LTPB group has compared to the control
-% group. 
+% relative effect size (using the relative mean difference method) and the
+% hedge's g value.
 %
 % INPUT:
 %
@@ -26,7 +26,7 @@
 % e2 = the relative effect size of the comparasion of block 2.
 % e3 = the relative effect size of the comparasion of block 3.
 %
-%08/10/2022 by Pedro R. Pinheiro
+%10/10/2022 by Pedro R. Pinheiro
 
 function [pb1, pb2, pb3, hg1, hg2, hg3, e1, e2, e3 ] = compare_independent_blocks(data_control, data_LTPB)
 

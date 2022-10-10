@@ -18,7 +18,7 @@
 % p2_3 = the p-value statistic of the response time data of the comparasion
 % between blocks 2 and 3.
 %
-%08/10/2022 by Pedro R. Pinheiro
+%10/10/2022 by Pedro R. Pinheiro
 
 function [p1_2, p1_3, p2_3] = paired_samples_norm_check(data)
 
