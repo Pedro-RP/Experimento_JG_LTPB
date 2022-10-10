@@ -1,4 +1,4 @@
-% [pb1, e1, pb2, e2, pb3, e3] = function compare_independent_blocks(data_control, data_LTPB)
+% [pb1, pb2, pb3, cd1, cd2, cd3, e1, e2, e3 ] = compare_independent_blocks(data_control, data_LTPB)
 %
 % This function compares the distribuction of the response times of both
 % groups in every block using the two-sample t-test statistical method. As
@@ -15,20 +15,20 @@
 % OUTPUT:
 %
 % pb1 = the p-value of the comparasion of block 1.
-%
-% e1 = the relative effect size of the comparasion of block 1.
-%
 % pb2 = the p-value of the comparasion of block 2.
-%
-% e2 = the relative effect size of the comparasion of block 2.
-%
 % pb3 = the p-value of the comparasion of block 3.
 %
+% hg1 = hedge's g effect value for the comparasion for block 1.
+% hg2 = hedge's g effect value for the comparasion for block 2.
+% hg3 = hedge's g effect value for the comparasion for block 3.
+%
+% e1 = the relative effect size of the comparasion of block 1.
+% e2 = the relative effect size of the comparasion of block 2.
 % e3 = the relative effect size of the comparasion of block 3.
 %
 %08/10/2022 by Pedro R. Pinheiro
 
-function [pb1, e1, pb2, e2, pb3, e3] = compare_independent_blocks(data_control, data_LTPB)
+function [pb1, pb2, pb3, hg1, hg2, hg3, e1, e2, e3 ] = compare_independent_blocks(data_control, data_LTPB)
 
 %control group
 
@@ -149,7 +149,7 @@ end
 [~, pb2] = ttest2 (MRTC2, MRTL2);
 [~, pb3] = ttest2 (MRTC3, MRTL3);
 
-% calculating the relative effect size by relative mean difference
+% calculating the relative effect size by relative mean difference 
 
 MMRTC1 = mean (MRTC1);
 MMRTC2 = mean (MRTC2);
@@ -161,5 +161,15 @@ MMRTL3 = mean (MRTL3);
 e1 = (MMRTL1 * 100)/MMRTC1;
 e2 = (MMRTL2 * 100)/MMRTC2;
 e3 = (MMRTL3 * 100)/MMRTC3;
+
+% Calculating Hedge's g effect size values
+
+ mes1 = mes(MRTL1.',MRTC1.','hedgesg');
+ mes2 = mes(MRTL2.',MRTC2.','hedgesg');
+ mes3 = mes(MRTL3.',MRTC3.','hedgesg');
+
+hg1 = mes1.hedgesg;
+hg2 = mes2.hedgesg;
+hg3 = mes3.hedgesg;
 
 end
