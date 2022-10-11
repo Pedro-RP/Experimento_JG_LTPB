@@ -1,16 +1,19 @@
-% [p_a, pb1_2, pb1_3, pb2_3, cd1_2, cd1_3, cd2_3, e1_2, e1_3, e2_3] = compare_paired_blocks(data)
+% [p_a, pb1_2, pb1_3, pb2_3, hg1_2, hg1_3, hg2_3, e1_2, e1_3, e2_3] = compare_paired_blocks(data)
 %
 % This function compares the distribuction of the response times of a
-% single group alongside each block block using the two-sample t-test statistical method. As
+% single group alongside each block using the paired t-test statistical method. As
 % output, it returns not only the p-value of each comparasion, but also the
+% p_value of the repeated measures ANOVA test (corrected if needed),
 % relative effect size (using the relative mean difference method) and the
-% hedge's g value.
+% hedge's g value of each comparasion.
 %
 % INPUT:
 %
 % data_control = a data matrix.
 %
 % OUTPUT:
+%
+% p_a = the p-value of the repeated measures ANOVA test.
 %
 % pb1_2 = the p-value of the comparasion of blocks 1 and 2.
 % pb1_3 = the p-value of the comparasion of blocks 1 and 3.
@@ -87,29 +90,57 @@ end
 
 % Making a Repeated Measures Model
 
-subjects = (ones(1,size(data,1)/1000)).';
 MRT = [MRT1.' MRT2.' MRT3.'];
 
-t = table(subjects,MRT(:,1),MRT(:,2),MRT(:,3),... %the three dots indicate that the function continues in the next line
-'VariableNames',{'Block1','Block2','Block4'});
-Meas = table([1 2 3]','VariableNames',{'Blocks'});
+t = table(MRT(:,1),MRT(:,2),MRT(:,3),... %the three dots indicate that the function continues in the next line
+'VariableNames',{'Block1','Block2','Block3'});
+wd = table([1 2 3]','VariableNames',{'Blocks'});
 
-% [p,tbl] = anova_rm(MRT); %The first p value tests the main null hypothesis that 
-% %the column means are identical. The second p-value tests the null hypothesis that
-% %the row means are identical (this is the test for effective matching). 
-% 
-% p_a = p_an(1);
+rm = fitrm(t,'Block1-Block3~1','WithinDesign',wd);
 
-% MRZ = [MRT1
-%        MRT2
-%        MRT3];
-% btw = [1
-%        1
-%        1
-%        1
-%        1
-%        1
-%        1];
-% 
-% [tbl, rn] = simple_mixed_anova(MRT);
+% Repeated Measures ANOVA
+
+ranovatbl = ranova(rm);
+
+% Mauchly test for sphericity
+
+mauchly_test = mauchly(rm); 
+
+if table2array(mauchly_test(1,4)) < 0.05
+    p_anova = table2array(ranovatbl(1,6)); %correcting the p-value if the sphericity condition isn't met.
+else
+    p_anova = table2array(ranovatbl(1,5));
+end
+
+% Doing the paired t-test with bonferroni correction
+
+[~,p12] = ttest(MRT1, MRT2);
+p1_2 = p12*3; %bonferoni correction for multiple comparasions
+
+[~,p13] = ttest(MRT1, MRT3);
+p1_3 = p13*3; 
+
+[~,p23] = ttest(MRT2, MRT3);
+p2_3 = p23*3; %bonferoni correction for multiple comparasions
+
+
+% calculating the relative effect size by relative mean difference 
+
+MMRT1 = mean (MRT1);
+MMRT2 = mean (MRT2);
+MMRT3 = mean (MRT3);
+
+e1 = (MMRT1 * 100)/MMRT1;
+e2 = (MMRT2 * 100)/MMRT2;
+e3 = (MMRT3 * 100)/MMRT3;
+
+% Calculating Hedge's g effect size values
+
+mes1 = mes(MRT1.',MRT2.','hedgesg');
+mes2 = mes(MRT2.',MRT2.','hedgesg');
+mes3 = mes(MRT3.',MRT3.','hedgesg');
+
+hg1 = mes1.hedgesg;
+hg2 = mes2.hedgesg;
+hg3 = mes3.hedgesg;
 

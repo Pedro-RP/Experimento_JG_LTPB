@@ -1,16 +1,19 @@
-% [p_a, pb1_2, pb1_3, pb2_3, cd1_2, cd1_3, cd2_3, e1_2, e1_3, e2_3] = compare_paired_blocks(data)
+% [p_anova, pb1_2, pb1_3, pb2_3, hg1_2, hg1_3, hg2_3, e1_2, e1_3, e2_3] = compare_paired_blocks(data)
 %
 % This function compares the distribuction of the response times of a
-% single group alongside each block block using the two-sample t-test statistical method. As
+% single group alongside each block using the paired t-test statistical method. As
 % output, it returns not only the p-value of each comparasion, but also the
+% p_value of the repeated measures ANOVA test (corrected if needed),
 % relative effect size (using the relative mean difference method) and the
-% hedge's g value.
+% hedge's g value of each comparasion.
 %
 % INPUT:
 %
 % data_control = a data matrix.
 %
 % OUTPUT:
+%
+% p_a = the p-value of the repeated measures ANOVA test.
 %
 % pb1_2 = the p-value of the comparasion of blocks 1 and 2.
 % pb1_3 = the p-value of the comparasion of blocks 1 and 3.
@@ -26,8 +29,7 @@
 %
 %10/10/2022 by Pedro R. Pinheiro
 
-data = data_LTPB;
-
+function [p_anova, pb1_2, pb1_3, pb2_3, hg1_2, hg1_3, hg2_3, e1_2, e1_3, e2_3] = compare_paired_blocks(data)
 for i = 1:size(data,1)
 
     T1(i)= data(i,7);
@@ -91,16 +93,53 @@ MRT = [MRT1.' MRT2.' MRT3.'];
 
 t = table(MRT(:,1),MRT(:,2),MRT(:,3),... %the three dots indicate that the function continues in the next line
 'VariableNames',{'Block1','Block2','Block3'});
-MRT = table([1 2 3]','VariableNames',{'Blocks'});
+wd = table([1 2 3]','VariableNames',{'Blocks'});
 
-rm = fitrm(t,'Block1-Block3~1','WithinDesign',MRT);
+rm = fitrm(t,'Block1-Block3~1','WithinDesign',wd);
 
 % Repeated Measures ANOVA
 
 ranovatbl = ranova(rm);
 
-p_anova = table2array(ranovatbl(1,5));
-
 % Mauchly test for sphericity
 
-mauchly = mauchly(rm);
+mauchly_test = mauchly(rm); 
+
+if table2array(mauchly_test(1,4)) < 0.05
+    p_anova = table2array(ranovatbl(1,6)); %correcting the p-value if the sphericity condition isn't met.
+else
+    p_anova = table2array(ranovatbl(1,5));
+end
+
+% Doing the paired t-test with bonferroni correction
+
+[~,p12] = ttest(MRT1, MRT2);
+pb1_2 = p12*3; %bonferoni correction for multiple comparasions
+
+[~,p13] = ttest(MRT1, MRT3);
+pb1_3 = p13*3; 
+
+[~,p23] = ttest(MRT2, MRT3);
+pb2_3 = p23*3; %bonferoni correction for multiple comparasions
+
+
+% calculating the relative effect size by relative mean difference 
+
+MMRT1 = mean (MRT1);
+MMRT2 = mean (MRT2);
+MMRT3 = mean (MRT3);
+
+e1_2 = (MMRT1 * 100)/MMRT2;
+e1_3 = (MMRT1 * 100)/MMRT3;
+e2_3 = (MMRT2 * 100)/MMRT3;
+
+% Calculating Hedge's g effect size values
+
+mes1 = mes(MRT1.',MRT2.','hedgesg');
+mes2 = mes(MRT1.',MRT3.','hedgesg');
+mes3 = mes(MRT2.',MRT3.','hedgesg');
+
+hg1_2 = mes1.hedgesg;
+hg1_3 = mes2.hedgesg;
+hg2_3 = mes3.hedgesg;
+end

@@ -1,4 +1,4 @@
-% [pb1, pb2, pb3, cd1, cd2, cd3, e1, e2, e3 ] = compare_independent_blocks(data_control, data_LTPB)
+% [pb1, pb2, pb3, hg1, hg2, hg3, e1, e2, e3 ] = compare_independent_blocks(data_control, data_LTPB)
 %
 % This function compares the distribuction of the response times of both
 % groups in every block using the two-sample t-test statistical method. As
