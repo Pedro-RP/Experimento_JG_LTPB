@@ -3,7 +3,7 @@
 % This function compares the distribuction of the response times of a
 % single group alongside each block using the paired t-test statistical method. As
 % output, it returns not only the p-value of each comparasion, but also the
-% p_value of the repeated measures ANOVA test (corrected if needed),
+% p_value of the repeated measures ANOVA test (corrected with the Greenhouse-Gressler method if needed),
 % relative effect size (using the relative mean difference method) and the
 % hedge's g value of each comparasion.
 %
