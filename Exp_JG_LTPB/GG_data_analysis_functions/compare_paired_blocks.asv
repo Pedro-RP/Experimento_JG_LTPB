@@ -26,7 +26,7 @@
 %
 %10/10/2022 by Pedro R. Pinheiro
 
-data = data_LTPB;
+data = data_control;
 
 for i = 1:size(data,1)
 
@@ -87,20 +87,29 @@ end
 
 % Making a Repeated Measures Model
 
+subjects = (ones(1,size(data,1)/1000)).';
 MRT = [MRT1.' MRT2.' MRT3.'];
 
-t = table(MRT(:,1),MRT(:,2),MRT(:,3),... %the three dots indicate that the function continues in the next line
-'VariableNames',{'Block1','Block2','Block3'});
-MRT = table([1 2 3]','VariableNames',{'Blocks'});
+t = table(subjects,MRT(:,1),MRT(:,2),MRT(:,3),... %the three dots indicate that the function continues in the next line
+'VariableNames',{'Block1','Block2','Block4'});
+Meas = table([1 2 3]','VariableNames',{'Blocks'});
 
-rm = fitrm(t,'Block1-Block3~1','WithinDesign',MRT);
+% [p,tbl] = anova_rm(MRT); %The first p value tests the main null hypothesis that 
+% %the column means are identical. The second p-value tests the null hypothesis that
+% %the row means are identical (this is the test for effective matching). 
+% 
+% p_a = p_an(1);
 
-% Repeated Measures ANOVA
+% MRZ = [MRT1
+%        MRT2
+%        MRT3];
+% btw = [1
+%        1
+%        1
+%        1
+%        1
+%        1
+%        1];
+% 
+% [tbl, rn] = simple_mixed_anova(MRT);
 
-ranovatbl = ranova(rm);
-
-p_anova = table2array(ranovatbl(1,5));
-
-% Mauchly test for sphericity
-
-mauchly = mauchly(rm);

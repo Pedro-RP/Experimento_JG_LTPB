@@ -1,24 +1,17 @@
-% function [pC1, pL1, pF1, pC2, pL2, pF2, pC3, pL3, pF3] = independent_samples_norm_check(data_control, data_LTPB)
+% function [p1, pF1, p2, pF2, p3, pF3] = independent_samples_norm_check(data)
 %
 % This function checks the normality of the data contained in each of the
-% experimental blocks of the groups presented using the shapiro-wilk test.
-% p-values below 0.05 indicate that the data isn't normal. The function
-% also checks if the populations compared in each block have the same
-% variance, using an F-test where a p value below 0.05 indicates that the
-% variances are not equal. Equal variances is a requisite of some
-% statistical tests.
+% experimental blocks of the group presented using the shapiro-wilk test.
+% p-values below 0.05 indicate that the data isn't normal.
 %
 % INPUT:
 % data = data matrix of the control or the LTPB group
 %
 % OUTPUT:
 %
-% pC1 = the p-value statistic of the response time data of the control group in the first block.
-% pC2 = the p-value statistic of the response time data of the control group in the second block.
-% pC3 = the p-value statistic of the response time data of the control group in the third block.
-% pL1 = the p-value statistic of the response time data of the LTPB group in the first block.
-% pL2 = the p-value statistic of the response time data of the LTPB group in the second block.
-% pL3 = the p-value statistic of the response time data of the LTPB group in the third block.
+% p1 = the p-value statistic of the response time data of the first block.
+% p2 = the p-value statistic of the response time data of the second block.
+% p3 = the p-value statistic of the response time data of the third block.
 %
 % pF1 = the p-value statistic of the F test of the first block.
 % pF2 = the p-value statistic of of the F test of the second block.
@@ -26,7 +19,7 @@
 %
 %11/10/2022 by Pedro R. Pinheiro
 
-function [pC1, pL1, pF1, pC2, pL2, pF2, pC3, pL3, pF3] = independent_samples_norm_check(data_control, data_LTPB)
+function [p1, pF1, p2, pF2, p3, pF3] = independent_samples_norm_check(data_control, data_LTPB)
 
 %control group
 
@@ -143,17 +136,14 @@ end
 
 % Checking normality of the data samples
 
-[~,~,pC1] = swtest_norm(MRTC1.'); %Shapiro-Wilk test.
-[~,~,pC2] = swtest_norm(MRTC2.');
-[~,~,pC3] = swtest_norm(MRTC3.');
-[~,~,pL1] = swtest_norm(MRTL1.'); %Shapiro-Wilk test.
-[~,~,pL2] = swtest_norm(MRTL2.');
-[~,~,pL3] = swtest_norm(MRTL3.');
+[~,~,pc1] = swtest_norm(MRT1.'); %Shapiro-Wilk test.
+[~,~,pc2] = swtest_norm(MRT2.');
+[~,~,pc3] = swtest_norm(MRT3.');
+[~,~,pl1] = swtest_norm(MRT1.'); %Shapiro-Wilk test.
+[~,~,pl2] = swtest_norm(MRT2.');
+[~,~,p3] = swtest_norm(MRT3.');
 
 % Check if the variances are equal between each distribuction
 
-[~, pF1] = vartest2 (MRTC1, MRTL1);
-[~, pF2] = vartest2 (MRTC2, MRTL2);
-[~, pF3] = vartest2 (MRTC3, MRTL3);
-
+[~, pF1] = vartest2 (MRT1
 end

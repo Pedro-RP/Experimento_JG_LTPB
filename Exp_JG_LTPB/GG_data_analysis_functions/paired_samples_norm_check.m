@@ -1,26 +1,30 @@
-% function [p1_2, p1_3, p2_3] = paired_samples_norm_check(data)
+% function [p1, p2, p3] = paired_samples_norm_check(data)
 %
 % This function checks the normality of the data contained in each of the
 % experimental blocks comparasions of the group presented using the shapiro-wilk test.
-% p-values below 0.05 indicate that the data isn't normal.
+% p-values below 0.05 indicate that the data isn't normal. The function
+% also checks if the populations compared have the same
+% variance, using an F-test where a p value below 0.05 indicates that the
+% variances are not equal. Equal variances is a requisite of some
+% statistical tests.
 %
 % INPUT:
 % data = data matrix of the control or the LTPB group
 %
 % OUTPUT:
 %
-% p1_2 = the p-value statistic of the response time data of the comparasion
-% between blocks 1 and 2.
+% p1 = the p-value statistic of the response time data of the first block.
+% p2 = the p-value statistic of the response time data of the second block.
+% p3 = the p-value statistic of the response time data of the third block.
 %
-% p1_3 = the p-value statistic of the response time data of of the comparasion
-% between blocks 1 and 3.
+% pF1 = the p-value statistic of the F test of the comparasion of first block.
+% pF2 = the p-value statistic of of the F test of the comparasion of the second block.
+% pF3 = the p-value statistic of of the F test of the comparasion of the third block.
 %
-% p2_3 = the p-value statistic of the response time data of the comparasion
-% between blocks 2 and 3.
 %
-%10/10/2022 by Pedro R. Pinheiro
+%11/10/2022 by Pedro R. Pinheiro
 
-function [p1_2, p1_3, p2_3] = paired_samples_norm_check(data)
+function [p1, p2, p3, pF1_2, pF1_3, pF2_3] = paired_samples_norm_check(data)
 
 
 for i = 1:size(data,1)
@@ -79,27 +83,35 @@ for par = 1:(size(data,1)/1000)
     RT3=0;
 end
 
-%Checking normality for the comparasion between blocks 1 and 2
+% %Checking normality for the comparasion between blocks 1 and 2
+% 
+% for b = 1:size (MRT1,2)
+%     MRT1_2(b) = MRT1(b) - MRT2(b);
+% end
+% 
+% %Checking normality for the comparasion between blocks 1 and 3
+% 
+% for b = 1:size (MRT1,2)
+%     MRT1_3(b) = MRT1(b) - MRT3(b);
+% end
+% 
+% %Checking normality for the comparasion between blocks 2 and 3
+% 
+% for b = 1:size (MRT1,2)
+%     MRT2_3(b) = MRT2(b) - MRT3(b);
+%end
+%Checking if the data is normal.
 
-for b = 1:size (MRT1,2)
-    MRT1_2(b) = MRT1(b) - MRT2(b);
-end
+[~,~,p1] = swtest_norm(MRT1.');
 
-%Checking normality for the comparasion between blocks 1 and 3
+[~,~,p2] = swtest_norm(MRT2.');
 
-for b = 1:size (MRT1,2)
-    MRT1_3(b) = MRT1(b) - MRT3(b);
-end
+[~,~,p3] = swtest_norm(MRT3.');
 
-%Checking normality for the comparasion between blocks 2 and 3
+% F-test to check if the population variances are equal.
 
-for b = 1:size (MRT1,2)
-    MRT2_3(b) = MRT2(b) - MRT3(b);
-end
+[~, pF1_2] = vartest2 (MRT1, MRT2);
+[~, pF1_3] = vartest2 (MRT1, MRT3);
+[~, pF2_3] = vartest2 (MRT2, MRT3);
 
-[~,~,p1_2] = swtest_norm(MRT1_2.');
-
-[~,~,p1_3] = swtest_norm(MRT1_3.');
-
-[~,~,p2_3] = swtest_norm(MRT2_3.');
 end
