@@ -59,7 +59,7 @@ for par = 1:(size(data_LTPB,1)/1000)
      v = o + 1000;
 end
 
-RTG = [GTMC GTML];
+RTG = [GTMC GTM];
 
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
@@ -67,7 +67,7 @@ LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 grp =[zeros(1,control_n),ones(1,LTPB_n)];
 
 
-BRTG = boxplot(RTG,grp); 
+BRTG = boxplot(RTG,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
 title('Distribution of the response times of each group considering the whole experiment');
 ylabel("Mean RT(s)");
