@@ -22,7 +22,7 @@
 %
 %11/10/2022 by Pedro R. Pinheiro
 
-function [pGC,pGL, pFG] = independent_samples_norm_check(data_control, data_LTPB)
+function [pGC,pGL, pFG] = global_norm_check(data_control, data_LTPB)
 
 %control group
 
