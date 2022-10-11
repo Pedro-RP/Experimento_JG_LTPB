@@ -76,7 +76,7 @@ if strcmpi(interest,'RTs')
 
 
         xlabel("Trial Number")
-        ylabel("Mean RT(s/trial)")
+        ylabel("Mean RT(s)")
 
         set(0,'defaultaxescolororder', [[1 0 0]
                                         [0 0 1]
@@ -159,7 +159,7 @@ if strcmpi(interest,'RTs')
        yyaxis left 
        plot(x,mov_average{pa},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName','Moving Average')
        ylim ([0 5])
-       ylabel("Mean RT(s/trial)")
+       ylabel("Mean RT(s)")
 
        yyaxis right 
        ct=plot(x,t,'LineWidth',0.001,'MarkerSize',2.5, 'DisplayName', 'Infrequent contexts proportion', 'color', [0 0 1]);

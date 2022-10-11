@@ -76,7 +76,7 @@ BRTF = boxplot(MRTF);
 BRTF = boxplot(MRTF); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
 title(append('Distribution of the response times of the',' ', group_name, ' group in each block'));
-ylabel("Mean RTs(s/trial)");
+ylabel("Mean RT(s)");
 ylim([0 2.5])
 yticks([0:0.2:2.5])
 xticks([1 2 3])

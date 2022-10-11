@@ -143,7 +143,7 @@ grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*o
 BRTF = boxplot(MRTF,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
 title('Distribution of the response times of each group in each block');
-ylabel("Mean RTs(s/trial)");
+ylabel("Mean RT(s)");
 ylim([0 2.5])
 yticks([0:0.2:2.5])
 xticks([1 2 3 4 5 6])
