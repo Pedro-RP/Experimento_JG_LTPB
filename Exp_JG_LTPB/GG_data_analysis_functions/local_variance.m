@@ -186,7 +186,7 @@ LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
 
 
-BRTF = boxplot(Lvf,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
+BLvf = boxplot(Lvf,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
 title('Distribution of the Local Variance of each group in each block');
 ylabel("Local Variance");
@@ -200,3 +200,49 @@ xline(4.5)
 
 figureHandle = gcf;
 set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+
+
+
+% Checking normality of the data samples
+
+[~,~,pLv_C1] = swtest_norm(Lv_C1.'); %Shapiro-Wilk test.
+[~,~,pLv_C2] = swtest_norm(Lv_C2.');
+[~,~,pLv_C3] = swtest_norm(Lv_C3.');
+[~,~,pLv_L1] = swtest_norm(Lv_L1.'); %Shapiro-Wilk test.
+[~,~,pLv_L2] = swtest_norm(Lv_L2.');
+[~,~,pLv_L3] = swtest_norm(Lv_L3.');
+
+% Check if the variances are equal between each distribuction
+
+[~, pF1] = vartest2 (Lv_C1, Lv_L1);
+[~, pF2] = vartest2 (Lv_C2, Lv_L2);
+[~, pF3] = vartest2 (Lv_C3, Lv_L3);
+
+%statiscal comparassion
+
+[~, pb1] = ttest2 (Lv_C1, Lv_L1); % doing the 2-sample t-test for each block.
+[~, pb2] = ttest2 (Lv_C2, Lv_L2);
+[~, pb3] = ttest2 (Lv_C3, Lv_L3);
+
+% calculating the relative effect size by relative mean difference 
+
+MLv_C1 = mean (Lv_C1);
+MLv_C2 = mean (Lv_C2);
+MLv_C3 = mean (Lv_C3);
+MLv_L1 = mean (Lv_L1);
+MLv_L2 = mean (Lv_L2);
+MLv_L3 = mean (Lv_L3);
+
+e1 = (MLv_C1 * 100)/MLv_L1;
+e2 = (MLv_C2 * 100)/MLv_L2;
+e3 = (MLv_C3 * 100)/MLv_L3;
+
+% Calculating Hedge's g effect size values
+
+ mes1 = mes(Lv_C1.',Lv_L1.','hedgesg');
+ mes2 = mes(Lv_C2.',Lv_L2.','hedgesg');
+ mes3 = mes(Lv_C3.',Lv_L3.','hedgesg');
+
+hg1 = mes1.hedgesg;
+hg2 = mes2.hedgesg;
+hg3 = mes3.hedgesg;
