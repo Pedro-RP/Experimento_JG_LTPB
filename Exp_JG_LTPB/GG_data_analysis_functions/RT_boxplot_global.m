@@ -46,17 +46,14 @@ a=a+1000;
 
 end
 
-o = 1;
 for par = 1:(size(data_control,1)/1000)
      GTMC(par) = mean(RT1{par}); %global temporal means control
-     o = o + 1000;
 end
 
 
-v = 1;
+
 for par = 1:(size(data_LTPB,1)/1000)
      GTML(par) = mean(RT2{par}); %global temporal means LTPB
-     v = o + 1000;
 end
 
 RTG = [GTMC GTML];

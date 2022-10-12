@@ -132,7 +132,7 @@ end
 MRT1=[MRTC1 MRTL1]; %Mean response times block 1
 MRT2=[MRTC2 MRTL2];
 MRT3=[MRTC3 MRTL3];
-MRTF = [MRT1 MRT1 MRT3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
+MRTF = [MRT1 MRT2 MRT3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
 
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
