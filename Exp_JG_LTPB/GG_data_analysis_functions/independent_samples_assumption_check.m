@@ -1,4 +1,4 @@
-% function [pC1, pL1, pF1, pC2, pL2, pF2, pC3, pL3, pF3] = independent_samples_norm_check(data_control, data_LTPB)
+% function [pC1, pL1, pF1, pC2, pL2, pF2, pC3, pL3, pF3] = independent_samples_assumption_check(data_control, data_LTPB)
 %
 % This function checks the normality of the data contained in each of the
 % experimental blocks of the groups presented using the shapiro-wilk test.
@@ -26,7 +26,7 @@
 %
 %11/10/2022 by Pedro R. Pinheiro
 
-function [pC1, pL1, pF1, pC2, pL2, pF2, pC3, pL3, pF3] = independent_samples_norm_check(data_control, data_LTPB)
+function [pC1, pL1, pF1, pC2, pL2, pF2, pC3, pL3, pF3] = independent_samples_assumption_check(data_control, data_LTPB)
 
 %control group
 

@@ -1,4 +1,4 @@
-% [lv] = local_variance(data_control, data_ltpb)
+% [lv] = local_variance(data_control, data_LTPB)
 %
 % This function returns a struct containing the values of the local
 % variance of each particicipant in the experiment in each block,
