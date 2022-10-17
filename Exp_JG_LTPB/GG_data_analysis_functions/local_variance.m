@@ -1,5 +1,8 @@
 
 
+
+function [lv] = local_variance(data_control, data_LTPB)
+
 for i = 1:size(data_control,1)
 
     T1(i)= data_control(i,7);
@@ -174,17 +177,21 @@ for par = 1:(size(data_LTPB,1)/1000)
     Lv_sL3 = 0;
 end
 
+
+%%% Comparation between groups
+
 %Boxplot
-Lv1=[Lv_C1 Lv_L1]; %Mean response times block 1
+Lv1=[Lv_C1 Lv_L1]; 
 Lv2=[Lv_C2 Lv_L2];
 Lv3=[Lv_C3 Lv_L3];
-Lvf = [Lv1 Lv2 Lv3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
+Lvf = [Lv1 Lv2 Lv3]; 
 
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
 grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
 
+figure
 
 BLvf = boxplot(Lvf,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
@@ -212,17 +219,34 @@ set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the fig
 [~,~,pLv_L2] = swtest_norm(Lv_L2.');
 [~,~,pLv_L3] = swtest_norm(Lv_L3.');
 
+%Building a struct to store the results
+
+lv.between_comparasion.assumption_check.norm_check.pLv_C1 = pLv_C1;
+lv.between_comparasion.assumption_check.norm_check.pLv_C2 = pLv_C2;
+lv.between_comparasion.assumption_check.norm_check.pLv_C3 = pLv_C3;
+lv.between_comparasion.assumption_check.norm_check.pLv_L1 = pLv_L1;
+lv.between_comparasion.assumption_check.norm_check.pLv_L2 = pLv_L2;
+lv.between_comparasion.assumption_check.norm_check.pLv_L3 = pLv_L3;
+
 % Check if the variances are equal between each distribuction
 
 [~, pF1] = vartest2 (Lv_C1, Lv_L1);
 [~, pF2] = vartest2 (Lv_C2, Lv_L2);
 [~, pF3] = vartest2 (Lv_C3, Lv_L3);
 
+lv.between_comparasion.assumption_check.var_check.pF1 = pF1;
+lv.between_comparasion.assumption_check.var_check.pF2 = pF2;
+lv.between_comparasion.assumption_check.var_check.pF3 = pF3;
+
 %statiscal comparassion
 
 [~, pb1] = ttest2 (Lv_C1, Lv_L1); % doing the 2-sample t-test for each block.
 [~, pb2] = ttest2 (Lv_C2, Lv_L2);
-[~, pb3] = ttest2 (Lv_C3, Lv_L3);
+[~, pb3] = ttest2 (Lv_C3, Lv_L3)
+
+lv.between_comparasion.t_test.pb1 = pb1;
+lv.between_comparasion.t_test.pb2 = pb2;
+lv.between_comparasion.t_test.pb3 = pb3;
 
 % calculating the relative effect size by relative mean difference 
 
@@ -237,6 +261,10 @@ e1 = (MLv_C1 * 100)/MLv_L1;
 e2 = (MLv_C2 * 100)/MLv_L2;
 e3 = (MLv_C3 * 100)/MLv_L3;
 
+lv.between_comparasion.effect_size.relative.e1 = e1;
+lv.between_comparasion.effect_size.relative.e2 = e2;
+lv.between_comparasion.effect_size.relative.e3 = e3;
+
 % Calculating Hedge's g effect size values
 
  mes1 = mes(Lv_C1.',Lv_L1.','hedgesg');
@@ -246,3 +274,238 @@ e3 = (MLv_C3 * 100)/MLv_L3;
 hg1 = mes1.hedgesg;
 hg2 = mes2.hedgesg;
 hg3 = mes3.hedgesg;
+
+lv.between_comparasion.effect_size.hedges_g.hg1 = hg1;
+lv.between_comparasion.effect_size.hedges_g.hg2 = hg2;
+lv.between_comparasion.effect_size.hedges_g.hg3 = hg3;
+
+%%% Comparation Within Groups
+
+%% Control Group
+
+%Boxplot
+
+Lvf_C = [Lv_C1.' Lv_C2.' Lv_C3.']; 
+figure
+
+BLvf_C = boxplot(Lvf_C); 
+title('Distribution of the Local Variance of the Control Group in each block');
+ylabel("Local Variance");
+ylim([0 2])
+yticks([0:0.2:2])
+xticks([1 2 3 4 5 6])
+xticklabels({'1st Block - Control', '2nd Block - Control', '3rd Block - Control'})
+xline(2.5)
+xline(1.5)
+
+
+figureHandle = gcf;
+set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+
+% Checking normality of the data samples
+
+[~,~,pLv_C1] = swtest_norm(Lv_C1.'); %Shapiro-Wilk test.
+[~,~,pLv_C2] = swtest_norm(Lv_C2.');
+[~,~,pLv_C3] = swtest_norm(Lv_C3.');
+
+lv.within_comparasion.Control.assumption_check.norm_check.pLv_C1 = pLv_C1;
+lv.within_comparasion.Control.assumption_check.norm_check.pLv_C2 = pLv_C2;
+lv.within_comparasion.Control.assumption_check.norm_check.pLv_C3 = pLv_C3;
+
+% F-test to check if the population variances are equal.
+
+[~, pCF1_2] = vartest2 (Lv_C1, Lv_C2);
+[~, pCF1_3] = vartest2 (Lv_C1, Lv_C3);
+[~, pCF2_3] = vartest2 (Lv_C2, Lv_C3);
+
+lv.within_comparasion.Control.assumption_check.var_check.pCF1_2 = pCF1_2;
+lv.within_comparasion.Control.assumption_check.var_check.pCF1_3 = pCF1_3;
+lv.within_comparasion.Control.assumption_check.var_check.pCF2_3 = pCF2_3;
+
+% Making a Repeated Measures Model
+
+MLV_C = [Lv_C1.' Lv_C2.' Lv_C3.'];
+
+t_C = table(MLV_C(:,1),MLV_C(:,2),MLV_C(:,3),... %the three dots indicate that the function continues in the next line
+'VariableNames',{'Block1','Block2','Block3'});
+wd_C = table([1 2 3]','VariableNames',{'Blocks'});
+
+rm_C = fitrm(t_C,'Block1-Block3~1','WithinDesign',wd_C);
+
+% Repeated Measures ANOVA
+
+ranovatbl_C = ranova(rm_C);
+
+% Mauchly test for sphericity
+
+mauchly_test_C = mauchly(rm_C); 
+
+if table2array(mauchly_test_C(1,4)) < 0.05
+    p_anova_C = table2array(ranovatbl_C(1,6)); %correcting the p-value if the sphericity condition isn't met
+else
+    p_anova_C = table2array(ranovatbl_C(1,5));
+end
+
+
+lv.within_comparasion.Control.rep_meas_anova.p_anova_C = p_anova_C;
+lv.within_comparasion.Control.rep_meas_anova.ranovatbl_C = ranovatbl_C;
+
+% Doing the paired t-test with bonferroni correction. p-values higher than
+% 1 should be interpreted as 1.
+
+[~,pC12] = ttest(Lv_C1, Lv_C2);
+pC1_2 = pC12*3; %bonferoni correction for multiple comparasions
+
+[~,pC13] = ttest(Lv_C1, Lv_C3);
+pC1_3 = pC13*3; 
+
+[~,pC23] = ttest(Lv_C2, Lv_C3);
+pC2_3 = pC23*3; %bonferoni correction for multiple comparasions
+
+lv.within_comparasion.Control.t_test.pC1_2 = pC1_2;
+lv.within_comparasion.Control.t_test.pC1_3 = pC1_3;
+lv.within_comparasion.Control.t_test.pC2_3 = pC2_3;
+
+% calculating the relative effect size by relative mean difference 
+
+MLv_C1 = mean (Lv_C1);
+MLv_C2 = mean (Lv_C2);
+MLv_C3 = mean (Lv_C3);
+
+eLv_C1_2 = (MLv_C2 * 100)/MLv_C1;
+eLv_C1_3 = (MLv_C3 * 100)/MLv_C1;
+eLv_C2_3 = (MLv_C3 * 100)/MLv_C2;
+
+lv.within_comparasion.Control.effect_size.relative.eLv_C1_2 = eLv_C1_2;
+lv.within_comparasion.Control.effect_size.relative.eLv_C1_3 = eLv_C1_3;
+lv.within_comparasion.Control.effect_size.relative.eLv_C2_3 = eLv_C2_3;
+
+% Calculating Hedge's g effect size values
+
+mesC1_2 = mes(Lv_C2.',Lv_C1.','hedgesg');
+mesC1_3 = mes(Lv_C3.',Lv_C1.','hedgesg');
+mesC2_3 = mes(Lv_C3.',Lv_C2.','hedgesg');
+
+hgC1_2 = mesC1_2.hedgesg;
+hgC1_3 = mesC1_3.hedgesg;
+hgC2_3 = mesC2_3.hedgesg;
+
+lv.within_comparasion.Control.effect_size.hedges_g.mesC1_2 = hgC1_2;
+lv.within_comparasion.Control.effect_size.hedges_g.mesC1_3 = hgC1_3;
+lv.within_comparasion.Control.effect_size.hedges_g.mesC2_3 = hgC2_3;
+
+%% LTPB Group
+
+%Boxplot
+
+Lvf_L = [Lv_L1.' Lv_L2.' Lv_L3.']; 
+
+figure
+
+BLvf_L = boxplot(Lvf_L); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
+
+title('Distribution of the Local Variance of the LTPB Group in each block');
+ylabel("Local Variance");
+ylim([0 2])
+yticks([0:0.2:2])
+xticks([1 2 3 4 5 6])
+xticklabels({'1st Block - LTPB', '2nd Block - LTPB', '3rd Block - LTPB'})
+xline(2.5)
+xline(1.5)
+
+
+figureHandle = gcf;
+set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+
+% Checking normality of the data samples
+
+[~,~,pLv_L1] = swtest_norm(Lv_L1.'); %Shapiro-Wilk test.
+[~,~,pLv_L2] = swtest_norm(Lv_L2.');
+[~,~,pLv_L3] = swtest_norm(Lv_L3.');
+
+lv.within_comparasion.LTPB.assumption_check.norm_check.pLv_L1 = pLv_L1;
+lv.within_comparasion.LTPB.assumption_check.norm_check.pLv_L2 = pLv_L2;
+lv.within_comparasion.LTPB.assumption_check.norm_check.pLv_L3 = pLv_L3;
+
+% F-test to check if the population variances are equal.
+
+[~, pLF1_2] = vartest2 (Lv_L1, Lv_L2);
+[~, pLF1_3] = vartest2 (Lv_L1, Lv_L3);
+[~, pLF2_3] = vartest2 (Lv_L2, Lv_L3);
+
+lv.within_comparasion.LTPB.assumption_check.var_check.pLF1_2 = pLF1_2;
+lv.within_comparasion.LTPB.assumption_check.var_check.pLF1_3 = pLF1_3;
+lv.within_comparasion.LTPB.assumption_check.var_check.pLF2_3 = pLF2_3;
+
+% Making a Repeated Measures Model
+
+MLV_L = [Lv_L1.' Lv_L2.' Lv_L3.'];
+
+t_L = table(MLV_L(:,1),MLV_L(:,2),MLV_L(:,3),... %the three dots indicate that the function continues in the next line
+'VariableNames',{'Block1','Block2','Block3'});
+wd_L = table([1 2 3]','VariableNames',{'Blocks'});
+
+rm_L = fitrm(t_L,'Block1-Block3~1','WithinDesign',wd_L);
+
+% Repeated Measures ANOVA
+
+ranovatbl_L = ranova(rm_L);
+
+% Mauchly test for sphericity
+
+mauchly_test_L = mauchly(rm_L); 
+
+if table2array(mauchly_test_L(1,4)) < 0.05
+    p_anova_L = table2array(ranovatbl_L(1,6)); %correcting the p-value if the sphericity condition isn't met.
+else
+    p_anova_L = table2array(ranovatbl_L(1,5));
+end
+
+
+lv.within_comparasion.LTPB.rep_meas_anova.p_anova_L = p_anova_L;
+lv.within_comparasion.LTPB.rep_meas_anova.ranovatbl_L = ranovatbl_L;
+
+% Doing the paired t-test with bonferroni correction
+
+[~,pL12] = ttest(Lv_L1, Lv_L2);
+pL1_2 = pL12*3; %bonferoni correction for multiple comparasions
+
+[~,pL13] = ttest(Lv_L1, Lv_L3);
+pL1_3 = pL13*3; 
+
+[~,pL23] = ttest(Lv_L2, Lv_L3);
+pL2_3 = pL23*3; %bonferoni correction for multiple comparasions
+
+lv.within_comparasion.LTPB.t_test.pL1_2 = pL1_2;
+lv.within_comparasion.LTPB.t_test.pL1_3 = pL1_3;
+lv.within_comparasion.LTPB.t_test.pL2_3 = pL2_3;
+
+% calculating the relative effect size by relative mean difference 
+
+MLv_L1 = mean (Lv_L1);
+MLv_L2 = mean (Lv_L2);
+MLv_L3 = mean (Lv_L3);
+
+eLv_L1_2 = (MLv_L2 * 100)/MLv_L1;
+eLv_L1_3 = (MLv_L3 * 100)/MLv_L1;
+eLv_L2_3 = (MLv_L3 * 100)/MLv_L2;
+
+lv.within_comparasion.LTPB.effect_size.relative.eLv_L1_2 = eLv_L1_2;
+lv.within_comparasion.LTPB.effect_size.relative.eLv_L1_3 = eLv_L1_3;
+lv.within_comparasion.LTPB.effect_size.relative.eLv_L2_3 = eLv_L2_3;
+
+% Calculating Hedge's g effect size values
+
+mesL1_2 = mes(Lv_L2.',Lv_L1.','hedgesg');
+mesL1_3 = mes(Lv_L3.',Lv_L1.','hedgesg');
+mesL2_3 = mes(Lv_L3.',Lv_L2.','hedgesg');
+
+hgL1_2 = mesL1_2.hedgesg;
+hgL1_3 = mesL1_3.hedgesg;
+hgL2_3 = mesL2_3.hedgesg;
+
+lv.within_comparasion.LTPB.effect_size.hedges_g.hgL1_2 = hgL1_2;
+lv.within_comparasion.LTPB.effect_size.hedges_g.hgL1_3 = hgL1_3;
+lv.within_comparasion.LTPB.effect_size.hedges_g.hgL2_3 = hgL2_3;
+
+end

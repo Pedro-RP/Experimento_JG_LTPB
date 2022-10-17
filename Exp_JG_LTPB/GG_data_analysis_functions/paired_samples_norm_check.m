@@ -100,6 +100,7 @@ end
 % for b = 1:size (MRT1,2)
 %     MRT2_3(b) = MRT2(b) - MRT3(b);
 %end
+
 %Checking if the data is normal.
 
 [~,~,p1] = swtest_norm(MRT1.');
