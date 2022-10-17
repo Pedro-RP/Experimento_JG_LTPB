@@ -1,4 +1,50 @@
+% [lv] = local_variance(data_control, data_ltpb)
+%
+% This function returns a struct containing the values of the local
+% variance of each particicipant in the experiment in each block,
+% the results of tests aiming to validate the assumptions of parametric tests 
+% for comparasitions between groups and within the same group, the results
+% of said parametric tests for comparasions betweeen groups and within
+% the same group and also boxplots corresponding to said comparasions.
+% 
+% INPUT:
+%
+% data_control = data matrix from the control group.
 
+% data_ltpb = data matrix from the LTPB group.
+%
+% OUTPUT:
+% 
+% lv = the data strucure containing the local variance values and related
+% data.
+% - The "local_variance" section contains the raw local variance data of
+% each participant divided by group and block. Each value in the row
+% represents the data of one participant.
+%
+% - The "between_comparasion" section deals with the comparasion between
+% both groups alongside each experimental blocks. In "assumption_check", it
+% is possible to see the Shapiro-Wilk normality test results for the data
+% contained in each block and also check if both populations in each of the three
+% blocks have the same variance, using a F test. In "t_test", it is
+% possible to see the p-values of the 2-sample t-tests applied in each
+% block. In "effect_size" it is possible to see both the relative effect
+% size and the hedge's g value effect size of the LTPB group over the 
+% control group. Figure 1 is a companion boxplot to this section.
+%
+% - The "within_comparasion" section deals with comparasions between the 
+% local_variance data of different blocks of the same group. In "assumption
+% check", it is possible to check the assumptions required for applying paired
+% parametrical tests to the data sets, namely, normality of distribuitions
+% and equal variance between pairs of blocks. In "rep_means_anova", it is
+% possible to see the full table and the p-value of a repeated measures
+% ANOVA applied to the data of an individual group. In "t_test", it is
+% possible to see the p-values of the paired-sample t-tests applied in each
+% pair of blocks. In "effect_size" it is possible to see both the relative effect
+% size and the hedge's g value effect size of one block over the 
+% other. Figures 2 and 3 are a companion boxplot to this section.
+%
+% 
+% 17/10/2022 by Pedro R. Pinheiro
 
 
 function [lv] = local_variance(data_control, data_LTPB)
@@ -16,42 +62,6 @@ RT1{par}=T1(a:a+999);
 
 a=a+1000;
 
-end
-
-% Control - Block 1
-
-Lv_sc1 = 0;
-
-for par = 1:(size(data_control,1)/1000)
-    for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sc1 = Lv_sc1 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
-    end
-    Lv1(par) = (3/333) * Lv_sc1;
-    Lv_sc1 = 0;
-end
-
-% Control - Block 2
-
-Lv_sc2 = 0;
-
-for par = 1:(size(data_control,1)/1000)
-    for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sc2 = Lv_sc2 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
-    end
-    Lv2(par) = (3/333) * Lv_sc2;
-    Lv_sc2 = 0;
-end
-
-% Control - Block 3
-
-Lv_sc3 = 0;
-
-for par = 1:(size(data_control,1)/1000)
-    for i = 669 : 999  % i goes from 1 to n-1
-        Lv_sc3 = Lv_sc3 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
-    end
-    Lv3(par) = (3/331) * Lv_sc3;
-    Lv_sc3 = 0;
 end
 
 % Control - Block 1
@@ -90,41 +100,12 @@ for par = 1:(size(data_control,1)/1000)
     Lv_sc3 = 0;
 end
 
-% Control - Block 1
+%Building a struct to store the results
 
-Lv_sc1 = 0;
+lv.local_variance.Control.block_1 = Lv_C1;
+lv.local_variance.Control.block_2 = Lv_C2;
+lv.local_variance.Control.block_3 = Lv_C3;
 
-for par = 1:(size(data_control,1)/1000)
-    for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sc1 = Lv_sc1 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
-    end
-    Lv1(par) = (3/333) * Lv_sc1;
-    Lv_sc1 = 0;
-end
-
-% Control - Block 2
-
-Lv_sc2 = 0;
-
-for par = 1:(size(data_control,1)/1000)
-    for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sc2 = Lv_sc2 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
-    end
-    Lv2(par) = (3/333) * Lv_sc2;
-    Lv_sc2 = 0;
-end
-
-% Control - Block 3
-
-Lv_sc3 = 0;
-
-for par = 1:(size(data_control,1)/1000)
-    for i = 669 : 999  % i goes from 1 to n-1
-        Lv_sc3 = Lv_sc3 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
-    end
-    Lv3(par) = (3/331) * Lv_sc3;
-    Lv_sc3 = 0;
-end
 %LTPB group
 
 for i = 1:size(data_LTPB,1)
@@ -165,7 +146,7 @@ for par = 1:(size(data_LTPB,1)/1000)
     Lv_sL2 = 0;
 end
 
-% Control - Block 3
+% LTPB - Block 3
 
 Lv_sL3 = 0;
 
@@ -176,6 +157,10 @@ for par = 1:(size(data_LTPB,1)/1000)
     Lv_L3(par) = (3/331) * Lv_sL3;
     Lv_sL3 = 0;
 end
+
+lv.local_variance.LTPB.block_1 = Lv_L1;
+lv.local_variance.LTPB.block_2 = Lv_L2;
+lv.local_variance.LTPB.block_3 = Lv_L3;
 
 
 %%% Comparation between groups
@@ -219,7 +204,6 @@ set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the fig
 [~,~,pLv_L2] = swtest_norm(Lv_L2.');
 [~,~,pLv_L3] = swtest_norm(Lv_L3.');
 
-%Building a struct to store the results
 
 lv.between_comparasion.assumption_check.norm_check.pLv_C1 = pLv_C1;
 lv.between_comparasion.assumption_check.norm_check.pLv_C2 = pLv_C2;
