@@ -1,6 +1,7 @@
 % [mov_average] = GG_mov_average(interest,data,data_name,mode,window,pa)
 %
-% This function has a myriad of features related to the moving averages technique. As output, it returns a list containg the moving averages of the response times or the accuracy of
+% This function has a myriad of features related to the moving averages technique.
+% As output, it returns a list containg the moving averages of the response times or the accuracy of
 % all the participants in the desired group, using a moving window of your
 % choosing. Using the mode "group", the functions plots the moving averages
 % of the response times or the accuracy information of each trial of each participant of the desired group all at once as a function of time. In the

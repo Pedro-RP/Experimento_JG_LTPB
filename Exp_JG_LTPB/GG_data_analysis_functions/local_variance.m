@@ -17,6 +17,7 @@
 % 
 % lv = the data strucure containing the local variance values and related
 % data.
+%
 % - The "local_variance" section contains the raw local variance data of
 % each participant divided by group and block. Each value in the row
 % represents the data of one participant.
@@ -28,8 +29,8 @@
 % blocks have the same variance, using a F test. In "t_test", it is
 % possible to see the p-values of the 2-sample t-tests applied in each
 % block. In "effect_size" it is possible to see both the relative effect
-% size and the hedge's g value effect size of the LTPB group over the 
-% control group. Figure 1 is a companion boxplot to this section.
+% size and the hedge's g value effect size of the Control group over the 
+% LTPB group. Figure 1 is a companion boxplot to this section.
 %
 % - The "within_comparasion" section deals with comparasions between the 
 % local_variance data of different blocks of the same group. In "assumption
@@ -43,8 +44,16 @@
 % size and the hedge's g value effect size of one block over the 
 % other. Figures 2 and 3 are a companion boxplot to this section.
 %
-% 
-% 17/10/2022 by Pedro R. Pinheiro
+% - The "global_comparasion" section deals with the comparasion between
+% both groups global local_variance values (considering the whole game as a single block).
+% In "assumption_check", it is possible to see the Shapiro-Wilk normality test results for the data
+% contained in each group and also check if both populations have the same variance, using a F test.
+% In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
+% In "effect_size" it is possible to see both the relative effect
+% size and the hedge's g value effect size of the Control group over the 
+% LTPB group. Figure 1 is a companion boxplot to this section.
+%
+% 18/10/2022 by Pedro R. Pinheiro
 
 
 function [lv] = local_variance(data_control, data_LTPB)
@@ -193,8 +202,6 @@ xline(4.5)
 figureHandle = gcf;
 set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
-
-
 % Checking normality of the data samples
 
 [~,~,pLv_C1] = swtest_norm(Lv_C1.'); %Shapiro-Wilk test.
@@ -226,7 +233,7 @@ lv.between_comparasion.assumption_check.var_check.pF3 = pF3;
 
 [~, pb1] = ttest2 (Lv_C1, Lv_L1); % doing the 2-sample t-test for each block.
 [~, pb2] = ttest2 (Lv_C2, Lv_L2);
-[~, pb3] = ttest2 (Lv_C3, Lv_L3)
+[~, pb3] = ttest2 (Lv_C3, Lv_L3);
 
 lv.between_comparasion.t_test.pb1 = pb1;
 lv.between_comparasion.t_test.pb2 = pb2;
@@ -491,5 +498,94 @@ hgL2_3 = mesL2_3.hedgesg;
 lv.within_comparasion.LTPB.effect_size.hedges_g.hgL1_2 = hgL1_2;
 lv.within_comparasion.LTPB.effect_size.hedges_g.hgL1_3 = hgL1_3;
 lv.within_comparasion.LTPB.effect_size.hedges_g.hgL2_3 = hgL2_3;
+
+%%% Global comparasion
+
+Lv_scG = 0;
+
+for par = 1:(size(data_control,1)/1000)
+    for i = 1 : 999  % i goes from 1 to n-1
+        Lv_scG = Lv_scG + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+    end
+    Lv_CG(par) = (3/999) * Lv_scG;
+    Lv_scG = 0;
+end
+
+Lv_scL = 0;
+
+for par = 1:(size(data_LTPB,1)/1000)
+    for i = 1 : 999  % i goes from 1 to n-1
+        Lv_scL = Lv_scL + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+    end
+    Lv_LG(par) = (3/999) * Lv_scL;
+    Lv_scL = 0;
+end
+
+lv.local_variance.Control.global = Lv_CG;
+lv.local_variance.LTPB.global = Lv_LG;
+%Boxplot
+
+LvG = [Lv_CG Lv_LG]; 
+
+control_n = (size(data_control,1)/1000);
+LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
+
+grp =[zeros(1,control_n),ones(1,LTPB_n)]; %grouping variable. 
+
+figure
+
+BLvG = boxplot(LvG,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
+
+title('Distribution of the Local Variance of each group in the whole experiment');
+ylabel("Local Variance");
+ylim([0 2])
+yticks([0:0.2:2])
+xticks([1 2 3 4 5 6])
+xticklabels({'Control','LTPB'})
+
+figureHandle = gcf;
+set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+
+% Checking normality of the data samples
+
+[~,~,pLv_CG] = swtest_norm(Lv_CG.'); %Shapiro-Wilk test.
+[~,~,pLv_LG] = swtest_norm(Lv_LG.');
+
+
+lv.global_comparasion.assumption_check.norm_check.pLv_CG = pLv_CG;
+lv.global_comparasion.assumption_check.norm_check.pLv_LG = pLv_LG;
+
+
+% Check if the variances are equal between each distribuction
+
+[~, pFG] = vartest2 (Lv_CG, Lv_LG);
+
+
+lv.global_comparasion.assumption_check.var_check.pFG = pFG;
+
+%statiscal comparassion
+
+[~, pG] = ttest2 (Lv_CG, Lv_LG); % doing the 2-sample t-test for each block.
+
+
+lv.global_comparasion.t_test.pG = pG;
+
+
+% calculating the relative effect size by relative mean difference 
+
+MLv_CG = mean (Lv_CG);
+MLv_LG = mean (Lv_LG);
+
+eG = (MLv_CG * 100)/MLv_LG;
+
+lv.global_comparasion.effect_size.relative.eG = eG;
+
+% Calculating Hedge's g effect size values
+
+ mesG = mes(Lv_CG.',Lv_LG.','hedgesg');
+
+hgG = mesG.hedgesg;
+
+lv.global_comparasion.effect_size.hedges_g.hgG = hgG;
 
 end
