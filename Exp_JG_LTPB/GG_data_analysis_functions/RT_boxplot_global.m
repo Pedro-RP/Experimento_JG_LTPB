@@ -1,4 +1,4 @@
-% function RT_boxplot_global(data_control, data_LTPB)
+% RT_boxplot_global(data_control, data_LTPB)
 %
 % This function calculates the mean reaction times of each participant of
 % each group considering the whole experiment and plots the data in a boxplot,

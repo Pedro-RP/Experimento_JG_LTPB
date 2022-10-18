@@ -21,10 +21,10 @@
 % Example: If data is "data_control", data_name should be "'data_control'".
 %
 % mode =  The mode of analysis that the function will use. This accepts the following parameters:
-%"group"-> enables the function to plot the moving averages
+% "group"-> enables the function to plot the moving averages
 % of the response times of each trial of each participant of the desired
 % group all at once as a function of time.
-%"participant"-> enables the function to plot individual moving averages graphs
+% "participant"-> enables the function to plot individual moving averages graphs
 % of the response times alongside the proportion of infrequent contexts
 % that the participant has encountered until the current trial.
 %
