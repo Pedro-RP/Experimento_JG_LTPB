@@ -1,4 +1,4 @@
-% function RT_boxplot_same(data, group_name)
+% RT_boxplot_same(data, group_name)
 %
 % This function calculates the mean reaction times of each participant of
 % one of the experimental groups in each experimental block and plots the data in a boxplot,
