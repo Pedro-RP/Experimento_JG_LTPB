@@ -1,4 +1,4 @@
-% function [p1, p2, p3, pF1_2, pF1_3, pF2_3] = paired_samples_assumption_check(data)
+% [p1, p2, p3, pF1_2, pF1_3, pF2_3] = paired_samples_assumption_check(data)
 %
 % This function checks the normality of the data contained in each of the
 % experimental blocks comparasions of the group presented using the shapiro-wilk test.
@@ -24,7 +24,7 @@
 %
 %11/10/2022 by Pedro R. Pinheiro
 
-function [p1, p2, p3, pF1_2, pF1_3, pF2_3] = paired_samples_norm_check(data)
+function [p1, p2, p3, pF1_2, pF1_3, pF2_3] = paired_samples_assumption_check(data)
 
 
 for i = 1:size(data,1)

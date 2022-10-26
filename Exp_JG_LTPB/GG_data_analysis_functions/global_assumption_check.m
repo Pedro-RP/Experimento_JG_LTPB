@@ -1,4 +1,4 @@
-% function [pGC,pGL, pFG] = global_assumption_check(data_control, data_LTPB)
+% [pGC,pGL, pFG] = global_assumption_check(data_control, data_LTPB)
 %
 % This function checks the normality of the data contained in each of the
 % groups global response time data using the shapiro-wilk test.

@@ -187,7 +187,7 @@ grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*o
 
 figure
 
-BLvf = boxplot(Lvf,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
+BLvf = boxplot(Lvf,grp); 
 
 title('Distribution of the Local Variance of each group in each block');
 ylabel("Local Variance");
@@ -381,9 +381,9 @@ hgC1_2 = mesC1_2.hedgesg;
 hgC1_3 = mesC1_3.hedgesg;
 hgC2_3 = mesC2_3.hedgesg;
 
-lv.within_comparasion.Control.effect_size.hedges_g.mesC1_2 = hgC1_2;
-lv.within_comparasion.Control.effect_size.hedges_g.mesC1_3 = hgC1_3;
-lv.within_comparasion.Control.effect_size.hedges_g.mesC2_3 = hgC2_3;
+lv.within_comparasion.Control.effect_size.hedges_g.hgC1_2 = hgC1_2;
+lv.within_comparasion.Control.effect_size.hedges_g.hgC1_3 = hgC1_3;
+lv.within_comparasion.Control.effect_size.hedges_g.hgC2_3 = hgC2_3;
 
 %% LTPB Group
 
@@ -393,7 +393,7 @@ Lvf_L = [Lv_L1.' Lv_L2.' Lv_L3.'];
 
 figure
 
-BLvf_L = boxplot(Lvf_L); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
+BLvf_L = boxplot(Lvf_L); 
 
 title('Distribution of the Local Variance of the LTPB Group in each block');
 ylabel("Local Variance");
@@ -523,6 +523,7 @@ end
 
 lv.local_variance.Control.global = Lv_CG;
 lv.local_variance.LTPB.global = Lv_LG;
+
 %Boxplot
 
 LvG = [Lv_CG Lv_LG]; 
@@ -534,7 +535,7 @@ grp =[zeros(1,control_n),ones(1,LTPB_n)]; %grouping variable.
 
 figure
 
-BLvG = boxplot(LvG,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
+BLvG = boxplot(LvG,grp); 
 
 title('Distribution of the Local Variance of each group in the whole experiment');
 ylabel("Local Variance");
