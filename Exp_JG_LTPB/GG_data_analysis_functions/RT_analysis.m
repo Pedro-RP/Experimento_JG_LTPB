@@ -197,8 +197,8 @@ figure
 
 BRTF = boxplot(MRTF,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
 
-title('Distribution of the response times of each group in each block');
-ylabel("Mean Responde Time(s)");
+title('Distribution of the Mean Response Times of each group in each block');
+ylabel("Mean Response Time(s)");
 ylim([0 2.5])
 yticks([0:0.2:2.5])
 xticks([1 2 3 4 5 6])
@@ -224,9 +224,9 @@ set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the fig
 rt.between_comparasion.assumption_check.norm_check.pC1 = pC1;
 rt.between_comparasion.assumption_check.norm_check.pC2 = pC2;
 rt.between_comparasion.assumption_check.norm_check.pC3 = pC3;
-rt.between_comparasion.assumption_check.norm_check.pMRTL1 = pL1;
-rt.between_comparasion.assumption_check.norm_check.pMRTL2 = pL2;
-rt.between_comparasion.assumption_check.norm_check.pMRTL3 = pL3;
+rt.between_comparasion.assumption_check.norm_check.pL1 = pL1;
+rt.between_comparasion.assumption_check.norm_check.pL2 = pL2;
+rt.between_comparasion.assumption_check.norm_check.pL3 = pL3;
 
 % Check if the variances are equal between each distribuction
 
@@ -294,7 +294,7 @@ ylabel("Mean Response Time (s)");
 ylim([0 2.5])
 yticks([0:0.2:2])
 xticks([1 2 3 4 5 6])
-xticklabels({'1st Block - Control', '2nd Block - Control', '3rd Block - Control'})
+xticklabels({'1st Block', '2nd Block', '3rd Block'})
 xline(2.5)
 xline(1.5)
 
@@ -304,11 +304,11 @@ set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the fig
 
 % Checking normality of the data samples
 
-[~,~,pC1] = swtest_norm(MRT1.');
+[~,~,pC1] = swtest_norm(MRTC1.');
 
-[~,~,pC2] = swtest_norm(MRT2.');
+[~,~,pC2] = swtest_norm(MRTC2.');
 
-[~,~,pC3] = swtest_norm(MRT3.');
+[~,~,pC3] = swtest_norm(MRTC3.');
 
 rt.within_comparasion.Control.assumption_check.norm_check.pC1 = pC1;
 rt.within_comparasion.Control.assumption_check.norm_check.pC2 = pC2;
@@ -411,7 +411,7 @@ ylabel("Mean Response Time (s)");
 ylim([0 2.5])
 yticks([0:0.2:2])
 xticks([1 2 3 4 5 6])
-xticklabels({'1st Block - LTPB', '2nd Block - LTPB', '3rd Block - LTPB'})
+xticklabels({'1st Block', '2nd Block', '3rd Block'})
 xline(2.5)
 xline(1.5)
 
@@ -498,9 +498,9 @@ rt.within_comparasion.LTPB.effect_size.relative.eL2_3 = eL2_3;
 
 % Calculating Hedge's g effect size values
 
-mesL1_2 = mes(MRTL2.',MRTL1.','hedgesg');
-mesL1_3 = mes(MRTL3.',MRTL1.','hedgesg');
-mesL2_3 = mes(MRTL3.',MRTL2.','hedgesg');
+mesL1_2 = mes(MRTL1.',MRTL2.','hedgesg');
+mesL1_3 = mes(MRTL1.',MRTL3.','hedgesg');
+mesL2_3 = mes(MRTL2.',MRTL3.','hedgesg');
 
 hgL1_2 = mesL1_2.hedgesg;
 hgL1_3 = mesL1_3.hedgesg;
@@ -533,20 +533,18 @@ LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
 grp =[zeros(1,control_n),ones(1,LTPB_n)]; 
 
-
-
 figure
 
 BRTG = boxplot(RTG,grp); 
 
-title('Distribution of the response times of each group considering the whole experiment');
-ylabel("Mean RT(s)");
+title('Distribution of the Mean Response Times of each group considering the whole experiment');
+ylabel("Mean Response Time (s)");
 ylim([0 2.5])
 yticks([0:0.2:2.5])
 xticks([1 2 3 4 5 6])
 xticklabels({'Control','LTPB'})
-xline(2.5)
-xline(4.5)
+xline(1.5)
+
 
 
 figureHandle = gcf;
