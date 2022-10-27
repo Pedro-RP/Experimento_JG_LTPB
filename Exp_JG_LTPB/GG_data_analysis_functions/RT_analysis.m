@@ -1,7 +1,7 @@
 % [rt] = RT_analysis(data_control, data_LTPB)
 %
-% This function returns a struct containing the values of the response times
-% of each particicipant in the experiment in each block,
+% This function returns a struct containing the values of the mean response times
+% of each particicipant of the experiment in each block,
 % the results of tests aiming to validate the assumptions of parametric tests 
 % for comparasitions between groups and within the same group, the results
 % of said parametric tests for comparasions betweeen groups and within
@@ -15,10 +15,10 @@
 %
 % OUTPUT:
 % 
-% rt = the data strucure containing the local variance values and related
+% rt = the data strucure containing the mean response time values and related
 % data.
 %
-% - The "response_times" section contains the raw response time data of
+% - The "response_times" section contains the raw mean response time data of
 % each participant divided by group and block. Each value in the row
 % represents the data of one participant.
 %
@@ -29,8 +29,8 @@
 % blocks have the same variance, using a F test (p > 0.05 indicates normality). In "t_test", it is
 % possible to see the p-values of the 2-sample t-tests applied in each
 % block. In "effect_size" it is possible to see both the relative effect
-% size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 1 is a companion boxplot to this section.
+% size and the hedge's g value effect size of the LTPB group over the 
+% Control group. Figure 1 is a companion boxplot to this section.
 %
 % - The "within_comparasion" section deals with comparasions between the 
 % response time data of different blocks of the same group. In "assumption
@@ -38,27 +38,28 @@
 % parametrical tests to the data sets, namely, normality of distribuitions
 % and equal variance between pairs of blocks. In "rep_means_anova", it is
 % possible to see the full table and the p-value of a repeated measures
-% ANOVA applied to the data of an individual group. In "t_test", it is
+% ANOVA applied to the data of an individual group (corrected with de GG method
+% if the sphericity condition is violated). In "t_test", it is
 % possible to see the p-values of the paired-sample t-tests applied in each
 % pair of blocks. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of one block over the 
 % other. Figures 2 and 3 are a companion boxplot to this section.
 %
 % - The "global_comparasion" section deals with the comparasion between
-% both groups global local_variance values (considering the whole game as a single block).
+% both groups global mean response time values (considering the whole game as a single block).
 % In "assumption_check", it is possible to see the Shapiro-Wilk normality test results for the data
 % contained in each group and also check if both populations have the same variance, using a F test.
 % In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
 % In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 1 is a companion boxplot to this section.
+% LTPB group. Figure 4 is a companion boxplot to this section.
 %
-% 18/10/2022 by Pedro R. Pinheiro
+% 26/10/2022 by Pedro R. Pinheiro
 
 
 function [rt] = RT_analysis(data_control, data_LTPB)
 
-%control group
+% Control group
 
 for i = 1:size(data_control,1)
 
@@ -293,7 +294,7 @@ title('Distribution of the Mean Response Times of the Control Group in each bloc
 ylabel("Mean Response Time (s)");
 ylim([0 2.5])
 yticks([0:0.2:2])
-xticks([1 2 3 4 5 6])
+xticks([1 2 3])
 xticklabels({'1st Block', '2nd Block', '3rd Block'})
 xline(2.5)
 xline(1.5)
@@ -410,7 +411,7 @@ title('Distribution of the Mean Response Times of the LTPB Group in each block')
 ylabel("Mean Response Time (s)");
 ylim([0 2.5])
 yticks([0:0.2:2])
-xticks([1 2 3 4 5 6])
+xticks([1 2 3])
 xticklabels({'1st Block', '2nd Block', '3rd Block'})
 xline(2.5)
 xline(1.5)
@@ -541,7 +542,7 @@ title('Distribution of the Mean Response Times of each group considering the who
 ylabel("Mean Response Time (s)");
 ylim([0 2.5])
 yticks([0:0.2:2.5])
-xticks([1 2 3 4 5 6])
+xticks([1 2])
 xticklabels({'Control','LTPB'})
 xline(1.5)
 

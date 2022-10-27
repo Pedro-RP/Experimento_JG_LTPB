@@ -1,7 +1,7 @@
 % [lv] = local_variance(data_control, data_LTPB)
 %
 % This function returns a struct containing the values of the local
-% variance of each particicipant in the experiment in each block,
+% variance of each particicipant of the experiment in each block,
 % the results of tests aiming to validate the assumptions of parametric tests 
 % for comparasitions between groups and within the same group, the results
 % of said parametric tests for comparasions betweeen groups and within
@@ -38,7 +38,8 @@
 % parametrical tests to the data sets, namely, normality of distribuitions
 % and equal variance between pairs of blocks. In "rep_means_anova", it is
 % possible to see the full table and the p-value of a repeated measures
-% ANOVA applied to the data of an individual group. In "t_test", it is
+% ANOVA applied to the data of an individual group(corrected with de GG method
+% if the sphericity condition is violated). In "t_test", it is
 % possible to see the p-values of the paired-sample t-tests applied in each
 % pair of blocks. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of one block over the 
@@ -51,7 +52,7 @@
 % In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
 % In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 1 is a companion boxplot to this section.
+% LTPB group. Figure 4 is a companion boxplot to this section.
 %
 % 18/10/2022 by Pedro R. Pinheiro
 
