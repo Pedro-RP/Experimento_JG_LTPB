@@ -7,7 +7,7 @@ import pandas as pd
 from Formatacao_JG import ID
 pd.set_option("display.max_rows", None, "display.max_columns", None)
 #pd.options.display.float_format = "{:,.2f}".format
-Dq_Full=pd.read_csv("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/processed/Data_questFull.csv")
+Dq_Full=pd.read_csv("C:/Users/Pedro_R/Desktop/Projeto/Code_exp_ltpb/Exp_JG_LTPB/quest_final/Data_questFull.csv")
 
 #criando um monte de contador pras escalas
 IBD_interference=0
@@ -18,7 +18,8 @@ lat_D=0
 lat_E=0
 Ql=0
 Final_quest=pd.DataFrame([])
-P_list=["P002","P010","P011","P012","P013","P015","P018","P021"]
+P_list=["P010","P011","P012","P013","P015","P021", 'P006','P001', 'P025']
+C_list = ['C001', 'C005', 'C006', 'C007', 'C008', 'C009', 'C011']
 Data_LTPB=pd.DataFrame([])
 Data_CTRL=pd.DataFrame([])
 
@@ -48,8 +49,7 @@ for i in Dq_Full.axes[0]:
             if Dq_Full.loc[i, col] == "NaN":
                 IBD_severity="NaN"
             else:
-                IBD_severity=(Dq_Full.loc[i,"IBDJG3[SQ001]" ] + Dq_Full.loc[i, "IBDJG4[SQ001]"] + \
-                          Dq_Full.loc[i, "IBDJG5[SQ001]"] + Dq_Full.loc[i, "IBDJG6[SQ001]"])/4
+                IBD_severity= Dq_Full.loc[i, "IBDJG5[SQ001]"]
         elif col =="IBDJG7":
             if Dq_Full.loc[i, col] == "NaN" or Dq_Full.loc[i, col] == "0" :
                 IBD_med="NaN"
@@ -135,12 +135,12 @@ for i in Dq_Full.axes[0]:
         Data_LTPB=pd.concat([Data_LTPB, Final_series])
         #print(Data_LTPB)
 
-    elif Final_quest.iloc[i, 0] not in P_list:
+    elif Final_quest.iloc[i, 0] in C_list:
         Data_CTRL=pd.concat([Data_CTRL,Final_series])
         #print(Data_CTRL)
     #print(Dq_Full.loc[0, "Codigo_de_acesso"])
     #print(Final_quest.iloc[i,0])
 
 
-Data_LTPB.to_csv("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/quest_final/Data_quest_LTPB.csv",index=False)
-Data_CTRL.to_csv("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/quest_final/Data_quest_CTRL.csv",index=False)
+Data_LTPB.to_csv("C:/Users/Pedro_R/Desktop/Projeto/Code_exp_ltpb/Exp_JG_LTPB/quest_final/Data_quest_LTPB.csv",index=False)
+Data_CTRL.to_csv("C:/Users/Pedro_R/Desktop/Projeto/Code_exp_ltpb/Exp_JG_LTPB/quest_final/Data_quest_CTRL.csv",index=False)

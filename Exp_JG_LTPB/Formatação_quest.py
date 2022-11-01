@@ -11,9 +11,9 @@ Dset = pd.DataFrame()
 Dset_list = []
 
 #gerando a lista com todos os arquivos
-path=("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/dados")
-path2=("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/quest")
-path3=("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/quest_final")
+path=("C:/Users/Pedro_R/Desktop/Projeto/Code_exp_ltpb/Exp_JG_LTPB/dados")
+path2=("C:/Users/Pedro_R/Desktop/Projeto/Code_exp_ltpb/Exp_JG_LTPB/quest")
+path3=("C:/Users/Pedro_R/Desktop/Projeto/Code_exp_ltpb/Exp_JG_LTPB/quest_final")
 quest_list=open(path3+ "/" +"dataquest_full.csv",'w')
 files = os.listdir(path)
 file_count = len(files)
@@ -45,5 +45,5 @@ temp_questFull=temp_AVAL.set_index("Codigo_de_acesso").join(temp_questJG.set_ind
 temp_questFull=temp_questFull.drop(columns=["Nome"])
 
 print(temp_questFull.axes[0][0])
-#temp_questFull.to_csv("C:/Users/vinivius valent/Documents/GitHub/main/Rotina_Dados _Quest/processed/Data_questFull.csv",na_rep="NaN",index="True")
+temp_questFull.to_csv("C:/Users/Pedro_R/Deskto/\Projeto/Code_exp_ltpb/Exp_JG_LTPB/quest_final/Data_questFull.csv",na_rep="NaN",index="True")
 #print(temp_questFull.columns[-1]) list(temp_questFull.columns).index(temp_questFull.columns[-1]
