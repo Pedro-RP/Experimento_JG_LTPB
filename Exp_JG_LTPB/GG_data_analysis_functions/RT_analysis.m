@@ -104,6 +104,7 @@ for par = 1:(size(data_control,1)/1000)
     RTC2=0;
 end
 
+
 %Block 3 - Control
 
 RTC3 = 0;

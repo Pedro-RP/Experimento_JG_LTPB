@@ -1,4 +1,4 @@
-% [rt] = Acc_analysis(data_control, data_LTPB)
+% [acc] = Acc_analysis(data_control, data_LTPB)
 %
 % This function returns a struct containing the values of the accuracy
 % of each particicipant of the experiment in each block,
