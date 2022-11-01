@@ -81,7 +81,7 @@ end
 
 RTC1 = 0; %Response Time Control
 for par = 1:(size(data_control,1)/1000)
-    for k = drange(1:334) %number os trials in the block
+    for k = 1:334 %number os trials in the block
 
         RTC1 = RTC1 + RT1{par}(k); %RTC1 -> Response times of each control group participant in block 1
     end
@@ -95,7 +95,7 @@ end
 
 RTC2 = 0;
 for par = 1:(size(data_control,1)/1000)
-    for k = drange(335:668)
+    for k = 335:668
 
         RTC2 = RTC2 + RT1{par}(k); 
     end
@@ -109,7 +109,7 @@ end
 
 RTC3 = 0;
 for par = 1:(size(data_control,1)/1000)
-    for k = drange(669:1000)
+    for k = 669:1000
 
         RTC3 = RTC3 + RT1{par}(k); 
     end
@@ -142,7 +142,7 @@ end
 
 RTL1 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
-    for k = drange(1:334) 
+    for k = 1:334
 
         RTL1 = RTL1 + RT2{par}(k); 
     end
@@ -155,7 +155,7 @@ end
 
 RTL2 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
-    for k = drange(335:668) 
+    for k = 335:668 
 
         RTL2 = RTL2 + RT2{par}(k); 
     end
@@ -168,7 +168,7 @@ end
 
 RTL3 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
-    for k = drange(669:1000)
+    for k = 669:1000
 
         RTL3 = RTL3 + RT2{par}(k); 
     end
