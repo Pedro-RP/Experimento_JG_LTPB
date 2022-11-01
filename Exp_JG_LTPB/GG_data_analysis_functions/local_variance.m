@@ -74,28 +74,28 @@ a=a+1000;
 
 end
 
-% Control - Block 1
+% Control - Learning Phase
 
-Lv_sc1 = 0;
+LV_scL = 0;
 
 for par = 1:(size(data_control,1)/1000)
     for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sc1 = Lv_sc1 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+        LV_scL = LV_scL + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
     end
-    Lv_C1(par) = (3/333) * Lv_sc1;
-    Lv_sc1 = 0;
+    Lv_C1(par) = (3/333) * LV_scL;
+    LV_scL = 0;
 end
 
 % Control - Block 2
 
-Lv_sc2 = 0;
+LV_scP = 0;
 
 for par = 1:(size(data_control,1)/1000)
     for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sc2 = Lv_sc2 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+        LV_scP = LV_scP + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
     end
-    Lv_C2(par) = (3/333) * Lv_sc2;
-    Lv_sc2 = 0;
+    Lv_C2(par) = (3/333) * LV_scP;
+    LV_scP = 0;
 end
 
 % Control - Block 3
@@ -134,26 +134,26 @@ end
 
 % LTPB - Block 1
 
-Lv_sL1 = 0;
+LV_sLL = 0;
 
 for par = 1:(size(data_LTPB,1)/1000)
     for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sL1 = Lv_sL1 + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+        LV_sLL = LV_sLL + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
     end
-    Lv_L1(par) = (3/333) * Lv_sL1;
-    Lv_sL1 = 0;
+    Lv_L1(par) = (3/333) * LV_sLL;
+    LV_sLL = 0;
 end
 
 % LTPB - Block 2
 
-Lv_sL2 = 0;
+LV_sLP = 0;
 
 for par = 1:(size(data_LTPB,1)/1000)
     for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sL2 = Lv_sL2 + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+        LV_sLP = LV_sLP + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
     end
-    Lv_L2(par) = (3/333) * Lv_sL2;
-    Lv_sL2 = 0;
+    Lv_L2(par) = (3/333) * LV_sLP;
+    LV_sLP = 0;
 end
 
 % LTPB - Block 3
