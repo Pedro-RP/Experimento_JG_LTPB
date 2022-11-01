@@ -77,49 +77,35 @@ a=a+1000;
 
 end
 
-%Block 1 - Control
+%Learning Phase - Control
 
-RTC1 = 0; %Response Time Control
+RTCL = 0; %Response Time Control
 for par = 1:(size(data_control,1)/1000)
     for k = drange(1:334) %number os trials in the block
 
-        RTC1 = RTC1 + RT1{par}(k); %RTC1 -> Response times of each control group participant in block 1
+        RTCL = RTCL + RT1{par}(k); %RTCL -> Response times of each control group participant in block 1
     end
 
-    MRTC1(par) = RTC1/334;  %Mean Response Time Control 1 (MRTC1) is a vector with mean response time of each participant of the control group for block 1.
-    RTC1=0;
+    MRTCL(par) = RTCL/334;  %Mean Response Time Control 1 (MRTCL) is a vector with mean response time of each participant of the control group for block 1.
+    RTCL=0;
 
 end
 
-%%Block 2 - Control
+% Prediction Phase - Control
 
-RTC2 = 0;
+RTCP = 0;
 for par = 1:(size(data_control,1)/1000)
-    for k = drange(335:668)
+    for k = drange(335:1000)
 
-        RTC2 = RTC2 + RT1{par}(k); 
+        RTCP = RTCP + RT1{par}(k); 
     end
 
-    MRTC2(par) = RTC2/334;  
-    RTC2=0;
+    MRTCP(par) = RTCP/666;  
+    RTCP=0;
 end
 
-
-%Block 3 - Control
-
-RTC3 = 0;
-for par = 1:(size(data_control,1)/1000)
-    for k = drange(669:1000)
-
-        RTC3 = RTC3 + RT1{par}(k); 
-    end
-
-    MRTC3(par) = RTC3/332;  
-    RTC3=0;
-end
-
-rt.response_times.Control.block_1 = MRTC1;
-rt.response_times.Control.block_2 = MRTC2;
+rt.response_times.Control.block_1 = MRTCL;
+rt.response_times.Control.block_2 = MRTCP;
 rt.response_times.Control.block_3 = MRTC3;
 
 %LTPB group
@@ -185,8 +171,8 @@ rt.response_times.LTPB.block_3 = MRTL3;
 %%% Comparation between groups
 
 %Boxplot
-MRT1=[MRTC1 MRTL1]; %Mean response times block 1
-MRT2=[MRTC2 MRTL2];
+MRT1=[MRTCL MRTL1]; %Mean response times block 1
+MRT2=[MRTCP MRTL2];
 MRT3=[MRTC3 MRTL3];
 MRTF = [MRT1 MRT2 MRT3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
 
@@ -215,8 +201,8 @@ set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the fig
 
 % Checking normality of the data samples
 
-[~,~,pC1] = swtest_norm(MRTC1.'); %Shapiro-Wilk test.
-[~,~,pC2] = swtest_norm(MRTC2.');
+[~,~,pC1] = swtest_norm(MRTCL.'); %Shapiro-Wilk test.
+[~,~,pC2] = swtest_norm(MRTCP.');
 [~,~,pC3] = swtest_norm(MRTC3.');
 [~,~,pL1] = swtest_norm(MRTL1.'); %Shapiro-Wilk test.
 [~,~,pL2] = swtest_norm(MRTL2.');
@@ -232,8 +218,8 @@ rt.between_comparasion.assumption_check.norm_check.pL3 = pL3;
 
 % Check if the variances are equal between each distribuction
 
-[~, pF1] = vartest2 (MRTC1, MRTL1);
-[~, pF2] = vartest2 (MRTC2, MRTL2);
+[~, pF1] = vartest2 (MRTCL, MRTL1);
+[~, pF2] = vartest2 (MRTCP, MRTL2);
 [~, pF3] = vartest2 (MRTC3, MRTL3);
 
 rt.between_comparasion.assumption_check.var_check.pF1 = pF1;
@@ -242,8 +228,8 @@ rt.between_comparasion.assumption_check.var_check.pF3 = pF3;
 
 %statiscal comparassion
 
-[~, pb1] = ttest2 (MRTC1, MRTL1); % doing the 2-sample t-test for each block.
-[~, pb2] = ttest2 (MRTC2, MRTL2);
+[~, pb1] = ttest2 (MRTCL, MRTL1); % doing the 2-sample t-test for each block.
+[~, pb2] = ttest2 (MRTCP, MRTL2);
 [~, pb3] = ttest2 (MRTC3, MRTL3);
 
 rt.between_comparasion.t_test.pb1 = pb1;
@@ -252,15 +238,15 @@ rt.between_comparasion.t_test.pb3 = pb3;
 
 % calculating the relative effect size by relative mean difference 
 
-MMRTC1 = mean (MRTC1);
-MMRTC2 = mean (MRTC2);
+MMRTCL = mean (MRTCL);
+MMRTCP = mean (MRTCP);
 MMRTC3 = mean (MRTC3);
 MMRTL1 = mean (MRTL1);
 MMRTL2 = mean (MRTL2);
 MMRTL3 = mean (MRTL3);
 
-e1 = (MMRTL1 * 100)/MMRTC1;
-e2 = (MMRTL2 * 100)/MMRTC2;
+e1 = (MMRTL1 * 100)/MMRTCL;
+e2 = (MMRTL2 * 100)/MMRTCP;
 e3 = (MMRTL3 * 100)/MMRTC3;
 
 rt.between_comparasion.effect_size.relative.e1 = e1;
@@ -269,8 +255,8 @@ rt.between_comparasion.effect_size.relative.e3 = e3;
 
 % Calculating Hedge's g effect size values
 
- mes1 = mes(MRTL1.',MRTC1.','hedgesg');
- mes2 = mes(MRTL2.',MRTC2.','hedgesg');
+ mes1 = mes(MRTL1.',MRTCL.','hedgesg');
+ mes2 = mes(MRTL2.',MRTCP.','hedgesg');
  mes3 = mes(MRTL3.',MRTC3.','hedgesg');
 
 hg1 = mes1.hedgesg;
@@ -287,7 +273,7 @@ rt.between_comparasion.effect_size.hedges_g.hg3 = hg3;
 
 %Boxplot
 
-f_C = [MRTC1.' MRTC2.' MRTC3.']; 
+f_C = [MRTCL.' MRTCP.' MRTC3.']; 
 figure
 
 Bf_C = boxplot(f_C); 
@@ -306,9 +292,9 @@ set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the fig
 
 % Checking normality of the data samples
 
-[~,~,pC1] = swtest_norm(MRTC1.');
+[~,~,pC1] = swtest_norm(MRTCL.');
 
-[~,~,pC2] = swtest_norm(MRTC2.');
+[~,~,pC2] = swtest_norm(MRTCP.');
 
 [~,~,pC3] = swtest_norm(MRTC3.');
 
@@ -318,9 +304,9 @@ rt.within_comparasion.Control.assumption_check.norm_check.pC3 = pC3;
 
 % F-test to check if the population variances are equal.
 
-[~, pCF1_2] = vartest2 (MRTC1, MRTC2);
-[~, pCF1_3] = vartest2 (MRTC1, MRTC3);
-[~, pCF2_3] = vartest2 (MRTC2, MRTC3);
+[~, pCF1_2] = vartest2 (MRTCL, MRTCP);
+[~, pCF1_3] = vartest2 (MRTCL, MRTC3);
+[~, pCF2_3] = vartest2 (MRTCP, MRTC3);
 
 rt.within_comparasion.Control.assumption_check.var_check.pCF1_2 = pCF1_2;
 rt.within_comparasion.Control.assumption_check.var_check.pCF1_3 = pCF1_3;
@@ -328,7 +314,7 @@ rt.within_comparasion.Control.assumption_check.var_check.pCF2_3 = pCF2_3;
 
 % Making a Repeated Measures Model
 
-M_C = [MRTC1.' MRTC2.' MRTC3.'];
+M_C = [MRTCL.' MRTCP.' MRTC3.'];
 
 t_C = table(M_C(:,1),M_C(:,2),M_C(:,3),... %the three dots indicate that the function continues in the next line
 'VariableNames',{'Block1','Block2','Block3'});
@@ -357,13 +343,13 @@ rt.within_comparasion.Control.rep_meas_anova.ranovatbl_C = ranovatbl_C;
 % Doing the paired t-test with bonferroni correction. p-values higher than
 % 1 should be interpreted as 1.
 
-[~,pC12] = ttest(MRTC1, MRTC2);
+[~,pC12] = ttest(MRTCL, MRTCP);
 pC1_2 = pC12*3; %bonferoni correction for multiple comparasions
 
-[~,pC13] = ttest(MRTC1, MRTC3);
+[~,pC13] = ttest(MRTCL, MRTC3);
 pC1_3 = pC13*3; 
 
-[~,pC23] = ttest(MRTC2, MRTC3);
+[~,pC23] = ttest(MRTCP, MRTC3);
 pC2_3 = pC23*3; %bonferoni correction for multiple comparasions
 
 rt.within_comparasion.Control.t_test.pC1_2 = pC1_2;
@@ -372,13 +358,13 @@ rt.within_comparasion.Control.t_test.pC2_3 = pC2_3;
 
 % calculating the relative effect size by relative mean difference 
 
-MMRTC1 = mean (MRTC1);
-MMRTC2 = mean (MRTC2);
+MMRTCL = mean (MRTCL);
+MMRTCP = mean (MRTCP);
 MMRTC3 = mean (MRTC3);
 
-eC1_2 = (MMRTC1 * 100)/MMRTC2;
-eC1_3 = (MMRTC1 * 100)/MMRTC3;
-eC2_3 = (MMRTC2 * 100)/MMRTC3;
+eC1_2 = (MMRTCL * 100)/MMRTCP;
+eC1_3 = (MMRTCL * 100)/MMRTC3;
+eC2_3 = (MMRTCP * 100)/MMRTC3;
 
 rt.within_comparasion.Control.effect_size.relative.eC1_2 = eC1_2;
 rt.within_comparasion.Control.effect_size.relative.eC1_3 = eC1_3;
@@ -386,9 +372,9 @@ rt.within_comparasion.Control.effect_size.relative.eC2_3 = eC2_3;
 
 % Calculating Hedge's g effect size values
 
-mesC1_2 = mes(MRTC1.',MRTC2.','hedgesg');
-mesC1_3 = mes(MRTC1.',MRTC3.','hedgesg');
-mesC2_3 = mes(MRTC2.',MRTC3.','hedgesg');
+mesC1_2 = mes(MRTCL.',MRTCP.','hedgesg');
+mesC1_3 = mes(MRTCL.',MRTC3.','hedgesg');
+mesC2_3 = mes(MRTCP.',MRTC3.','hedgesg');
 
 hgC1_2 = mesC1_2.hedgesg;
 hgC1_3 = mesC1_3.hedgesg;
