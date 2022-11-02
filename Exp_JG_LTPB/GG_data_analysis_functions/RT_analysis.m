@@ -57,7 +57,7 @@
 % 26/10/2022 by Pedro R. Pinheiro
 
 
-function [rt] = RT_analysis(data_control, data_LTPB)
+%function [rt] = RT_analysis(data_control, data_LTPB)
 
 % Control group
 
@@ -91,6 +91,8 @@ for par = 1:(size(data_control,1)/1000)
 
 end
 
+MRTC1(4) = [];
+
 %%Block 2 - Control
 
 RTC2 = 0;
@@ -104,6 +106,7 @@ for par = 1:(size(data_control,1)/1000)
     RTC2=0;
 end
 
+MRTC2(4) = [];
 
 %Block 3 - Control
 
@@ -117,6 +120,7 @@ for par = 1:(size(data_control,1)/1000)
     MRTC3(par) = RTC3/332;  
     RTC3=0;
 end
+MRTC3(4) = [];
 
 rt.response_times.Control.block_1 = MRTC1;
 rt.response_times.Control.block_2 = MRTC2;
@@ -190,7 +194,7 @@ MRT2=[MRTC2 MRTL2];
 MRT3=[MRTC3 MRTL3];
 MRTF = [MRT1 MRT2 MRT3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
 
-control_n = (size(data_control,1)/1000);
+control_n = (size(data_control,1)/1000) -1 ;
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
 grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
@@ -607,4 +611,4 @@ hgG = mes1.hedgesg;
 
 rt.global_comparasion.effect_size.hedges_g.hgG = hgG;
 
-end
+%end
