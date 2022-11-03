@@ -59,7 +59,7 @@
 
 
 
-function [rt] = RT_analysis(data_control, data_LTPB)
+%function [rt] = RT_analysis(data_control, data_LTPB)
 
 % Control group
 
@@ -93,6 +93,7 @@ for par = 1:(size(data_control,1)/1000)
 
 end
 
+% MRTCL(4) = [];
 
 
 % Prediction Phase - Control
@@ -107,6 +108,9 @@ for par = 1:(size(data_control,1)/1000)
     MRTCP(par) = RTCP/666;  
     RTCP=0;
 end
+
+% MRTCP(4) = [];
+
 
 rt.response_times.Control.learning_phase = MRTCL;
 rt.response_times.Control.prediction_phase = MRTCP;
@@ -213,12 +217,12 @@ rt.between_comparasion.assumption_check.var_check.pFP = pFP;
 
 %statiscal comparassion - parametric
 
-% [pL, ~] = ttest2 (MRTCL, MRTLL); % doing the 2-sample t-test for each block.
-% [pP, ~] = ttest2(MRTCP, MRTLP);
-% 
-% 
-% rt.between_comparasion.t_test.pL = pL;
-% rt.between_comparasion.t_test.pP = pP;
+[~, pL] = ttest2 (MRTCL, MRTLL); % doing the 2-sample t-test for each block.
+[~, pP] = ttest2(MRTCP, MRTLP);
+
+
+rt.between_comparasion.t_test.pL = pL;
+rt.between_comparasion.t_test.pP = pP;
 
 %statiscal comparassion - Non - parametric
 
@@ -571,4 +575,4 @@ rt.between_comparasion.effect_size.hedges_g.hgP = hgP;
 % 
 % rt.global_comparasion.effect_size.hedges_g.hgG = hgG;
 
-end
+%end
