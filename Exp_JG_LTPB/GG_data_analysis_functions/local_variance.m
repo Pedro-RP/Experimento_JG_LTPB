@@ -80,7 +80,7 @@ Lv_sc1 = 0;
 
 for par = 1:(size(data_control,1)/1000)
     for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sc1 = Lv_sc1 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+        Lv_sc1 = Lv_sc1 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
     end
     Lv_C1(par) = (3/333) * Lv_sc1;
     Lv_sc1 = 0;
@@ -94,7 +94,7 @@ Lv_sc2 = 0;
 
 for par = 1:(size(data_control,1)/1000)
     for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sc2 = Lv_sc2 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+        Lv_sc2 = Lv_sc2 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
     end
     Lv_C2(par) = (3/333) * Lv_sc2;
     Lv_sc2 = 0;
@@ -108,7 +108,7 @@ Lv_sc3 = 0;
 
 for par = 1:(size(data_control,1)/1000)
     for i = 669 : 999  % i goes from 1 to n-1
-        Lv_sc3 = Lv_sc3 + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+        Lv_sc3 = Lv_sc3 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
     end
     Lv_C3(par) = (3/331) * Lv_sc3;
     Lv_sc3 = 0;
@@ -144,7 +144,7 @@ Lv_sL1 = 0;
 
 for par = 1:(size(data_LTPB,1)/1000)
     for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sL1 = Lv_sL1 + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+        Lv_sL1 = Lv_sL1 + ((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2;
     end
     Lv_L1(par) = (3/333) * Lv_sL1;
     Lv_sL1 = 0;
@@ -156,7 +156,7 @@ Lv_sL2 = 0;
 
 for par = 1:(size(data_LTPB,1)/1000)
     for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sL2 = Lv_sL2 + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+        Lv_sL2 = Lv_sL2 + ((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2;
     end
     Lv_L2(par) = (3/333) * Lv_sL2;
     Lv_sL2 = 0;
@@ -168,7 +168,7 @@ Lv_sL3 = 0;
 
 for par = 1:(size(data_LTPB,1)/1000)
     for i = 669 : 999  % i goes from 1 to n-1
-        Lv_sL3 = Lv_sL3 + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+        Lv_sL3 = Lv_sL3 + ((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2;
     end
     Lv_L3(par) = (3/331) * Lv_sL3;
     Lv_sL3 = 0;

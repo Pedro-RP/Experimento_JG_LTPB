@@ -57,7 +57,7 @@
 % 26/10/2022 by Pedro R. Pinheiro
 
 
-%function [rt] = RT_analysis(data_control, data_LTPB)
+function [rt] = RT_analysis(data_control, data_LTPB)
 
 % Control group
 
@@ -611,4 +611,4 @@ hgG = mes1.hedgesg;
 
 rt.global_comparasion.effect_size.hedges_g.hgG = hgG;
 
-%end
+end

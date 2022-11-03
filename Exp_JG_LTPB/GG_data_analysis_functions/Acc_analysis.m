@@ -162,6 +162,7 @@ for par = 1:(size(data_LTPB,1)/1000)
     AL1=0;
 
 end
+%MAL1(5)=[];
 
 %%Block 2 - LTPB
 
@@ -176,7 +177,9 @@ for par = 1:(size(data_LTPB,1)/1000)
     AL2=0;
 end
 
-%Block 3 - Control
+%MAL2(5)=[];
+
+%Block 3 - LTPB
 
 AL3 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
@@ -189,6 +192,7 @@ for par = 1:(size(data_LTPB,1)/1000)
     AL3=0;
 end
 
+%MAL3(5)=[];
 
 acc.Accuracy.LTPB.block_1 = MAL1;
 acc.Accuracy.LTPB.block_2 = MAL2;
