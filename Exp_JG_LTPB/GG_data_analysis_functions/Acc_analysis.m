@@ -266,6 +266,17 @@ acc.between_comparasion.t_test.pb1 = pb1;
 acc.between_comparasion.t_test.pb2 = pb2;
 acc.between_comparasion.t_test.pb3 = pb3;
 
+
+%statiscal comparassion - Non - parametric
+
+[pb1] = ranksum (MAC1, MAL1);  %wilcoxon rank sum test
+[pb2] = ranksum (MAC2, MAL2);
+[pb3] = ranksum (MAC3, MAL3);
+
+acc.between_comparasion.w_test.pb1 = pb1;
+acc.between_comparasion.w_test.pb2 = pb2;
+acc.between_comparasion.w_test.pb3 = pb3;
+
 % calculating the relative effect size by relative mean difference 
 
 MMAC1 = mean (MAC1);
