@@ -512,7 +512,7 @@ Lv_scG = 0;
 
 for par = 1:(size(data_control,1)/1000)
     for i = 1 : 999  % i goes from 1 to n-1
-        Lv_scG = Lv_scG + (((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2);
+        Lv_scG = Lv_scG + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
     end
     Lv_CG(par) = (3/999) * Lv_scG;
     Lv_scG = 0;
@@ -522,7 +522,7 @@ Lv_scL = 0;
 
 for par = 1:(size(data_LTPB,1)/1000)
     for i = 1 : 999  % i goes from 1 to n-1
-        Lv_scL = Lv_scL + (((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2);
+        Lv_scL = Lv_scL + ((RT2{par}(i) - RT2{par}(i+1))/(RT2{par}(i) + RT2{par}(i+1))).^2;
     end
     Lv_LG(par) = (3/999) * Lv_scL;
     Lv_scL = 0;
