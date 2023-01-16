@@ -35,7 +35,7 @@
 % - The "within_comparasion" section deals with comparasions between the 
 % accuracy data of different blocks of the same group. In "assumption
 % check", it is possible to check the assumptions required for applying paired
-% parametrical tests to the data sets, namely, normality of distribuitions
+% parametric tests to the data sets, namely, normality of distribuitions
 % and equal variance between pairs of blocks. In "rep_means_anova", it is
 % possible to see the full table and the p-value of a repeated measures
 % ANOVA applied to the data of an individual group (corrected with de GG method
@@ -308,9 +308,9 @@ acc.between_comparasion.effect_size.hedges_g.hg1 = hg1;
 acc.between_comparasion.effect_size.hedges_g.hg2 = hg2;
 acc.between_comparasion.effect_size.hedges_g.hg3 = hg3;
 
-%%% Comparation Within Groups
+%%%% Comparation Within Groups
 
-%% Control Group
+%%% Control Group
 
 %Boxplot
 
@@ -363,6 +363,7 @@ wd_C = table([1 2 3]','VariableNames',{'Blocks'});
 
 rm_C = fitrm(a_C,'Block1-Block3~1','WithinDesign',wd_C);
 
+%% Parametric tests
 % Repeated Measures ANOVA
 
 ranovatbl_C = ranova(rm_C);
@@ -397,6 +398,31 @@ acc.within_comparasion.Control.t_test.pC1_2 = pC1_2;
 acc.within_comparasion.Control.t_test.pC1_3 = pC1_3;
 acc.within_comparasion.Control.t_test.pC2_3 = pC2_3;
 
+%% Non-parametric tests
+
+% Friedman test (alternative to the one way repeated measures ANOVA)
+
+[pFri_C,Fritbl_C] = friedman(M_C); 
+
+acc.within_comparasion.Control.Friedman_test.pFri_C = pFri_C;
+acc.within_comparasion.Control.Friedman_test.Fritbl_C = Fritbl_C;
+
+% Signed rank Wilcoxon test with bonferroni correction. p-values higher than
+% 1 should be interpreted as 1.
+
+pwC1_2 = signrank(MAC1, MAC2);
+pwC1_2 = pwC1_2*3; %bonferoni correction for multiple comparasions
+
+pwC1_3 = signrank(MAC1, MAC3);
+pwC1_3 = pwC1_3*3; 
+
+pwC2_3 = signrank(MAC2, MAC3);
+pwC2_3 = pwC2_3*3; 
+
+acc.within_comparasion.Control.w_test.pC1_2 = pwC1_2;
+acc.within_comparasion.Control.w_test.pC1_3 = pwC1_3;
+acc.within_comparasion.Control.w_test.pC2_3 = pwC2_3;
+
 % calculating the relative effect size by relative mean difference 
 
 MMAC1 = mean (MAC1);
@@ -425,7 +451,7 @@ acc.within_comparasion.Control.effect_size.hedges_g.hgC1_2 = hgC1_2;
 acc.within_comparasion.Control.effect_size.hedges_g.hgsC1_3 = hgC1_3;
 acc.within_comparasion.Control.effect_size.hedges_g.hgC2_3 = hgC2_3;
 
-%% LTPB Group
+%%% LTPB Group
 
 %Boxplot
 
@@ -510,6 +536,28 @@ pL2_3 = pL23*3; %bonferoni correction for multiple comparasions
 acc.within_comparasion.LTPB.t_test.pL1_2 = pL1_2;
 acc.within_comparasion.LTPB.t_test.pL1_3 = pL1_3;
 acc.within_comparasion.LTPB.t_test.pL2_3 = pL2_3;
+
+% Friedman test (alternative to the one way repeated measures ANOVA)
+
+[pFri_L,Fritbl_L] = friedman(M_L); 
+
+acc.within_comparasion.LTPB.Friedman_test.pFri_L = pFri_L;
+acc.within_comparasion.LTPB.Friedman_test.Fritbl_L = Fritbl_L;
+
+% Signed rank Wilcoxon test with bonferroni correction.
+
+pwL1_2 = signrank(MAL1, MAL2);
+pwL1_2 = pwL1_2*3; %bonferoni correction for multiple comparasions
+
+pwL1_3 = signrank(MAL1, MAL3);
+pwL1_3 = pwL1_3*3; 
+
+pwL2_3 = signrank(MAL2, MAL3);
+pwL2_3 = pwL2_3*3; 
+
+acc.within_comparasion.LTPB.w_test.pL1_2 = pwL1_2;
+acc.within_comparasion.LTPB.w_test.pL1_3 = pwL1_3;
+acc.within_comparasion.LTPB.w_test.pL2_3 = pwL2_3;
 
 % calculating the relative effect size by relative mean difference 
 
