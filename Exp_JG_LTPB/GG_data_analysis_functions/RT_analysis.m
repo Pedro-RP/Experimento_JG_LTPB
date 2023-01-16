@@ -401,9 +401,9 @@ rt.within_comparasion.Control.effect_size.relative.eC2_3 = eC2_3;
 
 % Calculating Hedge's g effect size values
 
-mesC1_2 = mes(MRTC1.',MRTC2.','hedgesg');
-mesC1_3 = mes(MRTC1.',MRTC3.','hedgesg');
-mesC2_3 = mes(MRTC2.',MRTC3.','hedgesg');
+mesC1_2 = mes(MRTC1.',MRTC2.','hedgesg', 'isDep',1);
+mesC1_3 = mes(MRTC1.',MRTC3.','hedgesg', 'isDep',1);
+mesC2_3 = mes(MRTC2.',MRTC3.','hedgesg', 'isDep',1);
 
 hgC1_2 = mesC1_2.hedgesg;
 hgC1_3 = mesC1_3.hedgesg;
@@ -515,9 +515,9 @@ rt.within_comparasion.LTPB.effect_size.relative.eL2_3 = eL2_3;
 
 % Calculating Hedge's g effect size values
 
-mesL1_2 = mes(MRTL1.',MRTL2.','hedgesg');
-mesL1_3 = mes(MRTL1.',MRTL3.','hedgesg');
-mesL2_3 = mes(MRTL2.',MRTL3.','hedgesg');
+mesL1_2 = mes(MRTL1.',MRTL2.','hedgesg', 'isDep',1);
+mesL1_3 = mes(MRTL1.',MRTL3.','hedgesg', 'isDep',1);
+mesL2_3 = mes(MRTL2.',MRTL3.','hedgesg', 'isDep',1);
 
 hgL1_2 = mesL1_2.hedgesg;
 hgL1_3 = mesL1_3.hedgesg;
