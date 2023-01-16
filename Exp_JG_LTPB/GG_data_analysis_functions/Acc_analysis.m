@@ -269,13 +269,13 @@ acc.between_comparasion.t_test.pb3 = pb3;
 
 %statiscal comparassion - Non - parametric
 
-[pb1] = ranksum (MAC1, MAL1);  %wilcoxon rank sum test
-[pb2] = ranksum (MAC2, MAL2);
-[pb3] = ranksum (MAC3, MAL3);
+[wpb1] = ranksum (MAC1, MAL1);  %wilcoxon rank sum test
+[wpb2] = ranksum (MAC2, MAL2);
+[wpb3] = ranksum (MAC3, MAL3);
 
-acc.between_comparasion.w_test.pb1 = pb1;
-acc.between_comparasion.w_test.pb2 = pb2;
-acc.between_comparasion.w_test.pb3 = pb3;
+acc.between_comparasion.w_test.pb1 = wpb1;
+acc.between_comparasion.w_test.pb2 = wpb2;
+acc.between_comparasion.w_test.pb3 = wpb3;
 
 % calculating the relative effect size by relative mean difference 
 
@@ -597,12 +597,18 @@ acc.global_comparasion.assumption_check.norm_check.pGL = pGL;
 
 acc.global_comparasion.assumption_check.var_check.pFG = pFG;
 
-%statiscal comparassion
+%statiscal comparassion - Parametric
 
 [~, pG] = ttest2 (GAC, GAL); % doing the 2-sample t-test.
 
 
 acc.global_comparasion.t_test.pG = pG;
+
+%statiscal comparassion - Non - parametric
+
+[wpG] = ranksum (GAC, GAL);  %wilcoxon rank sum test
+
+acc.global_comparasion.w_test.pG = wpG;
 
 
 % calculating the relative effect size by relative mean difference

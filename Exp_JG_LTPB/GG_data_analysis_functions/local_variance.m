@@ -240,7 +240,7 @@ lv.between_comparasion.assumption_check.var_check.pF1 = pF1;
 lv.between_comparasion.assumption_check.var_check.pF2 = pF2;
 lv.between_comparasion.assumption_check.var_check.pF3 = pF3;
 
-%statiscal comparassion
+%statiscal comparassion -> Parametrical
 
 [~, pb1] = ttest2 (Lv_C1, Lv_L1); % doing the 2-sample t-test for each block.
 [~, pb2] = ttest2 (Lv_C2, Lv_L2);
@@ -249,6 +249,18 @@ lv.between_comparasion.assumption_check.var_check.pF3 = pF3;
 lv.between_comparasion.t_test.pb1 = pb1;
 lv.between_comparasion.t_test.pb2 = pb2;
 lv.between_comparasion.t_test.pb3 = pb3;
+
+%statiscal comparassion -> Non - Parametrical (equal varainces assumed)
+
+[wpb1] = ranksum (Lv_C1, Lv_L1);  %wilcoxon rank sum test
+[wpb2] = ranksum (Lv_C2, Lv_L2);
+[wpb3] = ranksum (Lv_C3, Lv_L3);
+
+lv.between_comparasion.w_test.pb1 = wpb1;
+lv.between_comparasion.w_test.pb2 = wpb2;
+lv.between_comparasion.w_test.pb3 = wpb3;
+
+
 
 % calculating the relative effect size by relative mean difference 
 
@@ -581,6 +593,12 @@ lv.global_comparasion.assumption_check.var_check.pFG = pFG;
 
 
 lv.global_comparasion.t_test.pG = pG;
+
+%statiscal comparassion - Non - parametric
+
+[wpG] = ranksum (Lv_CG, Lv_LG);  %wilcoxon rank sum test
+
+lv.global_comparasion.w_test.pG = wpG;
 
 
 % calculating the relative effect size by relative mean difference 
