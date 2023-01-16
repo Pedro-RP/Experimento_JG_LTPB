@@ -66,8 +66,11 @@ for i = 1:size(data_control,1)
 end
 
 a=1;
+nt = 1000; %number of trials in the experiment
 
-for par = 1:(size(data_control,1)/1000) 
+
+for par = 1:(size(data_control,1)/nt) 
+    
 RT1{par}=T1(a:a+999); 
 
 a=a+1000;
@@ -82,11 +85,12 @@ for par = 1:(size(data_control,1)/1000)
     for i = 1 : 333  % i goes from 1 to n-1
         Lv_sc1 = Lv_sc1 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
     end
+    
     Lv_C1(par) = (3/333) * Lv_sc1;
     Lv_sc1 = 0;
 end
 
- Lv_C1(7) = [];
+ %Lv_C1(7) = [];
 
 % Control - Block 2
 
@@ -100,7 +104,7 @@ for par = 1:(size(data_control,1)/1000)
     Lv_sc2 = 0;
 end
 
-Lv_C2(7) = [];
+%Lv_C2(7) = [];
 
 % Control - Block 3
 
@@ -114,7 +118,7 @@ for par = 1:(size(data_control,1)/1000)
     Lv_sc3 = 0;
 end
 
-Lv_C3(7) = [];
+%Lv_C3(7) = [];
 
 %Building a struct to store the results
 
@@ -187,7 +191,7 @@ Lv2=[Lv_C2 Lv_L2];
 Lv3=[Lv_C3 Lv_L3];
 Lvf = [Lv1 Lv2 Lv3]; 
 
-control_n = (size(data_control,1)/1000) -1;
+control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
 grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
