@@ -1,15 +1,24 @@
 L = [41, 39, 39, 44, 35, 26, 44, 31, 45, 47];
 C = [25, 59, 29, 27, 38, 49, 31, 60, 52, 23];
 
+%Checking if the distribuition are normal
 
 [~,~,pC] = swtest_norm(C.');
 [~,~,pL] = swtest_norm(L.');
 
+% Checking if the distribuitions have the same variance
+
 [~, pF] = vartest2 (C, L);
 
+% 2 sample t-test (parametric)
 [h,pt] = ttest2(C,L);
 
+% Wilcoxon ranksum test (nonparametric/ equal variances)
 pW = ranksum(C,L);
+
+% Brunner - Munzel test (nonparametric / different variances)
+
+[pB] = brunner_munzel(C, L); 
 
 grp = [zeros(1,10), ones(1,10)];
 
