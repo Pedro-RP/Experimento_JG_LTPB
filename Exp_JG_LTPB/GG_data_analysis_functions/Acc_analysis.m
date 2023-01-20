@@ -308,6 +308,21 @@ acc.between_comparasion.effect_size.hedges_g.hg1 = hg1;
 acc.between_comparasion.effect_size.hedges_g.hg2 = hg2;
 acc.between_comparasion.effect_size.hedges_g.hg3 = hg3;
 
+% Calculating Cohen's U3 (nonparametric effect size measure)
+
+ mesU1 = mes(MAC1.',MAL1.','U3');
+ mesU2 = mes(MAC2.',MAL2.','U3');
+ mesU3 = mes(MAC3.',MAL3.','U3');
+
+U3_1 = mesU1.U3;
+U3_2 = mesU2.U3;
+U3_3 = mesU3.U3;
+
+acc.between_comparasion.effect_size.U3.U3_1 = U3_1;
+acc.between_comparasion.effect_size.U3.U3_2 = U3_2;
+acc.between_comparasion.effect_size.U3.U3_3 = U3_3;
+
+
 %%%% Comparation Within Groups
 
 %%% Control Group
@@ -448,8 +463,24 @@ hgC1_3 = mesC1_3.hedgesg;
 hgC2_3 = mesC2_3.hedgesg;
 
 acc.within_comparasion.Control.effect_size.hedges_g.hgC1_2 = hgC1_2;
-acc.within_comparasion.Control.effect_size.hedges_g.hgsC1_3 = hgC1_3;
+acc.within_comparasion.Control.effect_size.hedges_g.hgC1_3 = hgC1_3;
 acc.within_comparasion.Control.effect_size.hedges_g.hgC2_3 = hgC2_3;
+
+% Calculating Cohen's U3 
+
+ mesUC1_2 = mes(MAC2.',MAC1.','U3');
+ mesUC1_3 = mes(MAC3.',MAC1.','U3');
+ mesUC2_3 = mes(MAC3.',MAC2.','U3');
+
+U3C_1_2 = mesUC1_2.U3;
+U3C_1_3 = mesUC1_3.U3;
+U3C_2_3 = mesUC2_3.U3;
+
+acc.within_comparasion.Control.effect_size.U3.U3C_1_2 = U3C_1_2;
+acc.within_comparasion.Control.effect_size.U3.U3C_1_3 = U3C_1_3;
+acc.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
+
+
 
 %%% LTPB Group
 
@@ -587,6 +618,20 @@ acc.within_comparasion.LTPB.effect_size.hedges_g.hgL1_2 = hgL1_2;
 acc.within_comparasion.LTPB.effect_size.hedges_g.hgL1_3 = hgL1_3;
 acc.within_comparasion.LTPB.effect_size.hedges_g.hgL2_3 = hgL2_3;
 
+% Calculating Cohen's U3 
+
+ mesUL1_2 = mes(MAL2.',MAL1.','U3');
+ mesUL1_3 = mes(MAL3.',MAL1.','U3');
+ mesUL2_3 = mes(MAL3.',MAL2.','U3');
+
+U3L_1_2 = mesUL1_2.U3;
+U3L_1_3 = mesUL1_3.U3;
+U3L_2_3 = mesUL2_3.U3;
+
+acc.within_comparasion.LTPB.effect_size.U3.U3L_1_2 = U3L_1_2;
+acc.within_comparasion.LTPB.effect_size.U3.U3L_1_3 = U3L_1_3;
+acc.within_comparasion.LTPB.effect_size.U3.U3L_2_3 = U3L_2_3;
+
 %%% Global comparasion
 
 
@@ -676,5 +721,14 @@ mesG = mes(GAL.',GAC.','hedgesg');
 hgG = mes1.hedgesg;
 
 acc.global_comparasion.effect_size.hedges_g.hgG = hgG;
+
+% Calculating Cohen's U3 
+
+mesUG = mes(GAC.',GAL.','U3');
+
+U3G = mesUG.U3;
+
+acc.global_comparasion.effect_size.U3.U3G = U3G
+
 
 end
