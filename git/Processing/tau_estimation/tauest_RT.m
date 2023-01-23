@@ -16,12 +16,6 @@
 
 function [tau_est] = tauest_RT(alphal, rt, chain, show)
 
-    % Importing the functions for the graphical representation
-
-    addpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/Scripts Noslen');
-    addpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/Scripts Noslen/EstimateContextTree');
-    addpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/Scripts Noslen/DrawContextTree');
-
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     A = zeros(1,alphal);
     for a = 1:alphal
@@ -82,7 +76,6 @@ function [tau_est] = tauest_RT(alphal, rt, chain, show)
     end
 
     if show == 1
-    figure
     draw_contexttree(tau_est, A)
     end
 end

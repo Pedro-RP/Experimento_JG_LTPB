@@ -1,10 +1,11 @@
-% [ids, vids, tauofid, gametest, trees, treesizes] = data_setaspects(data, ntrials)
+% [ids, vids, tauofid, gametest, trees, treesizes] = data_setaspects(data, ntrials, pathtogit)
 %
 % This function returns the aspects of the dataset.
 %
 % INPUT:
 % data = data matrix.
 % ntrials = number of trials in the goalkeeper game experiment.
+% pathtogit = adress of the git folder
 %
 % OUTPUT:
 % ids = unique ids in the dataset
@@ -16,7 +17,7 @@
 %
 % Author: Paulo Passos  date: 11/06/2021
 
-function [ids, vids, tauofid, gametest, trees, treesizes] = data_setaspects(data, ntrials)
+function [ids, vids, tauofid, gametest, trees, treesizes] = data_setaspects(data, ntrials,pathtogit)
 ids = unique(data(:,6)); % num. of participants
 
 trees = [];
@@ -71,7 +72,7 @@ tauofid = aux_tab;
 treesizes = zeros(length(trees),1);
 
 for a = 1:ntau
-   tree_file_address = ['C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\files_for_reference\tree_behave' num2str(trees(a)) '.txt' ];
+   tree_file_address = [pathtogit '/files_for_reference/tree_behave' num2str(trees(a)) '.txt' ];
    [contexts, ~, ~, ~] = build_treePM (tree_file_address);
    treesizes(a) = length(contexts);
 end

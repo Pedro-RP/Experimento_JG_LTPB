@@ -21,13 +21,14 @@ hi = means + disp;
 
 hp = patch([x; x(end:-1:1); x(1)], [lo; hi(end:-1:1); lo(1)], 'r');
 hold on;
-hl = plot(x,means, '.'); % hl = line(x,means);
+hl = plot(x,means, '-'); % hl = line(x,means);
 
 set(hp, 'facecolor', scolor, 'edgecolor', 'none');
 set(hl, 'color', lcolor);
 title(intitle)
 xlabel(inx)
 ylabel(iny)
-axis(acsis)
-
+    if ~isempty(acsis)
+    axis(acsis)
+    end
 end

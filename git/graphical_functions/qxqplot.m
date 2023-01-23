@@ -14,13 +14,13 @@ function qxqplot(X_obs,X_exp,q)
     Qx = quantile(X_obs,q);Qnx = quantile(X_exp,q);
     plot(Qx, Qnx,'o','MarkerFaceColor','k','MarkerEdgeColor','k')
     hold on
-    plot(linspace(0,max([Qx, Qnx])),linspace(0,max([Qx, Qnx])),'--r','LineWidth',1)
-    xlim([0 max([Qx, Qnx])])
-    ylim([0 max([Qx, Qnx])])
+    plot(linspace(min([Qx, Qnx]),max([Qx, Qnx])),linspace(min([Qx, Qnx]),max([Qx, Qnx])),'--r','LineWidth',1)
+    xlim([min([Qx, Qnx]) max([Qx, Qnx])])
+    ylim([min([Qx, Qnx]) max([Qx, Qnx])])
     h = gca;
     h.YTick = h.XTick;
     %grid on
-    xlabel('quant. observed')
-    ylabel('quant. expected')
+    xlabel('$Q_{obs}$','Interpreter','latex','FontSize',13)
+    ylabel('$Q_{exp}$','Interpreter','latex','FontSize',13)
     axis square
 end

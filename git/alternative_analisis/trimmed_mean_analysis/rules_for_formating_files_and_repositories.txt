@@ -1,0 +1,7 @@
+#Rules for formatting files in this directory:
+#
+#folder names: The name of the folders should be written with lowercase letters. Individual words must be interspaced with the character <_>. 
+#
+#dates: Should follow the same rules of words, that is, for example 25102022 corresponds to a word indicating october 25 of 2022.
+#
+#files names: Should follow the same rules as folder names, but given likely problems in changing function names it is facultative for old #functions.

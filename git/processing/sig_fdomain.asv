@@ -1,0 +1,27 @@
+% [FM,f] = sig_fdomain(sigs,fs)
+%
+% Returns the frequency domain representation of sigs line-wise.
+% INPUT:
+% sigs = a matrix in which each line corresponds to a different signal.
+% fs = sampling frequency of the signal
+%
+% date: 14/04/2022    author: Paulo Roberto Cabral Passos
+
+
+function  [FM,f] = sig_fdomain(sigselection,fs)
+if rem(size(sigselection,2),2)~= 0
+   sigselection = sigselection(:,2:end);
+end
+L = size(sigselection,2);
+FM = zeros(size(sigselection,1),);
+for a = 1:size(sigselection,1)
+    sig = sigselection(a,:);
+    Fx = fft(sig);
+    f = fs*(0:(L/2))/L;
+    P2 = abs(Fx); 
+    P1 = P2(1:L/2+1);
+    P1(2:end-1) = 2*P1(2:end-1);
+    FM = [P1];
+end
+
+end

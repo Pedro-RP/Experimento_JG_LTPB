@@ -1,9 +1,7 @@
-% sbox_varsize(A, x_name, y_name, tit, box_names,sig_dif, acsis)
+% sbox_conection(A, x_name, y_name, tit, box_names,sig_dif, acsis)
 %
 % Draw a boxplot identifierwise. Also use komolgorov-smirnov test to verify
-% differences between the distributions. If there are diferences between
-% the distributions it shows a horizontal bar connecting the two
-% distributions.
+% differences between the distributions. 
 %
 % INPUT:
 % group_id = vecotor identifying which sample is from which data
@@ -17,10 +15,10 @@
 % acsis = change axis to the corresponding vector
 %
 % Author: Paulo Roberto Cabral Passos
-% Last Modified: 07/08/2020
-% Checked:
+% Last Modified: 19/04/2020
 
-function sbox_varsize(group_id, data,  x_name, y_name, tit, box_names, sig_dif, test, acsis)
+
+function sbox_conection(group_id, data,  x_name, y_name, tit, box_names, sig_dif, test, acsis)
 
 set(0,'defaultfigurecolor',[1 1 1])
 set(0, 'DefaultFigureRenderer', 'painters');
@@ -70,7 +68,19 @@ for a = 1:max(auxgroup)
     x = linspace(a - 0.125,a + 0.125);
     y = min(auxdata( find(auxgroup == a) ))*ones(1,length(x)); %#ok<FNDSB>
     plot(x,y, 'k','LineWidth',4)
-    plot((a + 0.025*randn(1,length(find(group_id == a)))), data( find(group_id == a) ), 'ob', 'MarkerSize', 10, 'MarkerFaceColor', 'b') %#ok<FNDSB>
+end
+
+cloud_x = zeros(length(find(group_id == a)),groups);
+cloud_y = zeros(size(cloud_x,1), size(cloud_x,2));
+
+for a = 1:groups
+cloud_x(:,a) = (a + 0.025*randn(1,length(find(group_id == a))));
+cloud_y(:,a) = data(find(group_id == a),1); %#ok<FNDSB>
+plot(cloud_x(:,a), cloud_y(:,a), 'ob', 'MarkerSize', 10, 'MarkerFaceColor', 'b') %#ok<FNDSB>
+end
+
+for a = 1:size(cloud_x,1)
+plot(cloud_x(a,:), cloud_y(a,:), '-', 'Color', 'b','LineWidth',0.25) 
 end
 
 if test ==1
@@ -101,10 +111,10 @@ end
 ax = gca;
 ax.XTick = 1:max(group_id);
 
-% DISABLED FOR MATLAB 2015 VERSION
-% for t = 1:length(ax.XTick)
-%     ax.XTickLabel{t,1} = box_names{t,1};
-% end
+
+for t = 1:length(ax.XTick)
+    ax.XTickLabel{t,1} = box_names{t,1};
+end
 
 xlabel(x_name, 'FontSize',14, 'Interpreter', 'Latex')
 ylabel(y_name, 'FontSize', 14, 'Interpreter', 'Latex')

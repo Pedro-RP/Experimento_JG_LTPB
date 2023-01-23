@@ -16,7 +16,7 @@
 function [contexts, PM, responses, rnds] = build_treePM (tree_file_address)
 
 fid = fopen(tree_file_address);
-des = fscanf(fid ,'%s');
+des = fscanf(fid,'%s');
 fclose(fid); 
 
 contexts = cell(1,count(des,'('));
@@ -38,7 +38,7 @@ end
 
 
 pm_des = data{2};
-pm_des = split(pm_des,'pm:'); 
+%pm_des = split(pm_des,'pm:'); DELETED FROM THE CODE IN 08/04/2022 (UNECESSARY)
 pm_des = replace(pm_des, '{','');pm_des = replace(pm_des, '}','');
 pm_des = split(pm_des,';');
 
