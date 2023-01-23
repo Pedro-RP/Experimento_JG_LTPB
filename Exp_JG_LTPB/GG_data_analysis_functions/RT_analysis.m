@@ -6,6 +6,7 @@
 % for comparasitions between groups and within the same group, the results
 % of said parametric tests for comparasions betweeen groups and within
 % the same group and also boxplots corresponding to said comparasions.
+% Nonparametric alternatives are also presented.
 % 
 % INPUT:
 %
@@ -26,11 +27,12 @@
 % both groups alongside each experimental blocks. In "assumption_check", it
 % is possible to see the Shapiro-Wilk normality test results for the data
 % contained in each block (p > 0.05 indicates normality) and also check if both populations in each of the three
-% blocks have the same variance, using a F test (p > 0.05 indicates normality). In "t_test", it is
+% blocks have the same variance, using a F test (p > 0.05 indicates equal variances). In "t_test", it is
 % possible to see the p-values of the 2-sample t-tests applied in each
 % block. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the LTPB group over the 
-% Control group. Figure 1 is a companion boxplot to this section.
+% Control group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
+% Cohen's U3 effect size measure. Figure 1 is a companion boxplot to this section.
 %
 % - The "within_comparasion" section deals with comparasions between the 
 % response time data of different blocks of the same group. In "assumption
@@ -43,7 +45,8 @@
 % possible to see the p-values of the paired-sample t-tests applied in each
 % pair of blocks. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of one block over the 
-% other. Figures 2 and 3 are a companion boxplot to this section.
+% other. The nonparametric alternatives includes the Wilcoxon Signed Ranks test and the
+% Cohen's U3 effect size measure. Figures 2 and 3 are a companion boxplot to this section.
 %
 % - The "global_comparasion" section deals with the comparasion between
 % both groups global mean response time values (considering the whole game as a single block).
@@ -52,9 +55,10 @@
 % In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
 % In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 4 is a companion boxplot to this section.
+% LTPB group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
+% Cohen's U3 effect size measure. Figure 4 is a companion boxplot to this section.
 %
-% 26/10/2022 by Pedro R. Pinheiro
+% 23/01/2023 by Pedro R. Pinheiro
 
 
 function [rt] = RT_analysis(data_control, data_LTPB)
@@ -244,7 +248,7 @@ rt.between_comparasion.assumption_check.var_check.pF1 = pF1;
 rt.between_comparasion.assumption_check.var_check.pF2 = pF2;
 rt.between_comparasion.assumption_check.var_check.pF3 = pF3;
 
-%statiscal comparassion -> arametric
+%statiscal comparassion -> Parametric
 
 [~, pb1] = ttest2 (MRTC1, MRTL1); % doing the 2-sample t-test for each block.
 [~, pb2] = ttest2 (MRTC2, MRTL2);
@@ -295,6 +299,20 @@ hg3 = mes3.hedgesg;
 rt.between_comparasion.effect_size.hedges_g.hg1 = hg1;
 rt.between_comparasion.effect_size.hedges_g.hg2 = hg2;
 rt.between_comparasion.effect_size.hedges_g.hg3 = hg3;
+
+% Calculating Cohen's U3 (nonparametric effect size measure)
+
+ mesU1 = mes(MRTC1.',MRTL1.','U3');
+ mesU2 = mes(MRTC2.',MRTL2.','U3');
+ mesU3 = mes(MRTC3.',MRTL3.','U3');
+
+U3_1 = mesU1.U3;
+U3_2 = mesU2.U3;
+U3_3 = mesU3.U3;
+
+rt.between_comparasion.effect_size.U3.U3_1 = U3_1;
+rt.between_comparasion.effect_size.U3.U3_2 = U3_2;
+rt.between_comparasion.effect_size.U3.U3_3 = U3_3;
 
 %%% Comparation Within Groups
 
@@ -438,6 +456,22 @@ rt.within_comparasion.Control.effect_size.hedges_g.hgC1_2 = hgC1_2;
 rt.within_comparasion.Control.effect_size.hedges_g.hgsC1_3 = hgC1_3;
 rt.within_comparasion.Control.effect_size.hedges_g.hgC2_3 = hgC2_3;
 
+% Calculating Cohen's U3 
+
+ mesUC1_2 = mes(MRTC2.',MRTC1.','U3');
+ mesUC1_3 = mes(MRTC3.',MRTC1.','U3');
+ mesUC2_3 = mes(MRTC3.',MRTC2.','U3');
+
+U3C_1_2 = mesUC1_2.U3;
+U3C_1_3 = mesUC1_3.U3;
+U3C_2_3 = mesUC2_3.U3;
+
+rt.within_comparasion.Control.effect_size.U3.U3C_1_2 = U3C_1_2;
+rt.within_comparasion.Control.effect_size.U3.U3C_1_3 = U3C_1_3;
+rt.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
+
+
+
 %% LTPB Group
 
 %Boxplot
@@ -577,6 +611,21 @@ rt.within_comparasion.LTPB.effect_size.hedges_g.hgL1_2 = hgL1_2;
 rt.within_comparasion.LTPB.effect_size.hedges_g.hgL1_3 = hgL1_3;
 rt.within_comparasion.LTPB.effect_size.hedges_g.hgL2_3 = hgL2_3;
 
+% Calculating Cohen's U3 
+
+ mesUL1_2 = mes(MRTL2.',MRTL1.','U3');
+ mesUL1_3 = mes(MRTL3.',MRTL1.','U3');
+ mesUL2_3 = mes(MRTL3.',MRTL2.','U3');
+
+U3L_1_2 = mesUL1_2.U3;
+U3L_1_3 = mesUL1_3.U3;
+U3L_2_3 = mesUL2_3.U3;
+
+rt.within_comparasion.LTPB.effect_size.U3.U3L_1_2 = U3L_1_2;
+rt.within_comparasion.LTPB.effect_size.U3.U3L_1_3 = U3L_1_3;
+rt.within_comparasion.LTPB.effect_size.U3.U3L_2_3 = U3L_2_3;
+
+
 %%% Global comparasion
 
 
@@ -664,5 +713,13 @@ mesG = mes(GTML.',GTMC.','hedgesg');
 hgG = mes1.hedgesg;
 
 rt.global_comparasion.effect_size.hedges_g.hgG = hgG;
+
+% Calculating Cohen's U3 
+
+mesUG = mes(GTMC.',GTML.','U3');
+
+U3G = mesUG.U3;
+
+rt.global_comparasion.effect_size.U3.U3G = U3G;
 
 end

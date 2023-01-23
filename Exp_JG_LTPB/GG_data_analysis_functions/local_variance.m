@@ -6,6 +6,7 @@
 % for comparasitions between groups and within the same group, the results
 % of said parametric tests for comparasions betweeen groups and within
 % the same group and also boxplots corresponding to said comparasions.
+% Nonparametric alternatives are also presented.
 % 
 % INPUT:
 %
@@ -30,7 +31,8 @@
 % possible to see the p-values of the 2-sample t-tests applied in each
 % block. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 1 is a companion boxplot to this section.
+% LTPB group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
+% Cohen's U3 effect size measure. Figure 1 is a companion boxplot to this section.
 %
 % - The "within_comparasion" section deals with comparasions between the 
 % local_variance data of different blocks of the same group. In "assumption
@@ -43,7 +45,8 @@
 % possible to see the p-values of the paired-sample t-tests applied in each
 % pair of blocks. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of one block over the 
-% other. Figures 2 and 3 are a companion boxplot to this section.
+% other. The nonparametric alternatives includes the Wilcoxon Signed Ranks test and the
+% Cohen's U3 effect size measure.  Figures 2 and 3 are a companion boxplot to this section.
 %
 % - The "global_comparasion" section deals with the comparasion between
 % both groups global local_variance values (considering the whole game as a single block).
@@ -52,9 +55,10 @@
 % In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
 % In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 4 is a companion boxplot to this section.
+% LTPB group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
+% Cohen's U3 effect size measure. Figure 4 is a companion boxplot to this section.
 %
-% 18/10/2022 by Pedro R. Pinheiro
+% 23/01/2023 by Pedro R. Pinheiro
 
 
 function [lv] = local_variance(data_control, data_LTPB)
@@ -293,6 +297,20 @@ lv.between_comparasion.effect_size.hedges_g.hg1 = hg1;
 lv.between_comparasion.effect_size.hedges_g.hg2 = hg2;
 lv.between_comparasion.effect_size.hedges_g.hg3 = hg3;
 
+% Calculating Cohen's U3 (nonparametric effect size measure)
+
+ mesU1 = mes(Lv_C1.',Lv_L1.','U3');
+ mesU2 = mes(Lv_C2.',Lv_L2.','U3');
+ mesU3 = mes(Lv_C3.',Lv_L3.','U3');
+
+U3_1 = mesU1.U3;
+U3_2 = mesU2.U3;
+U3_3 = mesU3.U3;
+
+lv.between_comparasion.effect_size.U3.U3_1 = U3_1;
+lv.between_comparasion.effect_size.U3.U3_2 = U3_2;
+lv.between_comparasion.effect_size.U3.U3_3 = U3_3;
+
 %%% Comparation Within Groups
 
 %% Control Group
@@ -433,6 +451,21 @@ lv.within_comparasion.Control.effect_size.hedges_g.hgC1_2 = hgC1_2;
 lv.within_comparasion.Control.effect_size.hedges_g.hgC1_3 = hgC1_3;
 lv.within_comparasion.Control.effect_size.hedges_g.hgC2_3 = hgC2_3;
 
+% Calculating Cohen's U3 
+
+ mesUC1_2 = mes(Lv_C2.',Lv_C1.','U3');
+ mesUC1_3 = mes(Lv_C3.',Lv_C1.','U3');
+ mesUC2_3 = mes(Lv_C3.',Lv_C2.','U3');
+
+U3C_1_2 = mesUC1_2.U3;
+U3C_1_3 = mesUC1_3.U3;
+U3C_2_3 = mesUC2_3.U3;
+
+lv.within_comparasion.Control.effect_size.U3.U3C_1_2 = U3C_1_2;
+lv.within_comparasion.Control.effect_size.U3.U3C_1_3 = U3C_1_3;
+lv.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
+
+
 %% LTPB Group
 
 %Boxplot
@@ -543,7 +576,7 @@ lv.within_comparasion.LTPB.w_test.pL1_2 = pwL1_2;
 lv.within_comparasion.LTPB.w_test.pL1_3 = pwL1_3;
 lv.within_comparasion.LTPB.w_test.pL2_3 = pwL2_3;
 
-% calculating the relative effect size by relative mean difference 
+% Calculating the relative effect size by relative mean difference 
 
 MLv_L1 = mean (Lv_L1);
 MLv_L2 = mean (Lv_L2);
@@ -570,6 +603,21 @@ hgL2_3 = mesL2_3.hedgesg;
 lv.within_comparasion.LTPB.effect_size.hedges_g.hgL1_2 = hgL1_2;
 lv.within_comparasion.LTPB.effect_size.hedges_g.hgL1_3 = hgL1_3;
 lv.within_comparasion.LTPB.effect_size.hedges_g.hgL2_3 = hgL2_3;
+
+% Calculating Cohen's U3 
+
+ mesUL1_2 = mes(Lv_L2.',Lv_L1.','U3');
+ mesUL1_3 = mes(Lv_L3.',Lv_L1.','U3');
+ mesUL2_3 = mes(Lv_L3.',Lv_L2.','U3');
+
+U3L_1_2 = mesUL1_2.U3;
+U3L_1_3 = mesUL1_3.U3;
+U3L_2_3 = mesUL2_3.U3;
+
+lv.within_comparasion.LTPB.effect_size.U3.U3L_1_2 = U3L_1_2;
+lv.within_comparasion.LTPB.effect_size.U3.U3L_1_3 = U3L_1_3;
+lv.within_comparasion.LTPB.effect_size.U3.U3L_2_3 = U3L_2_3;
+
 
 %%% Global comparasion
 
@@ -666,5 +714,13 @@ lv.global_comparasion.effect_size.relative.eG = eG;
 hgG = mesG.hedgesg;
 
 lv.global_comparasion.effect_size.hedges_g.hgG = hgG;
+
+% Calculating Cohen's U3 
+
+mesUG = mes(Lv_CG.',Lv_LG.','U3');
+
+U3G = mesUG.U3;
+
+lv.global_comparasion.effect_size.U3.U3G = U3G;
 
 end

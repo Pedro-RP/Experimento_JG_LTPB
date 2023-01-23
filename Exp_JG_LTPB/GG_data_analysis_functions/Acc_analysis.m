@@ -6,6 +6,7 @@
 % for comparasitions between groups and within the same group, the results
 % of said parametric tests for comparasions betweeen groups and within
 % the same group and also boxplots corresponding to said comparasions.
+% Nonparametric alternatives are also presented.
 % 
 % INPUT:
 %
@@ -26,11 +27,12 @@
 % both groups alongside each experimental blocks. In "assumption_check", it
 % is possible to see the Shapiro-Wilk normality test results for the data
 % contained in each block (p > 0.05 indicates normality) and also check if both populations in each of the three
-% blocks have the same variance, using a F test (p > 0.05 indicates normality). In "t_test", it is
+% blocks have the same variance, using a F test (p > 0.05 indicates equal variances). In "t_test", it is
 % possible to see the p-values of the 2-sample t-tests applied in each
 % block. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the LTPB group over the 
-% Control group. Figure 1 is a companion boxplot to this section.
+% Control group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
+% Cohen's U3 effect size measure.Figure 1 is a companion boxplot to this section.
 %
 % - The "within_comparasion" section deals with comparasions between the 
 % accuracy data of different blocks of the same group. In "assumption
@@ -43,7 +45,8 @@
 % possible to see the p-values of the paired-sample t-tests applied in each
 % pair of blocks. In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of one block over the 
-% other. Figures 2 and 3 are a companion boxplot to this section.
+% other. The nonparametric alternatives includes the Wilcoxon Signed Ranks test and the
+% Cohen's U3 effect size measure. Figures 2 and 3 are a companion boxplot to this section. 
 %
 % - The "global_comparasion" section deals with the comparasion between
 % both groups global accuracy values (considering the whole game as a single block).
@@ -52,9 +55,10 @@
 % In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
 % In "effect_size" it is possible to see both the relative effect
 % size and the hedge's g value effect size of the Control group over the 
-% LTPB group. Figure 4 is a companion boxplot to this section.
+% LTPB group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
+% Cohen's U3 effect size measure. Figure 4 is a companion boxplot to this section.
 %
-% 18/10/2022 by Pedro R. Pinheiro
+% 23/01/2023 by Pedro R. Pinheiro
 
 
 function [acc] = Acc_analysis(data_control, data_LTPB)
@@ -481,7 +485,6 @@ acc.within_comparasion.Control.effect_size.U3.U3C_1_3 = U3C_1_3;
 acc.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
 
 
-
 %%% LTPB Group
 
 %Boxplot
@@ -728,7 +731,7 @@ mesUG = mes(GAC.',GAL.','U3');
 
 U3G = mesUG.U3;
 
-acc.global_comparasion.effect_size.U3.U3G = U3G
+acc.global_comparasion.effect_size.U3.U3G = U3G;
 
 
 end
