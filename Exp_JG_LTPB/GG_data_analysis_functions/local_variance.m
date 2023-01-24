@@ -11,7 +11,7 @@
 % INPUT:
 %
 % data_control = data matrix from the control group.
-
+%
 % data_ltpb = data matrix from the LTPB group.
 %
 % OUTPUT:
