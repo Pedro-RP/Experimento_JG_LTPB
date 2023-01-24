@@ -402,7 +402,7 @@ lv.within_comparasion.Control.t_test.pC2_3 = pC2_3;
 
 % Friedman test (alternative to the one way repeated measures ANOVA)
 
-[pFri_C,Fritbl_C] = friedman(MLV_C); 
+[pFri_C,Fritbl_C] = friedman(MLV_C,1,'off'); 
 
 lv.within_comparasion.Control.Friedman_test.pFri_C = pFri_C;
 lv.within_comparasion.Control.Friedman_test.Fritbl_C = Fritbl_C;
@@ -556,7 +556,7 @@ lv.within_comparasion.LTPB.t_test.pL2_3 = pL2_3;
 
 % Friedman test (alternative to the one way repeated measures ANOVA)
 
-[pFri_L,Fritbl_L] = friedman(MLV_L); 
+[pFri_L,Fritbl_L] = friedman(MLV_L,1,'off'); 
 
 lv.within_comparasion.LTPB.Friedman_test.pFri_L = pFri_L;
 lv.within_comparasion.LTPB.Friedman_test.Fritbl_L = Fritbl_L;
