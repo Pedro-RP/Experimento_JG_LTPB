@@ -13,3 +13,4 @@ subplot(1,2,1)
 rts = gen_rts(partition, chain, 0.3, 1);
 alphal = 3;
 subplot(1,2,2)
+[tau_est1] = tauest_RT(alphal, rts, chain, 1)
