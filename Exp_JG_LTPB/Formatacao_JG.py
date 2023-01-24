@@ -72,7 +72,7 @@ files_group = os.listdir(path2)
 file_Controls = len(files_group)
 file_Patients = len(files_group)
 #print(files_group)
-Controls= ["T014","T021","T022","T024","T027","T028","T030",'T055', 'T057']
+Controls= ["T014","T021","T022","T024","T027","T028","T030",'T055', 'T057', 'T058']
 Patients= ["T006","T009","T010","T015","T016","T017","T051", "T052", 'T053', 'T054']  #mudar aqui caso seja necessário remover ou adicionar algum participante das análises posteriores.
 dataframes_control = []
 dataframes_patient = []
