@@ -1,8 +1,9 @@
-% function [tau_estC, tau_estL] =  est_treesLTPB (data_control, data_LTPB)
+% function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB)
 %
 % This function recieves the data from both groups of the experiment and
 % returns a figure for each data matrix containing all of the context
 % trees of the group, one tree for each participant.
+% The function also returns the mode tree for each group.
 %
 % INPUT:
 %
@@ -22,7 +23,13 @@
 % The column number represents the identification of the participant of whom the
 % tree belongs.
 %
-% 24/01/2023 by Pedro R. Pinheiro
+% mode_tauC = list of contexts present in the mode tree of the control
+% group.
+%
+% mode_tauL = list of contexts present in the mode tree of the LTPB
+% group.
+%
+% 26/01/2023 by Pedro R. Pinheiro
 
 
 
