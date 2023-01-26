@@ -26,12 +26,15 @@
 
 
 
-function [tau_estC, tau_estL] =  est_treesLTPB (data_control, data_LTPB)
+function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB)
 
 alphal = 3; %length of the alphabet of the stochastic chain
+N = 1000; %length of the stochastic chain;
+L = floor(log(N));
 
+%% Control group
 
-% Control group
+% Estimating individual trees
 
 for i = 1:size(data_control,1)
 
@@ -81,7 +84,13 @@ end
 
 suptitle('Context Trees of the Control Group') %title of the whole figure
 
-% LTPB group
+
+% Estimating the mode tree
+
+[mode_tauC] = taumode_est(alphal,tau_estC, L, 1, 0);
+title("Mode tree of the Control group");
+
+%% LTPB group
 
 
 for i = 1:size(data_LTPB,1)
@@ -115,6 +124,8 @@ for par = 1:(size(data_LTPB,1)/1000)
 
 end
 
+% Buiding the figure containing all of the context trees of the group
+
 nrowsL = ceil(((size(data_LTPB,1)/1000)/3));
 
 figure
@@ -129,5 +140,11 @@ for par = 1:(size(data_LTPB,1)/1000)
 end
 
 suptitle('Context Trees of the LTPB Group')
+
+% Estimating the mode tree
+
+[mode_tauL] = taumode_est(alphal,tau_estL, L, 1, 0);
+title('Mode tree of the LTPB group');
+
 
 end
