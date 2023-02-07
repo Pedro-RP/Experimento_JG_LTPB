@@ -37,7 +37,7 @@ end
 
 %figure('units','normalized','outerposition',[0 0 1 1])
 
-lw = 2; ms = 4;
+lw = 2; ms = 6;
 for a = 1:max(auxgroup)
     if rem(a,2) == 0
        clor = 'k';

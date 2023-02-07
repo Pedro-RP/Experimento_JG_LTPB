@@ -198,24 +198,24 @@ Lvf = [Lv1 Lv2 Lv3];
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
-grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
+grp =[ones(1,control_n),2*ones(1,LTPB_n),3*ones(1,control_n),4*ones(1,LTPB_n),5*ones(1,control_n),6*ones(1,LTPB_n)]; %grouping variable. 
+
+x_name = '';
+y_name = "Local variance";
+tit = 'Distribution of the Local Variance of each group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
 figure
-
-BLvf = boxplot(Lvf,grp); 
-
-title('Distribution of the Local Variance of each group in each block');
-ylabel("Local Variance");
+sbox_comp(grp', Lvf',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+xline(2.5)
+xline(4.5)
 ylim([0 2])
 yticks([0:0.2:2])
 xticks([1 2 3 4 5 6])
 xticklabels({'1st Block - Control','1st Block - LTPB', '2nd Block - Control', '2nd Block - LTPB','3rd Block - Control', '3rd Block - LTPB'})
-xline(2.5)
-xline(4.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+xlim([0.5 7])
 
 % Checking normality of the data samples
 
@@ -317,22 +317,22 @@ lv.between_comparasion.effect_size.U3.U3_3 = U3_3;
 
 %Boxplot
 
-Lvf_C = [Lv_C1.' Lv_C2.' Lv_C3.']; 
-figure
+Lvf_C = [Lv_C1 Lv_C2 Lv_C3]; 
+grp2 = [ones(1,control_n),2*ones(1, control_n),3*ones(1,control_n)];
 
-BLvf_C = boxplot(Lvf_C); 
-title('Distribution of the Local Variance of the Control Group in each block');
-ylabel("Local Variance");
-ylim([0 2])
-yticks([0:0.2:2])
-xticks([1 2 3 4 5 6])
-xticklabels({'1st Block - Control', '2nd Block - Control', '3rd Block - Control'})
+x_name = '';
+y_name = "Local Variance";
+tit = 'Distribution of the Local Variance of the Control Group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
+
+figure
+sbox_conection(grp2', Lvf_C',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+ylim([0 2])
+yticks([0:0.2:2])
 
 % Checking normality of the data samples
 
@@ -470,24 +470,22 @@ lv.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
 
 %Boxplot
 
-Lvf_L = [Lv_L1.' Lv_L2.' Lv_L3.']; 
+Lvf_L = [Lv_L1 Lv_L2 Lv_L3]; 
+grp2 = [ones(1,LTPB_n),2*ones(1, LTPB_n),3*ones(1,LTPB_n)];
+
+x_name = '';
+y_name = "Local Variance";
+tit = 'Distribution of the Local Variance of the LTPB Group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
 figure
-
-BLvf_L = boxplot(Lvf_L); 
-
-title('Distribution of the Local Variance of the LTPB Group in each block');
-ylabel("Local Variance");
-ylim([0 2])
-yticks([0:0.2:2])
-xticks([1 2 3 4 5 6])
-xticklabels({'1st Block - LTPB', '2nd Block - LTPB', '3rd Block - LTPB'})
+sbox_conection(grp2', Lvf_L',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+ylim([0 2])
+yticks([0:0.2:2])
 
 % Checking normality of the data samples
 
@@ -647,25 +645,22 @@ lv.local_variance.LTPB.global = Lv_LG;
 %Boxplot
 
 LvG = [Lv_CG Lv_LG]; 
+grp3 =[ones(1,control_n),2*ones(1,LTPB_n)]; 
 
-control_n = (size(data_control,1)/1000);
-LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
-
-grp =[zeros(1,control_n),ones(1,LTPB_n)]; %grouping variable. 
+x_name = '';
+y_name = "Local Variance";
+tit = 'Distribution of the Local Variance of each group in the whole experiment';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
 figure
-
-BLvG = boxplot(LvG,grp); 
-
-title('Distribution of the Local Variance of each group in the whole experiment');
-ylabel("Local Variance");
+sbox_comp(grp3', LvG',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 ylim([0 2])
 yticks([0:0.2:2])
-xticks([1 2 3 4 5 6])
+xline(1.5)
+xticks([1 2])
 xticklabels({'Control','LTPB'})
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
 % Checking normality of the data samples
 

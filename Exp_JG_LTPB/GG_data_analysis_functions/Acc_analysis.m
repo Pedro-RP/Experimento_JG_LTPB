@@ -222,7 +222,6 @@ sig_dif = 1;
 test = 0;
 acsis = [];
 
-% Boxplots with the individual data points
 figure
 sbox_comp(grp', MAF',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 xline(2.5)
@@ -333,22 +332,23 @@ acc.between_comparasion.effect_size.U3.U3_3 = U3_3;
 
 %Boxplot
 
-f_C = [MAC1.' MAC2.' MAC3.']; 
-figure
+x_name = '';
+y_name = "Accuracy";
+tit = 'Distribution of the Accuracy of the Control Group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
+d_C = [MAC1 MAC2 MAC3];
+grp2 = [ones(1,control_n),2*ones(1, control_n),3*ones(1,control_n)];
 
-Bf_C = boxplot(f_C); 
-title('Distribution of the Accuracy of the Control Group in each block');
-ylabel("Accuracy");
+figure
+sbox_conection(grp2', d_C',  x_name, y_name, tit, {'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2 3])
 xticklabels({'1st Block', '2nd Block', '3rd Block'})
 xline(2.5)
 xline(1.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
 % Checking normality of the data samples
 
@@ -653,28 +653,24 @@ acc.Accuracy.LTPB.global = GAL;
 
 AG = [GAC GAL];
 
-control_n = (size(data_control,1)/1000);
-LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
+grp3 =[ones(1,control_n),2*ones(1,LTPB_n)]; 
 
-grp =[zeros(1,control_n),ones(1,LTPB_n)]; 
+%Boxplot
+
+x_name = '';
+y_name = "Accuracy";
+tit = 'Distribution of the Accuracy of each group considering the whole experiment';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
 figure
-
-BRTG = boxplot(AG,grp); 
-
-title('Distribution of the Accuracy of each group considering the whole experiment');
-ylabel("Accuracy");
+sbox_comp(grp3', AG',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2])
 xticklabels({'Control','LTPB'})
 xline(1.5)
-
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
-
 
 % Checking normality of the data samples
 

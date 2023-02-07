@@ -63,7 +63,7 @@
 
 function [rt] = RT_analysis(data_control, data_LTPB)
 
-% Control group
+%Control group
 
 for i = 1:size(data_control,1)
 
@@ -95,7 +95,6 @@ for par = 1:(size(data_control,1)/1000)
 
 end
 
-MRTC1(4) = [];
 
 %%Block 2 - Control
 
@@ -110,7 +109,6 @@ for par = 1:(size(data_control,1)/1000)
     RTC2=0;
 end
 
-MRTC2(4) = [];
 
 %Block 3 - Control
 
@@ -124,7 +122,6 @@ for par = 1:(size(data_control,1)/1000)
     MRTC3(par) = RTC3/332;  
     RTC3=0;
 end
-MRTC3(4) = [];
 
 rt.response_times.Control.block_1 = MRTC1;
 rt.response_times.Control.block_2 = MRTC2;
@@ -198,27 +195,27 @@ MRT2=[MRTC2 MRTL2];
 MRT3=[MRTC3 MRTL3];
 MRTF = [MRT1 MRT2 MRT3]; %Mean Response Times Full -> arrange the data in a single vector so the boxplot function can work.
 
-control_n = (size(data_control,1)/1000) -1 ;
+control_n = (size(data_control,1)/1000) ;
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
-grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
+grp =[ones(1,control_n),2*ones(1,LTPB_n),3*ones(1,control_n),4*ones(1,LTPB_n),5*ones(1,control_n),6*ones(1,LTPB_n)]; %grouping variable. 
 
-figure 
+x_name = '';
+y_name = "Mean Response Time(s)";
+tit = 'Distribution of the Mean Response Times of each group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
-BRTF = boxplot(MRTF,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
-
-title('Distribution of the Mean Response Times of each group in each block');
-ylabel("Mean Response Time(s)");
+figure
+sbox_comp(grp', MRTF',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+xline(2.5)
+xline(4.5)
 ylim([0 2.5])
 yticks([0:0.2:2.5])
 xticks([1 2 3 4 5 6])
 xticklabels({'1st Block - Control','1st Block - LTPB', '2nd Block - Control', '2nd Block - LTPB','3rd Block - Control', '3rd Block - LTPB'})
-xline(2.5)
-xline(4.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+xlim([0.5 7])
 
 
 % Checking normality of the data samples
@@ -320,22 +317,22 @@ rt.between_comparasion.effect_size.U3.U3_3 = U3_3;
 
 %Boxplot
 
-f_C = [MRTC1.' MRTC2.' MRTC3.']; 
-figure
+d_C = [MRTC1 MRTC2 MRTC3]; 
+grp2 = [ones(1,control_n),2*ones(1, control_n),3*ones(1,control_n)];
 
-Bf_C = boxplot(f_C); 
-title('Distribution of the Mean Response Times of the Control Group in each block');
-ylabel("Mean Response Time (s)");
-ylim([0 2.5])
-yticks([0:0.2:2])
-xticks([1 2 3])
-xticklabels({'1st Block', '2nd Block', '3rd Block'})
+x_name = '';
+y_name = "Mean Response Time(s)";
+tit = 'Distribution of the Mean Response Times of the Control group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
+
+figure
+sbox_conection(grp2', d_C',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+ylim([0 2.5])
+yticks([0:0.2:2.5])
 
 % Checking normality of the data samples
 
@@ -475,25 +472,24 @@ rt.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
 %% LTPB Group
 
 %Boxplot
+%Boxplot
 
-f_L = [MRTL1.' MRTL2.' MRTL3.']; 
+d_L = [MRTL1 MRTL2 MRTL3]; 
+grp2 = [ones(1,LTPB_n),2*ones(1, LTPB_n),3*ones(1,LTPB_n)];
+
+x_name = '';
+y_name = "Mean Response Time(s)";
+tit = 'Distribution of the Mean Response Times of the LTPB group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
 figure
-
-Bf_L = boxplot(f_L); 
-
-title('Distribution of the Mean Response Times of the LTPB Group in each block');
-ylabel("Mean Response Time (s)");
-ylim([0 2.5])
-yticks([0:0.2:2])
-xticks([1 2 3])
-xticklabels({'1st Block', '2nd Block', '3rd Block'})
+sbox_conection(grp2', d_L',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
+ylim([0 2.5])
+yticks([0:0.2:2.5])
 
 % Checking normality of the data samples
 
@@ -644,27 +640,22 @@ rt.response_times.LTPB.global = GTML;
 
 RTG = [GTMC GTML];
 
-control_n = (size(data_control,1)/1000);
-LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
+grp3 =[ones(1,control_n),2*ones(1,LTPB_n)]; 
 
-grp =[zeros(1,control_n),ones(1,LTPB_n)]; 
+x_name = '';
+y_name = "Mean Response Time (s)";
+tit = 'Distribution of the Mean Response Times of each group considering the whole experiment';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
 figure
-
-BRTG = boxplot(RTG,grp); 
-
-title('Distribution of the Mean Response Times of each group considering the whole experiment');
-ylabel("Mean Response Time (s)");
+sbox_comp(grp3', RTG',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 ylim([0 2.5])
 yticks([0:0.2:2.5])
+xline(1.5)
 xticks([1 2])
 xticklabels({'Control','LTPB'})
-xline(1.5)
-
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
 
 % Checking normality of the data samples
