@@ -27,7 +27,7 @@ auxdata = []; auxgroup = [];
 groups = max(group_id);
 for a = 1:groups
    auxd = data(find(group_id == a),1);
-   %auxd = auxd(find(isoutlier(auxd) == 0),1); DISABLED FOR MATLAB2015
+   auxd = auxd(find(isoutlier(auxd) == 0),1); %DISABLED FOR MATLAB2015
    %VERSION
    auxdata = [auxdata; auxd];
    auxgroup = [auxgroup; a*ones(length(auxd),1)];

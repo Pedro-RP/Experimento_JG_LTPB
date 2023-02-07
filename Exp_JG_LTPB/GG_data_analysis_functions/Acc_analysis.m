@@ -213,25 +213,25 @@ MAF = [MA1 MA2 MA3];
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 
-grp =[zeros(1,control_n),ones(1,LTPB_n),2*ones(1,control_n),3*ones(1,LTPB_n),4*ones(1,control_n),5*ones(1,LTPB_n)]; %grouping variable. 
+grp =[ones(1,control_n),2*ones(1,LTPB_n),3*ones(1,control_n),4*ones(1,LTPB_n),5*ones(1,control_n),6*ones(1,LTPB_n)]; %grouping variable. 
 
-figure 
+x_name = '';
+y_name = "Accuracy";
+tit = 'Distribution of the Accuracy of each group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
 
-BRTF = boxplot(MAF,grp); % Boxplot Response Times Full is a boxplot showing the mean response time evolution between each experimental block.
-
-title('Distribution of the Accuracy of each group in each block');
-ylabel("Accuracy");
+% Boxplots with the individual data points
+figure
+sbox_comp(grp', MAF',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+xline(2.5)
+xline(4.5)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2 3 4 5 6])
 xticklabels({'1st Block - Control','1st Block - LTPB', '2nd Block - Control', '2nd Block - LTPB','3rd Block - Control', '3rd Block - LTPB'})
-xline(2.5)
-xline(4.5)
-
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
-
+xlim([0.5 7])
 
 % Checking normality of the data samples
 
@@ -489,14 +489,17 @@ acc.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
 
 %Boxplot
 
-f_L = [MAL1.' MAL2.' MAL3.']; 
+x_name = '';
+y_name = "Accuracy";
+tit = 'Distribution of the Accuracy of the LTPB Group in each block';
+sig_dif = 1;
+test = 0;
+acsis = [];
+d_L = [MAL1 MAL2 MAL3];
+grp2 = [ones(1,LTPB_n),2*ones(1,LTPB_n),3*ones(1,LTPB_n)];
 
 figure
-
-Bf_L = boxplot(f_L); 
-
-title('Distribution of the Accuracy of the LTPB Group in each block');
-ylabel("Accuracy");
+sbox_conection(grp2', d_L',  x_name, y_name, tit, {'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2 3])
@@ -504,9 +507,6 @@ xticklabels({'1st Block', '2nd Block', '3rd Block'})
 xline(2.5)
 xline(1.5)
 
-
-figureHandle = gcf;
-set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
 
 % Checking normality of the data samples
 
