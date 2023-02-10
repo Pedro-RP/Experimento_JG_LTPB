@@ -44,30 +44,30 @@ for a = 1:max(auxgroup)
     x = linspace(a - 0.265,a + 0.265); %x = linspace(a - 0.25,a + 0.25);
     y1 = q1*ones(1,length(x)); %y1 = q1*ones(1,length(x));
     y2 = q3*ones(1,length(x)); %y2 = q3*ones(1,length(x));
-    plot(x,y1,'k','LineWidth',4)
-    plot(x,y2,'k','LineWidth',4)
+    plot(x,y1,'k','LineWidth',2)
+    plot(x,y2,'k','LineWidth',2)
     w = linspace(q1,q3);
     x1 = (a-0.25)*ones(1,length(w));
     x2 = (a+0.25)*ones(1,length(w));
-    plot(x1,w, 'k','LineWidth',4)
-    plot(x2,w, 'k','LineWidth',4)
+    plot(x1,w, 'k','LineWidth',2)
+    plot(x2,w, 'k','LineWidth',2)
     % Drawing the Median
     y3 = prctile(auxdata( find(auxgroup == a) ),50)*ones(1,length(x)); %#ok<FNDSB>
-    plot(x,y3, 'r','LineWidth',4)
+    plot(x,y3, 'r','LineWidth',2)
     % Drawing upper whisker
     y = linspace(prctile(auxdata( find(auxgroup == a) ),75),max(auxdata( find(auxgroup == a) ))); %#ok<FNDSB>
     x = a*ones(1,length(y));
-    plot(x,y, 'k','LineWidth',4)
+    plot(x,y, 'k','LineWidth',2)
     x = linspace(a - 0.125,a + 0.125);
     y = max(auxdata( find(auxgroup == a) ))*ones(1,length(x)); %#ok<FNDSB>
-    plot(x,y, 'k','LineWidth',4)
+    plot(x,y, 'k','LineWidth',2)
     % Drawing lower whisker
     y = linspace(prctile(auxdata( find(auxgroup == a) ),25),min(auxdata( find(auxgroup == a) ))); %#ok<FNDSB>
     x = a*ones(1,length(y));
-    plot(x,y, 'k','LineWidth',4)
+    plot(x,y, 'k','LineWidth',2)
     x = linspace(a - 0.125,a + 0.125);
     y = min(auxdata( find(auxgroup == a) ))*ones(1,length(x)); %#ok<FNDSB>
-    plot(x,y, 'k','LineWidth',4)
+    plot(x,y, 'k','LineWidth',2)
 end
 
 cloud_x = zeros(length(find(group_id == a)),groups);
@@ -76,7 +76,7 @@ cloud_y = zeros(size(cloud_x,1), size(cloud_x,2));
 for a = 1:groups
 cloud_x(:,a) = (a + 0.025*randn(1,length(find(group_id == a))));
 cloud_y(:,a) = data(find(group_id == a),1); %#ok<FNDSB>
-plot(cloud_x(:,a), cloud_y(:,a), 'ob', 'MarkerSize', 10, 'MarkerFaceColor', 'b') %#ok<FNDSB>
+plot(cloud_x(:,a), cloud_y(:,a), 'ob', 'MarkerSize', 7, 'MarkerFaceColor', 'b') %#ok<FNDSB>
 end
 
 for a = 1:size(cloud_x,1)
@@ -116,8 +116,8 @@ for t = 1:length(ax.XTick)
     ax.XTickLabel{t,1} = box_names{t,1};
 end
 
-xlabel(x_name, 'FontSize',14, 'Interpreter', 'Latex')
-ylabel(y_name, 'FontSize', 14, 'Interpreter', 'Latex')
+xlabel(x_name, 'FontSize',14)
+ylabel(y_name, 'FontSize', 14)
 title(tit, 'FontSize', 14)
 ax.FontSize = 14;
 

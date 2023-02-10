@@ -1,4 +1,4 @@
-% function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB)
+% function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB, from_t, to_t)
 %
 % This function recieves the data from both groups of the experiment and
 % returns a figure for each data matrix containing all of the context
@@ -33,7 +33,7 @@
 
 
 
-function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB)
+%function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB, from_t, to_t)
 
 alphal = 3; %length of the alphabet of the stochastic chain
 N = 1000; %length of the stochastic chain;
@@ -58,6 +58,13 @@ for par = 1:(size(data_control,1)/1000)
 
 end
 
+for par = 1:(size(data_control,1)/1000)
+   
+    RT1{par} = RT1{par}(from_t : to_t); %selecting only the chosen interval to be analyzed
+    
+end
+    
+
 for pos = 1:size(data_control,1)
 
     p1(pos)= data_control(pos,9); %stochastic chain info for all of the participants
@@ -72,6 +79,13 @@ for par = 1:(size(data_control,1)/1000)
     b=b+1000;
 
 end
+
+for par = 1:(size(data_control,1)/1000)
+   
+    P1{par} = P1{par}(from_t : to_t); %selecting only the chosen interval to be analyzed
+    
+end
+    
 
 nrowsC = ceil(((size(data_control,1)/1000)/3)); %number of rows containing plots that the figure will have 
 
@@ -89,13 +103,14 @@ for par = 1:(size(data_control,1)/1000) %one plor per participant
 
 end
 
-suptitle('Context Trees of the Control Group') %title of the whole figure
+suptitle(append('Context Trees of the Control Group (', num2str(from_t), '-',num2str(to_t),')')) %title of the whole figure
 
 
 % Estimating the mode tree
 
 [mode_tauC] = taumode_est(alphal,tau_estC, L, 1, 0);
-title("Mode tree of the Control group");
+title(append('Mode Tree of the LTPB Group (', num2str(from_t), '-',num2str(to_t),')'));
+
 
 %% LTPB group
 
@@ -116,6 +131,12 @@ for par = 1:(size(data_LTPB,1)/1000)
 
 end
 
+for par = 1:(size(data_LTPB,1)/1000)
+   
+    RT2{par} = RT2{par}(from_t : to_t); %selecting only the chosen interval to be analyzed
+    
+end
+
 for pos = 1:size(data_LTPB,1)
 
     p2(pos)= data_LTPB(pos,9);
@@ -129,6 +150,12 @@ for par = 1:(size(data_LTPB,1)/1000)
     P2{par}=p2(b:b+999); 
     b=b+1000;
 
+end
+
+for par = 1:(size(data_LTPB,1)/1000)
+   
+    P2{par} = P2{par}(from_t : to_t); %selecting only the chosen interval to be analyzed
+    
 end
 
 % Buiding the figure containing all of the context trees of the group
@@ -146,12 +173,12 @@ for par = 1:(size(data_LTPB,1)/1000)
 
 end
 
-suptitle('Context Trees of the LTPB Group')
+suptitle(append('Context Trees of the LTPB Group (', num2str(from_t), '-',num2str(to_t),')'));
 
 % Estimating the mode tree
 
 [mode_tauL] = taumode_est(alphal,tau_estL, L, 1, 0);
-title('Mode tree of the LTPB group');
+title(append('Mode Tree of the LTPB Group (', num2str(from_t), '-',num2str(to_t),')'));
 
 
-end
+%end

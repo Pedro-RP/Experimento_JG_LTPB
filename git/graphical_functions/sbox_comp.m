@@ -37,7 +37,7 @@ end
 
 %figure('units','normalized','outerposition',[0 0 1 1])
 
-lw = 2; ms = 6;
+lw = 2; ms = 7;
 for a = 1:max(auxgroup)
     if rem(a,2) == 0
        clor = 'k';
@@ -111,8 +111,8 @@ ax.XTick = 1:max(group_id);
 %     ax.XTickLabel{t,1} = box_names{t,1};
 % end
 
-xlabel(x_name, 'FontSize',14, 'Interpreter', 'Latex')
-ylabel(y_name, 'FontSize', 14, 'Interpreter', 'Latex')
+xlabel(x_name, 'FontSize',14)
+ylabel(y_name, 'FontSize', 14)
 title(tit, 'FontSize', 14)
 ax.FontSize = 14;
 
