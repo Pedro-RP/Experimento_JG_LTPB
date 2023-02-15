@@ -17,7 +17,7 @@
 % acsis = change axis to the corresponding vector
 %
 % Author: Paulo Roberto Cabral Passos
-% Last Modified: 07/08/2020
+% Last Modified: 10/02/2023 by Pedro R. Pinheiro
 % Checked:
 
 function sbox_comp(group_id, data,  x_name, y_name, tit, box_names, sig_dif, test, acsis)

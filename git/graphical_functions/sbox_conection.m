@@ -15,7 +15,7 @@
 % acsis = change axis to the corresponding vector
 %
 % Author: Paulo Roberto Cabral Passos
-% Last Modified: 19/04/2020
+% Last Modified: 10/02/2023 by Pedro R. Pinheiro
 
 
 function sbox_conection(group_id, data,  x_name, y_name, tit, box_names, sig_dif, test, acsis)

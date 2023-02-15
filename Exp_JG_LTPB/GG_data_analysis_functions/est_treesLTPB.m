@@ -33,7 +33,7 @@
 
 
 
-%function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB, from_t, to_t)
+function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_control, data_LTPB, from_t, to_t)
 
 alphal = 3; %length of the alphabet of the stochastic chain
 N = 1000; %length of the stochastic chain;
@@ -109,7 +109,7 @@ suptitle(append('Context Trees of the Control Group (', num2str(from_t), '-',num
 % Estimating the mode tree
 
 [mode_tauC] = taumode_est(alphal,tau_estC, L, 1, 0);
-title(append('Mode Tree of the LTPB Group (', num2str(from_t), '-',num2str(to_t),')'));
+title(append('Mode Tree of the Control Group (', num2str(from_t), '-',num2str(to_t),')'));
 
 
 %% LTPB group
@@ -181,4 +181,4 @@ suptitle(append('Context Trees of the LTPB Group (', num2str(from_t), '-',num2st
 title(append('Mode Tree of the LTPB Group (', num2str(from_t), '-',num2str(to_t),')'));
 
 
-%end
+end
