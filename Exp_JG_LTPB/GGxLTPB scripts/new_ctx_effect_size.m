@@ -2,6 +2,12 @@
 % of the means of the response times in the new contexts of the LTPB Tree.
 % (C0120 and C1120)
 
+control_n = (size(data_control,1)/1000);
+LTPB_n = (size(data_LTPB,1)/1000);
+
+from_t = 335;
+to_t = 668;
+
 %Control group
 
 for i = 1:size(data_control,1)
@@ -74,8 +80,25 @@ for par = 1:(size(data_control,1)/1000)
     MC1120_C(par) = mean (C1120_C{par});
 end
 
-[MC0120_C,~] = boxcox(MC0120_C');
-[MC1120_C,~] = boxcox(MC1120_C');
+[MC0120_C,kC0120_C] = boxcox(MC0120_C');
+[MC1120_C,kC1120_C] = boxcox(MC1120_C');
+
+x_name = '';
+y_name = "Processed Mean RT";
+tit = append('Distribution of the normalized mean RTs of the Control Group in the novel contexts (',num2str(from_t), '-', num2str(to_t),')');
+sig_dif = 1;
+test = 0;
+acsis = [];
+d_C = [MC0120_C' MC1120_C'];
+grp = [ones(1,control_n),2*ones(1, control_n)];
+
+figure
+sbox_conection(grp', d_C',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
+xline(2.5)
+xline(1.5)
+ylim([-5 5])
+yticks(-5:0.4:5)
+
 
 % Testing normality
 
@@ -90,8 +113,7 @@ end
 
 pC0_1 = signrank(MC0120_C', MC1120_C');
 
-% mesC1_2 = mes(MC1120_C.',MC0120_C.','U3');
-% hgC1_2 = mesC1_2.U3;
+mesC0_1 = mes(MC1120_C.',MC0120_C.','hedgesg','isDep', 1);
 
 %LTPB group
 
@@ -166,8 +188,25 @@ for par = 1:(size(data_LTPB,1)/1000)
     MC1120_L(par) = mean (C1120_L{par});
 end
 
-[MC0120_L,~] = boxcox(MC0120_L');
-[MC1120_L,~] = boxcox(MC1120_L');
+
+[MC0120_L,kC0120_L] = boxcox(MC0120_L');
+[MC1120_L,kC1120_L] = boxcox(MC1120_L');
+
+x_name = '';
+y_name = "Processed Mean RT";
+tit = append('Distribution of the normalized mean RTs of the LTPB Group in the novel contexts (',num2str(from_t), '-',num2str(to_t), ')');
+sig_dif = 1;
+test = 0;
+acsis = [];
+d_C = [MC0120_L' MC1120_L'];
+grp = [ones(1,LTPB_n),2*ones(1, LTPB_n)];
+
+figure
+sbox_conection(grp', d_C',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
+xline(2.5)
+xline(1.5)
+ylim([-5 5])
+yticks(-5:0.4:5)
 
 % Testing normality
 
@@ -182,5 +221,4 @@ end
 
 pL0_1 = signrank(MC0120_L', MC1120_L');
 
-% mesL1_2 = mes(MC1120_L.',MC0120_L.','U3');
-% hgL1_2 = mesL1_2.U3;
+mesL0_1 = mes(MC1120_L.',MC0120_L.','hedgesg',  'isDep', 1);
