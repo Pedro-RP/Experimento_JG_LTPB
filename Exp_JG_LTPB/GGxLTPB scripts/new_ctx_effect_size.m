@@ -5,8 +5,8 @@
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000);
 
-from_t = 335;
-to_t = 668;
+from_t = 1;
+to_t = 1000;
 
 %Control group
 
@@ -80,6 +80,22 @@ for par = 1:(size(data_control,1)/1000)
     MC1120_C(par) = mean (C1120_C{par});
 end
 
+x_name = '';
+y_name = "Mean RT(s)";
+tit = append('Distribution of the mean RTs of the Control Group in the novel contexts (',num2str(from_t), '-', num2str(to_t),')');
+sig_dif = 1;
+test = 0;
+acsis = [];
+d_C = [MC0120_C MC1120_C];
+grp = [ones(1,control_n),2*ones(1, control_n)];
+
+figure
+sbox_conection(grp', d_C',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
+xline(2.5)
+xline(1.5)
+ylim([0 2.5])
+yticks(0:0.2:2.5)
+
 [MC0120_C,kC0120_C] = boxcox(MC0120_C');
 [MC1120_C,kC1120_C] = boxcox(MC1120_C');
 
@@ -111,7 +127,7 @@ yticks(-5:0.4:5)
 
 % Statistical comparasion and effect size analysis
 
-pC0_1 = signrank(MC0120_C', MC1120_C');
+[~, pC0_1 ]= ttest(MC0120_C', MC1120_C');
 
 mesC0_1 = mes(MC1120_C.',MC0120_C.','hedgesg','isDep', 1);
 
@@ -188,6 +204,21 @@ for par = 1:(size(data_LTPB,1)/1000)
     MC1120_L(par) = mean (C1120_L{par});
 end
 
+x_name = '';
+y_name = "Mean RT (s)";
+tit = append('Distribution of the mean RTs of the LTPB Group in the novel contexts (',num2str(from_t), '-',num2str(to_t), ')');
+sig_dif = 1;
+test = 0;
+acsis = [];
+d_L = [MC0120_L MC1120_L];
+grp = [ones(1,LTPB_n),2*ones(1, LTPB_n)];
+
+figure
+sbox_conection(grp', d_L',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
+xline(2.5)
+xline(1.5)
+ylim([0 2.5])
+yticks(0:0.2:2.5)
 
 [MC0120_L,kC0120_L] = boxcox(MC0120_L');
 [MC1120_L,kC1120_L] = boxcox(MC1120_L');
@@ -219,6 +250,6 @@ yticks(-5:0.4:5)
 
 % Statistical comparasion and effect size analysis
 
-pL0_1 = signrank(MC0120_L', MC1120_L');
+[~, pL0_1] = ttest(MC0120_L', MC1120_L');
 
 mesL0_1 = mes(MC1120_L.',MC0120_L.','hedgesg',  'isDep', 1);
