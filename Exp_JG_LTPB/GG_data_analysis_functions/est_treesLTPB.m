@@ -37,7 +37,7 @@ function [tau_estC, mode_tauC, tau_estL, mode_tauL] =  est_treesLTPB (data_contr
 
 alphal = 3; %length of the alphabet of the stochastic chain
 N = to_t-from_t+1; %length of the stochastic chain;
-L = floor(log10(length(chain))/log10(3));
+L = floor(log10(N)/log10(3));
 
 %% Control group
 
