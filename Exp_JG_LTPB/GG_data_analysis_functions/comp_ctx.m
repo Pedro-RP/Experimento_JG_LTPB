@@ -35,7 +35,88 @@
 
 %end
 
+control_n = (size(data_control,1)/1000) ;
+LTPB_n = (size(data_LTPB,1)/1000);
+sig_dif = 1;
+test = 0;
+acsis = [];
+x_name = '';
+y_name = "Mean Response Time (s)";
+grp =[ones(1,control_n),2*ones(1,LTPB_n)]; 
 
+
+from_t = 1;
+to_t = 1000;
+
+%ctx_row = 1;
+
+for ctx_row = 1:5 %number of contexts
+
+    if ctx_row == 1 %w=0
+        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        RTC = [mctx_RT_control mctx_RT_LTPB];
+        tit = 'Distribution of the Mean Response Times of each group for w = 0';
+        figure
+        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+        ylim([0 2.5])
+        yticks([0:0.2:2.5])
+        xline(1.5)
+        xticks([1 2])
+        xticklabels({'Control','LTPB'})
+    end
+if ctx_row == 2 %w=01
+        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        RTC = [mctx_RT_control mctx_RT_LTPB];
+        tit = 'Distribution of the Mean Response Times of each group for w = 01';
+        figure
+        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+        ylim([0 2.5])
+        yticks([0:0.2:2.5])
+        xline(1.5)
+        xticks([1 2])
+        xticklabels({'Control','LTPB'})
+end
+
+if ctx_row == 3 %w=11
+        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        RTC = [mctx_RT_control mctx_RT_LTPB];
+        tit = 'Distribution of the Mean Response Times of each group for w = 11';
+        figure
+        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+        ylim([0 2.5])
+        yticks([0:0.2:2.5])
+        xline(1.5)
+        xticks([1 2])
+        xticklabels({'Control','LTPB'})
+end
+
+if ctx_row == 4 %w=21
+        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        RTC = [mctx_RT_control mctx_RT_LTPB];
+        tit = 'Distribution of the Mean Response Times of each group for w = 21';
+        figure
+        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+        ylim([0 2.5])
+        yticks([0:0.2:2.5])
+        xline(1.5)
+        xticks([1 2])
+        xticklabels({'Control','LTPB'})
+end
+
+if ctx_row == 5 %w=2
+        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        RTC = [mctx_RT_control mctx_RT_LTPB];
+        tit = 'Distribution of the Mean Response Times of each group for w = 2';
+        figure
+        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+        ylim([0 2.5])
+        yticks([0:0.2:2.5])
+        xline(1.5)
+        xticks([1 2])
+        xticklabels({'Control','LTPB'})
+end
+
+end
 function [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row) % This function produces a list for each group containg
 %the mean RTs in a given context for every participant of the group.
 %"ctx_row" is the corresponding row to the context that you wish to
