@@ -11,6 +11,10 @@
 %
 % data_ltpb = data matrix from the LTPB group.
 %
+% from_t =
+%
+% to_t =
+%
 % OUTPUT:
 % 
 % tau_estC = each cell of this variable is a list of the contexts that are

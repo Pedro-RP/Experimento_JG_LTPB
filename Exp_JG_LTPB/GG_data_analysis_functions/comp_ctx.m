@@ -1,9 +1,6 @@
 % function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 %
-% This function recieves the data from both groups of the experiment and
-% returns a figure for each data matrix containing all of the context
-% trees of the group, one tree for each participant.
-% The function also returns the mode tree for each group.
+% This function 
 %
 % INPUT:
 %
@@ -11,27 +8,17 @@
 %
 % data_ltpb = data matrix from the LTPB group.
 %
+% from_t =
+%
+% to_t =
+%
 % OUTPUT:
 % 
-% tau_estC = each cell of this variable is a list of the contexts that are
-% present in the tree of one of the participants of the control group.
-% The column number represents the identification of the participant of whom the
-% tree belongs.
-%
-% tau_estL = each cell of this variable is a list of the contexts that are
-% present in the tree of one of the participants of the LTPB group.
-% The column number represents the identification of the participant of whom the
-% tree belongs.
-%
-% mode_tauC = list of contexts present in the mode tree of the control
-% group.
-%
-% mode_tauL = list of contexts present in the mode tree of the LTPB
-% group.
+% stats =  
 %
 % 26/01/2023 by Pedro R. Pinheiro
 
-%function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 
 %end
 
@@ -45,17 +32,29 @@ y_name = "Mean Response Time (s)";
 grp =[ones(1,control_n),2*ones(1,LTPB_n)]; 
 
 
-from_t = 1;
-to_t = 1000;
-
-%ctx_row = 1;
-
 for ctx_row = 1:5 %number of contexts
 
     if ctx_row == 1 %w=0
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+        [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        stats.w0.assumption_check.norm_check.pC = pC;
+        
+        [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
+        stats.w0.assumption_check.norm_check.pL = pL;
+        
+        [~, pF] = vartest2 (mctx_RT_control, mctx_RT_LTPB);
+        stats.w0.assumption_check.var_check.pF = pF;
+        
+        [wpG] = ranksum (mctx_RT_control, mctx_RT_LTPB);  %wilcoxon rank sum test
+        stats.w0.w_test.p = wpG;
+        
+        mesU = mes(mctx_RT_control.',mctx_RT_LTPB.','U3');
+        U3 = mesU.U3;
+        stats.w0.effect_size.U3 = U3;
+        
         RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = 'Distribution of the Mean Response Times of each group for w = 0';
+        tit = append('Distribution of the Mean Response Times of each group for w = 0',' (', num2str(from_t), '-',num2str(to_t),')');
         figure
         sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
         ylim([0 2.5])
@@ -66,8 +65,25 @@ for ctx_row = 1:5 %number of contexts
     end
 if ctx_row == 2 %w=01
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        stats.w01.assumption_check.norm_check.pC = pC;
+        
+        [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
+        stats.w01.assumption_check.norm_check.pL = pL;
+        
+        [~, pF] = vartest2 (mctx_RT_control, mctx_RT_LTPB);
+        stats.w01.assumption_check.var_check.pF = pF;
+        
+        [wpG] = ranksum (mctx_RT_control, mctx_RT_LTPB);  %wilcoxon rank sum test
+        stats.w01.w_test.p = wpG;
+        
+        mesU = mes(mctx_RT_control.',mctx_RT_LTPB.','U3');
+        U3 = mesU.U3;
+        stats.w01.effect_size.U3 = U3;
+        
         RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = 'Distribution of the Mean Response Times of each group for w = 01';
+        tit = append('Distribution of the Mean Response Times of each group for w = 01',' (',num2str(from_t), '-',num2str(to_t),')');
         figure
         sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
         ylim([0 2.5])
@@ -79,8 +95,25 @@ end
 
 if ctx_row == 3 %w=11
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+      
+        [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        stats.w11.assumption_check.norm_check.pC = pC;
+        
+        [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
+        stats.w11.assumption_check.norm_check.pL = pL;
+        
+        [~, pF] = vartest2 (mctx_RT_control, mctx_RT_LTPB);
+        stats.w11.assumption_check.var_check.pF = pF;
+        
+        [wpG] = ranksum (mctx_RT_control, mctx_RT_LTPB);  %wilcoxon rank sum test
+        stats.w11.w_test.p = wpG;
+        
+        mesU = mes(mctx_RT_control.',mctx_RT_LTPB.','U3');
+        U3 = mesU.U3;
+        stats.w11.effect_size.U3 = U3;
+        
         RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = 'Distribution of the Mean Response Times of each group for w = 11';
+        tit = append('Distribution of the Mean Response Times of each group for w = 11',' (',num2str(from_t), '-',num2str(to_t),')');
         figure
         sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
         ylim([0 2.5])
@@ -92,8 +125,25 @@ end
 
 if ctx_row == 4 %w=21
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        stats.w21.assumption_check.norm_check.pC = pC;
+        
+        [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
+        stats.w21.assumption_check.norm_check.pL = pL;
+        
+        [~, pF] = vartest2 (mctx_RT_control, mctx_RT_LTPB);
+        stats.w21.assumption_check.var_check.pF = pF;
+        
+        [wpG] = ranksum (mctx_RT_control, mctx_RT_LTPB);  %wilcoxon rank sum test
+        stats.w21.w_test.p = wpG;
+        
+        mesU = mes(mctx_RT_control.',mctx_RT_LTPB.','U3');
+        U3 = mesU.U3;
+        stats.w21.effect_size.U3 = U3;
+        
         RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = 'Distribution of the Mean Response Times of each group for w = 21';
+        tit = append('Distribution of the Mean Response Times of each group for w = 21',' (',num2str(from_t), '-',num2str(to_t),')');
         figure
         sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
         ylim([0 2.5])
@@ -105,8 +155,25 @@ end
 
 if ctx_row == 5 %w=2
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+        [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        stats.w2.assumption_check.norm_check.pC = pC;
+        
+        [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
+        stats.w2.assumption_check.norm_check.pL = pL;
+        
+        [~, pF] = vartest2 (mctx_RT_control, mctx_RT_LTPB);
+        stats.w2.assumption_check.var_check.pF = pF;
+        
+        [wpG] = ranksum (mctx_RT_control, mctx_RT_LTPB);  %wilcoxon rank sum test
+        stats.w2.w_test.p = wpG;
+        
+        mesU = mes(mctx_RT_control.',mctx_RT_LTPB.','U3');
+        U3 = mesU.U3;
+        stats.w2.effect_size.U3 = U3;
+        
         RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = 'Distribution of the Mean Response Times of each group for w = 2';
+        tit = append('Distribution of the Mean Response Times of each group for w = 2',' (',num2str(from_t), '-',num2str(to_t),')');
         figure
         sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
         ylim([0 2.5])
@@ -186,6 +253,8 @@ for i = 1: size(ctx_p,2)
 end
 
 mctx_RT_LTPB (par) = mean(ctx_RT);
+
+end
 
 end
 end
