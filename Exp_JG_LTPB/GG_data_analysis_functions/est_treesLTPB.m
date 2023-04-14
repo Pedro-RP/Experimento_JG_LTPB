@@ -11,9 +11,9 @@
 %
 % data_ltpb = data matrix from the LTPB group.
 %
-% from_t =
+% from_t = starting trial of the interval of trials you wish to analyze.
 %
-% to_t =
+% to_t = finishing trial of the interval of trials you wish to analyze.
 %
 % OUTPUT:
 % 

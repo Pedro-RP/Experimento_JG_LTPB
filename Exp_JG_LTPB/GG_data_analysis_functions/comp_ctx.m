@@ -1,6 +1,9 @@
 % function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 %
-% This function 
+% This function compares the mean reaction times (RTs) of both groups
+% according to each specific context. One boxplot for each comparasion is
+% generated and a struct containg information regarding statistc tests is
+% generated.
 %
 % INPUT:
 %
@@ -8,19 +11,22 @@
 %
 % data_ltpb = data matrix from the LTPB group.
 %
-% from_t =
+% from_t = starting trial of the interval of trials you wish to analyze.
 %
-% to_t =
+% to_t = finishing trial of the interval of trials you wish to analyze.
 %
 % OUTPUT:
 % 
-% stats =  
+% stats =  structure containing the statistical tests for the comparasions
+% between the mean RTs of the groups for each contexts. The test used was
+% the wilcoxon ranksum ranksum test and the effect size measure was Cohen's
+% U3. Parametric test assumptions are tested.
 %
-% 26/01/2023 by Pedro R. Pinheiro
+% 14/04/2023 by Pedro R. Pinheiro
 
 function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 
-%end
+
 
 control_n = (size(data_control,1)/1000) ;
 LTPB_n = (size(data_LTPB,1)/1000);

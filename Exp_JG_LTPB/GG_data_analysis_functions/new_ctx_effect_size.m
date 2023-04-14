@@ -2,11 +2,39 @@
 % of the means of the response times in the new contexts of the LTPB Tree.
 % (C0120 and C1120)
 
+% function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+%
+% This function compares the mean reaction times (RTs) of both groups
+% in the two novel context that appeared at the LTPB mode tree (C0120 and C1120).
+% The comparasions are made inside the same group and not between groups. The goal
+% is finding if the distinction between both of this contexts noted in the mode tree
+% can be attributed to the mean RTs of the participants. One boxplot for each comparasion is
+% generated and a struct containg information regarding statistc tests is
+% generated.
+%
+% INPUT:
+%
+% data_control = data matrix from the control group.
+%
+% data_ltpb = data matrix from the LTPB group.
+%
+% from_t = starting trial of the interval of trials you wish to analyze.
+%
+% to_t = finishing trial of the interval of trials you wish to analyze.
+%
+% OUTPUT:
+% 
+% stats =  structure containing the statistical tests for the comparasions.
+% The test used was the wilcoxon ranksum ranksum test and the effect size measure was Cohen's
+% U3. Parametric test assumptions are tested.
+%
+% 14/04/2023 by Pedro R. Pinheiro
+
+
+function [stats] = new_ctx_effect_size (data_control, data_LTPB, from_t, to_t)
+
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000);
-
-from_t = 1;
-to_t = 1000;
 
 %Control group
 
@@ -96,40 +124,29 @@ xline(1.5)
 ylim([0 2.5])
 yticks(0:0.2:2.5)
 
-[MC0120_C,kC0120_C] = boxcox(MC0120_C');
-[MC1120_C,kC1120_C] = boxcox(MC1120_C');
-
-x_name = '';
-y_name = "Processed Mean RT";
-tit = append('Distribution of the normalized mean RTs of the Control Group in the novel contexts (',num2str(from_t), '-', num2str(to_t),')');
-sig_dif = 1;
-test = 0;
-acsis = [];
-d_C = [MC0120_C' MC1120_C'];
-grp = [ones(1,control_n),2*ones(1, control_n)];
-
-figure
-sbox_conection(grp', d_C',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
-xline(2.5)
-xline(1.5)
-ylim([-5 5])
-yticks(-5:0.4:5)
-
-
 % Testing normality
 
-[~,~,pC0] = swtest_norm(MC0120_C);
-[~,~,pC1] = swtest_norm(MC1120_C);
+[~,~,pC0] = swtest_norm(MC0120_C');
+[~,~,pC1] = swtest_norm(MC1120_C');
+
+stats.control.assumption_check.normality_check.C0120 = pC0;
+stats.control.assumption_check.normality_check.C1120 = pC1;
 
 % Testing equality of variances
 
-[~, pFC] = vartest2 (MC0120_C', MC1120_C');
+[~,pFC] = vartest2 (MC0120_C, MC1120_C);
+
+stats.control.assumption_check.variance_check = pFC;
 
 % Statistical comparasion and effect size analysis
 
-[~, pC0_1 ]= ttest(MC0120_C', MC1120_C');
+[pC0_1]= ranksum(MC0120_C, MC1120_C);
 
-mesC0_1 = mes(MC1120_C.',MC0120_C.','hedgesg','isDep', 1);
+stats.control.w_test = pC0_1;
+
+mesC0_1 = mes(MC1120_C',MC0120_C','U3');
+
+stats.control.U3 = mesC0_1.U3;
 
 %LTPB group
 
@@ -220,36 +237,28 @@ xline(1.5)
 ylim([0 2.5])
 yticks(0:0.2:2.5)
 
-[MC0120_L,kC0120_L] = boxcox(MC0120_L');
-[MC1120_L,kC1120_L] = boxcox(MC1120_L');
-
-x_name = '';
-y_name = "Processed Mean RT";
-tit = append('Distribution of the normalized mean RTs of the LTPB Group in the novel contexts (',num2str(from_t), '-',num2str(to_t), ')');
-sig_dif = 1;
-test = 0;
-acsis = [];
-d_C = [MC0120_L' MC1120_L'];
-grp = [ones(1,LTPB_n),2*ones(1, LTPB_n)];
-
-figure
-sbox_conection(grp', d_C',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
-xline(2.5)
-xline(1.5)
-ylim([-5 5])
-yticks(-5:0.4:5)
-
 % Testing normality
 
-[~,~,pL0] = swtest_norm(MC0120_L);
-[~,~,pL1] = swtest_norm(MC1120_L);
+[~,~,pL0] = swtest_norm(MC0120_L');
+[~,~,pL1] = swtest_norm(MC1120_L');
+
+stats.LTPB.assumption_check.normality_check.C0120 = pL0;
+stats.LTPB.assumption_check.normality_check.C1120 = pL1;
 
 % Testing equality of variances
 
-[~, pFL] = vartest2 (MC0120_L', MC1120_L');
+[~, pFL] = vartest2 (MC0120_L, MC1120_L);
+
+stats.LTPB.assumption_check.variance_check = pFL;
 
 % Statistical comparasion and effect size analysis
 
-[~, pL0_1] = ttest(MC0120_L', MC1120_L');
+[pL0_1] = ranksum(MC0120_L, MC1120_L);
 
-mesL0_1 = mes(MC1120_L.',MC0120_L.','hedgesg',  'isDep', 1);
+stats.LTPB.w_test = pL0_1;
+
+mesL0_1 = mes(MC1120_L',MC0120_L','U3');
+
+stats.LTPB.U3 = mesL0_1.U3;
+
+end
