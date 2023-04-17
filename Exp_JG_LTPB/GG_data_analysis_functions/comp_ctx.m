@@ -19,14 +19,12 @@
 % 
 % stats =  structure containing the statistical tests for the comparasions
 % between the mean RTs of the groups for each contexts. The test used was
-% the wilcoxon ranksum ranksum test and the effect size measure was Cohen's
+% the wilcoxon ranksum test and the effect size measure was Cohen's
 % U3. Parametric test assumptions are tested.
 %
 % 14/04/2023 by Pedro R. Pinheiro
 
 function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
-
-
 
 control_n = (size(data_control,1)/1000) ;
 LTPB_n = (size(data_LTPB,1)/1000);
@@ -72,7 +70,7 @@ for ctx_row = 1:5 %number of contexts
 if ctx_row == 2 %w=01
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
-         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w01.assumption_check.norm_check.pC = pC;
         
         [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
@@ -132,7 +130,7 @@ end
 if ctx_row == 4 %w=21
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
-         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
+        [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w21.assumption_check.norm_check.pC = pC;
         
         [~,~,pL] = swtest_norm(mctx_RT_LTPB.');
@@ -190,19 +188,18 @@ if ctx_row == 5 %w=2
 end
 
 end
+
 function [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row) % This function produces a list for each group containg
 %the mean RTs in a given context for every participant of the group.
 %"ctx_row" is the corresponding row to the context that you wish to
 %analyze in the ct_pos matrix.
 
-
-
 tree_file_address= "C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\files_for_reference\tree_behave12.txt"; %change this to match your machine
+
 for i = 1:size(data_control,1)
 
     T1(i)= data_control(i,7);
-
-
+    
 end
 
 a=1;
@@ -228,7 +225,7 @@ a=a+1000;
 
 end
 
-% Making the control group mean RT list
+% Making the control group mean RTs list
 
 for par = 1:(size(data_control,1)/1000)
  

@@ -1,14 +1,11 @@
-%Calculating the effect size of the difference between the distributions
-% of the means of the response times in the new contexts of the LTPB Tree.
-% (C0120 and C1120)
-
 % function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 %
 % This function compares the mean reaction times (RTs) of both groups
 % in the two novel context that appeared at the LTPB mode tree (C0120 and C1120).
 % The comparasions are made inside the same group and not between groups. The goal
 % is finding if the distinction between both of this contexts noted in the mode tree
-% can be attributed to the mean RTs of the participants. One boxplot for each comparasion is
+% can be attributed to the mean RTs of the participants and the effect size
+% if said difference. One boxplot for each comparasion is
 % generated and a struct containg information regarding statistc tests is
 % generated.
 %
@@ -25,7 +22,7 @@
 % OUTPUT:
 % 
 % stats =  structure containing the statistical tests for the comparasions.
-% The test used was the wilcoxon ranksum ranksum test and the effect size measure was Cohen's
+% The test used was the wilcoxon signrank test and the effect size measure was Cohen's
 % U3. Parametric test assumptions are tested.
 %
 % 14/04/2023 by Pedro R. Pinheiro
@@ -140,12 +137,11 @@ stats.control.assumption_check.variance_check = pFC;
 
 % Statistical comparasion and effect size analysis
 
-[pC0_1]= ranksum(MC0120_C, MC1120_C);
+[pC0_1]= signrank(MC0120_C, MC1120_C);
 
 stats.control.w_test = pC0_1;
 
 mesC0_1 = mes(MC1120_C',MC0120_C','U3');
-
 stats.control.U3 = mesC0_1.U3;
 
 %LTPB group
@@ -253,7 +249,7 @@ stats.LTPB.assumption_check.variance_check = pFL;
 
 % Statistical comparasion and effect size analysis
 
-[pL0_1] = ranksum(MC0120_L, MC1120_L);
+[pL0_1] = signrank(MC0120_L, MC1120_L);
 
 stats.LTPB.w_test = pL0_1;
 
