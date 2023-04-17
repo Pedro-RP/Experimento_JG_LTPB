@@ -25,10 +25,13 @@
 % The test used was the wilcoxon signrank test and the effect size measure was Cohen's
 % U3. Parametric test assumptions are tested.
 %
-% 14/04/2023 by Pedro R. Pinheiro
+% Vectors contating the mean RTs of the participants of both groups in each
+% context. "_C" is for control and "_L" is for LTPB.
+%
+% 17/04/2023 by Pedro R. Pinheiro
 
 
-function [stats] = new_ctx_effect_size (data_control, data_LTPB, from_t, to_t)
+function [stats, MC0120_C, MC1120_C, MC0120_L, MC1120_L] = new_ctx_effect_size (data_control, data_LTPB, from_t, to_t)
 
 control_n = (size(data_control,1)/1000);
 LTPB_n = (size(data_LTPB,1)/1000);

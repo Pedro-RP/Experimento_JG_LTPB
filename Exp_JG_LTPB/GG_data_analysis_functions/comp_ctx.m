@@ -1,4 +1,4 @@
-% function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+% [stats, mctxs_RT_control, mctxs_RT_LTPB] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 %
 % This function compares the mean reaction times (RTs) of both groups
 % according to each specific context. One boxplot for each comparasion is
@@ -22,9 +22,18 @@
 % the wilcoxon ranksum test and the effect size measure was Cohen's
 % U3. Parametric test assumptions are tested.
 %
-% 14/04/2023 by Pedro R. Pinheiro
+% mctxs_RT_control = list containg all of the mean RTs of the control group
+% members grouped by context. Each one of the 5 columns is a context, in
+% the order: 0, 01, 11, 21, 2. Ex: The first column contain a list of the
+% mean RTs of the participants of the control group on the context 0.
+% 
+% mctxs_RT_LTPB = list containg all of the mean RTs of the LTPB group
+% members grouped by context. Each one of the 5 columns is a context, in
+% the order: 0, 01, 11, 21, 2.
+%
+% 17/04/2023 by Pedro R. Pinheiro
 
-function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+function [stats, mctxs_RT_control, mctxs_RT_LTPB] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
 
 control_n = (size(data_control,1)/1000) ;
 LTPB_n = (size(data_LTPB,1)/1000);
@@ -34,12 +43,16 @@ acsis = [];
 x_name = '';
 y_name = "Mean Response Time (s)";
 grp =[ones(1,control_n),2*ones(1,LTPB_n)]; 
-
+mctxs_RT_control  = [];
+mctxs_RT_LTPB = [];
 
 for ctx_row = 1:5 %number of contexts
 
     if ctx_row == 1 %w=0
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+        mctxs_RT_control {ctx_row} = mctx_RT_control; %building two variables with the mean RRT values for all the contexts
+        mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w0.assumption_check.norm_check.pC = pC;
@@ -69,6 +82,9 @@ for ctx_row = 1:5 %number of contexts
     end
 if ctx_row == 2 %w=01
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+        mctxs_RT_control {ctx_row} = mctx_RT_control;
+        mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w01.assumption_check.norm_check.pC = pC;
@@ -100,6 +116,9 @@ end
 if ctx_row == 3 %w=11
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
       
+        mctxs_RT_control {ctx_row} = mctx_RT_control;
+        mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w11.assumption_check.norm_check.pC = pC;
         
@@ -130,6 +149,9 @@ end
 if ctx_row == 4 %w=21
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
+        mctxs_RT_control {ctx_row} = mctx_RT_control;
+        mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w21.assumption_check.norm_check.pC = pC;
         
@@ -159,6 +181,9 @@ end
 
 if ctx_row == 5 %w=2
         [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        
+        mctxs_RT_control {ctx_row} = mctx_RT_control;
+        mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w2.assumption_check.norm_check.pC = pC;
@@ -255,7 +280,7 @@ for i = 1: size(ctx_p,2)
     ctx_RT (i) = RT2{par}(ctx_p(i)+1); %every RT of a participant after a context
 end
 
-mctx_RT_LTPB (par) = mean(ctx_RT);
+mctx_RT_LTPB(par) = mean(ctx_RT);
 
 end
 
