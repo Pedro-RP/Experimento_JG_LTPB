@@ -236,6 +236,12 @@ a=a+1000;
 
 end
 
+for par = 1:(size(data_control,1)/1000)
+   
+    RT1{par} = RT1{par}(from_t : to_t); %selecting only the chosen interval to be analyzed
+    
+end
+
 for i = 1:size(data_LTPB,1)
 
     T2(i)= data_LTPB(i,7);
@@ -248,6 +254,12 @@ RT2{par}=T2(a:a+999);
 
 a=a+1000;
 
+end
+% 
+for par = 1:(size(data_control,1)/1000)
+   
+    RT2{par} = RT2{par}(from_t : to_t); %selecting only the chosen interval to be analyzed
+    
 end
 
 % Making the control group mean RTs list
@@ -286,3 +298,4 @@ end
 
 end
 end
+
