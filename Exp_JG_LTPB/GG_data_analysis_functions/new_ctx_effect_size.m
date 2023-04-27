@@ -1,4 +1,4 @@
-% function [stats] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+% function [stats, MC0120_C, MC1120_C, MC0120_L, MC1120_L] = new_ctx_effect_size (data_control, data_LTPB, from_t, to_t)
 %
 % This function compares the mean reaction times (RTs) of both groups
 % in the two novel context that appeared at the LTPB mode tree (C0120 and C1120).
@@ -144,7 +144,7 @@ stats.control.assumption_check.variance_check = pFC;
 
 stats.control.w_test = pC0_1;
 
-mesC0_1 = mes(MC1120_C',MC0120_C','U3');
+mesC0_1 = mes(MC0120_C',MC1120_C','U3');
 stats.control.U3 = mesC0_1.U3;
 
 %LTPB group
@@ -256,7 +256,7 @@ stats.LTPB.assumption_check.variance_check = pFL;
 
 stats.LTPB.w_test = pL0_1;
 
-mesL0_1 = mes(MC1120_L',MC0120_L','U3');
+mesL0_1 = mes(MC0120_L',MC1120_L','U3');
 
 stats.LTPB.U3 = mesL0_1.U3;
 
