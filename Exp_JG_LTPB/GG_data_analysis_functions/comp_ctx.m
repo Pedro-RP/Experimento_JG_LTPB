@@ -275,7 +275,7 @@ for i = 1: size(ctx_p,2)
     ctx_RT (i) = RT1{par}(ctx_p(i)+1); %every RT of a participant after a context
 end
 
-mctx_RT_control (par) = mean(ctx_RT);
+mctx_RT_control (par) = trimmean(ctx_RT,10);
 
 end
 
@@ -286,13 +286,13 @@ for par = 1:(size(data_LTPB,1)/1000)
 [~,~,~,~,~,ct_pos]= rtanderperctx(data_LTPB,par,from_t,to_t,tree_file_address,0,12);
 
 ctx_p = nonzeros(ct_pos (ctx_row,:)).'; % "nonzeros' removes excess zeros after the last ocurrence of the context
-ctx_RT = zeros(1, size(ctx_p,2)); %the code return an incorret list for the last participant if this line is omitted (?)
+ctx_RT = zeros(1, size(ctx_p,2)); %the code return an incorret list for the last participant if this line is omitted because it doesn't erase the last iteration.
 
 for i = 1: size(ctx_p,2)
-    ctx_RT (i) = RT2{par}(ctx_p(i)+1); %every RT of a participant after a context
+    ctx_RT (i) = RT2{par}(ctx_p(i)+1); %every RT of a participant after the given context
 end
 
-mctx_RT_LTPB(par) = mean(ctx_RT);
+mctx_RT_LTPB(par) = trimmean(ctx_RT,10);
 
 end
 
