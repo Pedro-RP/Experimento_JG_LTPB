@@ -83,44 +83,31 @@ end
 
 %Block 1 - Control
 
-RTC1 = 0; %Response Time Control
 for par = 1:(size(data_control,1)/1000)
-    for k = 1:334 %number os trials in the block
-
-        RTC1 = RTC1 + RT1{par}(k); %RTC1 -> Response times of each control group participant in block 1
-    end
-
-    MRTC1(par) = RTC1/334;  %Mean Response Time Control 1 (MRTC1) is a vector with mean response time of each participant of the control group for block 1.
-    RTC1=0;
+    
+    RT1b1{par} = RT1{par} (1:334); %isolating only block 1 data.
+    MRTC1(par) = trimmean(RT1b1{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 
 
 %%Block 2 - Control
 
-RTC2 = 0;
 for par = 1:(size(data_control,1)/1000)
-    for k = 335:668
+    
+    RT1b2{par} = RT1{par} (335:668); %isolating only block 1 data.
+    MRTC2(par) = trimmean(RT1b2{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
-        RTC2 = RTC2 + RT1{par}(k); 
-    end
-
-    MRTC2(par) = RTC2/334;  
-    RTC2=0;
 end
 
 
 %Block 3 - Control
 
-RTC3 = 0;
 for par = 1:(size(data_control,1)/1000)
-    for k = 669:1000
+    
+    RT1b3{par} = RT1{par} (669:1000); %isolating only block 1 data.
+    MRTC3(par) = trimmean(RT1b3{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
-        RTC3 = RTC3 + RT1{par}(k); 
-    end
-
-    MRTC3(par) = RTC3/332;  
-    RTC3=0;
 end
 
 rt.response_times.Control.block_1 = MRTC1;
@@ -145,43 +132,29 @@ end
 
 %Block 1 - LTPB
 
-RTL1 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
-    for k = 1:334
-
-        RTL1 = RTL1 + RT2{par}(k); 
-    end
-    MRTL1(par) = RTL1/334;  
-    RTL1=0;
+    
+    RT2b1{par} = RT2{par} (1:334); %isolating only block 1 data.
+    MRTL1(par) = trimmean(RT2b1{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
-
 %Block 2 - LTPB
 
-RTL2 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
-    for k = 335:668 
+    
+    RT2b2{par} = RT2{par} (335:668); %isolating only block 1 data.
+    MRTL2(par) = trimmean(RT2b2{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
-        RTL2 = RTL2 + RT2{par}(k); 
-    end
-
-    MRTL2(par) = RTL2/334;  
-    RTL2=0;
 end
 
 %Block 3 - LTPB
 
-RTL3 = 0;
 for par = 1:(size(data_LTPB,1)/1000)
-    for k = 669:1000
+    
+    RT2b3{par} = RT2{par} (669:1000); %isolating only block 1 data.
+    MRTL3(par) = trimmean(RT2b3{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
-        RTL3 = RTL3 + RT2{par}(k); 
-    end
-
-    MRTL3(par) = RTL3/332;  
-    RTL3=0;
 end
-
 
 rt.response_times.LTPB.block_1 = MRTL1;
 rt.response_times.LTPB.block_2 = MRTL2;
@@ -626,11 +599,11 @@ rt.within_comparasion.LTPB.effect_size.U3.U3L_2_3 = U3L_2_3;
 
 
 for par = 1:(size(data_control,1)/1000)
-     GTMC(par) = mean(RT1{par}); %global temporal means control
+     GTMC(par) = trimmean(RT1{par},10); %global temporal means control
 end
 
 for par = 1:(size(data_LTPB,1)/1000)
-     GTML(par) = mean(RT2{par}); %global temporal means LTPB
+     GTML(par) = trimmean(RT2{par},10); %global temporal means LTPB
 end
 
 rt.response_times.Control.global = GTMC;
