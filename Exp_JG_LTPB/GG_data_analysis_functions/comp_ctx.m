@@ -276,6 +276,7 @@ for i = 1: size(ctx_p,2)
 end
 
 mctx_RT_control (par) = trimmean(ctx_RT,10);
+%mctx_RT_control(par) = mean(ctx_RT);
 
 end
 
@@ -293,6 +294,7 @@ for i = 1: size(ctx_p,2)
 end
 
 mctx_RT_LTPB(par) = trimmean(ctx_RT,10);
+%mctx_RT_LTPB(par) = mean(ctx_RT);
 
 end
 

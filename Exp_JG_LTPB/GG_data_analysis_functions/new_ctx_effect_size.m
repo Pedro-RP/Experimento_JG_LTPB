@@ -104,8 +104,8 @@ for par = 1:(size(data_control,1)/1000)
 end
 
 for par = 1:(size(data_control,1)/1000)
-    MC0120_C(par) = mean (C0120_C{par});
-    MC1120_C(par) = mean (C1120_C{par});
+    MC0120_C(par) = trimmean (C0120_C{par},10);
+    MC1120_C(par) = trimmean (C1120_C{par},10);
 end
 
 x_name = '';
@@ -216,8 +216,8 @@ for par = 1:(size(data_LTPB,1)/1000)
 end
 
 for par = 1:(size(data_LTPB,1)/1000)
-    MC0120_L(par) = mean (C0120_L{par});
-    MC1120_L(par) = mean (C1120_L{par});
+    MC0120_L(par) = trimmean (C0120_L{par},2);
+    MC1120_L(par) = trimmean (C1120_L{par},2);
 end
 
 x_name = '';

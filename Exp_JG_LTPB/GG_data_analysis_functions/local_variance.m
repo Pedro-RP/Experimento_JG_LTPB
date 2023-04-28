@@ -72,7 +72,6 @@ end
 a=1;
 nt = 1000; %number of trials in the experiment
 
-
 for par = 1:(size(data_control,1)/nt) 
     
 RT1{par}=T1(a:a+999); 
@@ -86,25 +85,34 @@ end
 Lv_sc1 = 0;
 
 for par = 1:(size(data_control,1)/1000)
-    for i = 1 : 333  % i goes from 1 to n-1
-        Lv_sc1 = Lv_sc1 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
+    RT1b1{par} = RT1{par} (1:334);
+%     RT1b1P = prctile(RT1b1{par},[5,95]);
+%     RT1b1{par} = RT1b1{par}(RT1b1{par} > RT1b1P(1) & RT1b1{par} < RT1b1P(2)); %Removing the hightest and lowest 5% values (trimming).
+    
+    
+    for i = 1 : size(RT1b1{par},2)-1  % i goes from 1 to n-1
+        Lv_sc1 = Lv_sc1 + ((RT1b1{par}(i) - RT1b1{par}(i+1))/(RT1b1{par}(i) + RT1b1{par}(i+1))).^2;
     end
     
-    Lv_C1(par) = (3/333) * Lv_sc1;
+    Lv_C1(par) = (3/(size(RT1b1{par},2)-1)) * Lv_sc1;
     Lv_sc1 = 0;
 end
 
- %Lv_C1(7) = [];
 
 % Control - Block 2
 
 Lv_sc2 = 0;
 
 for par = 1:(size(data_control,1)/1000)
-    for i = 335 : 667  % i goes from 1 to n-1
-        Lv_sc2 = Lv_sc2 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
+    
+    RT1b2{par} = RT1{par} (335:668);
+%     RT1b2P = prctile(RT1b2{par},[5,95]);
+%     RT1b2{par} = RT1b2{par}(RT1b2{par} > RT1b2P(1) & RT1b2{par} < RT1b2P(2));
+    
+    for i = 1 : size(RT1b2{par},2)-1  % i goes from 1 to n-1
+        Lv_sc2 = Lv_sc2 + ((RT1b2{par}(i) - RT1b2{par}(i+1))/(RT1b2{par}(i) + RT1b2{par}(i+1))).^2;
     end
-    Lv_C2(par) = (3/333) * Lv_sc2;
+    Lv_C2(par) = (3/(size(RT1b2{par},2)-1)) * Lv_sc2;
     Lv_sc2 = 0;
 end
 
@@ -115,10 +123,14 @@ end
 Lv_sc3 = 0;
 
 for par = 1:(size(data_control,1)/1000)
-    for i = 669 : 999  % i goes from 1 to n-1
-        Lv_sc3 = Lv_sc3 + ((RT1{par}(i) - RT1{par}(i+1))/(RT1{par}(i) + RT1{par}(i+1))).^2;
+    
+    RT1b3{par} = RT1{par} (669:1000);
+%     RT1b3P = prctile(RT1b3{par},[5,95]);
+%     RT1b3{par} = RT1b3{par}(RT1b3{par} > RT1b3P(1) & RT1b3{par} < RT1b3P(2));
+    for i = 1 : size(RT1b3{par},2)-1  % i goes from 1 to n-1
+        Lv_sc3 = Lv_sc3 + ((RT1b3{par}(i) - RT1b3{par}(i+1))/(RT1b3{par}(i) + RT1b3{par}(i+1))).^2;
     end
-    Lv_C3(par) = (3/331) * Lv_sc3;
+    Lv_C3(par) = (3/(size(RT1b3{par},2)-1)) * Lv_sc3;
     Lv_sc3 = 0;
 end
 
