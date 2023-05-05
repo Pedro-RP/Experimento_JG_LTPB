@@ -1,161 +1,77 @@
-% [rt] = RT_analysis(data_control, data_LTPB)
-%
-% This function returns a struct containing the values of the mean response times
-% of each particicipant of the experiment in each block,
-% the results of tests aiming to validate the assumptions of parametric tests 
-% for comparasitions between groups and within the same group, the results
-% of said parametric tests for comparasions betweeen groups and within
-% the same group and also boxplots corresponding to said comparasions.
-% Nonparametric alternatives are also presented.
-% 
-% INPUT:
-%
-% data_control = data matrix from the control group.
+function [rt] = RT_analysis_ctx_cor(data_control, data_LTPB)
 
-% data_ltpb = data matrix from the LTPB group.
-%
-% OUTPUT:
-% 
-% rt = the data strucure containing the mean response time values and related
-% data.
-%
-% - The "response_times" section contains the raw mean response time data of
-% each participant divided by group and block. Each value in the row
-% represents the data of one participant.
-%
-% - The "between_comparasion" section deals with the comparasion between
-% both groups alongside each experimental blocks. In "assumption_check", it
-% is possible to see the Shapiro-Wilk normality test results for the data
-% contained in each block (p > 0.05 indicates normality) and also check if both populations in each of the three
-% blocks have the same variance, using a F test (p > 0.05 indicates equal variances). In "t_test", it is
-% possible to see the p-values of the 2-sample t-tests applied in each
-% block. In "effect_size" it is possible to see both the relative effect
-% size and the hedge's g value effect size of the LTPB group over the 
-% Control group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
-% Cohen's U3 effect size measure. Figure 1 is a companion boxplot to this section.
-%
-% - The "within_comparasion" section deals with comparasions between the 
-% response time data of different blocks of the same group. In "assumption
-% check", it is possible to check the assumptions required for applying paired
-% parametric tests to the data sets, namely, normality of distribuitions
-% and equal variance between pairs of blocks. In "rep_means_anova", it is
-% possible to see the full table and the p-value of a repeated measures
-% ANOVA applied to the data of an individual group (corrected with de GG method
-% if the sphericity condition is violated). In "t_test", it is
-% possible to see the p-values of the paired-sample t-tests applied in each
-% pair of blocks. In "effect_size" it is possible to see both the relative effect
-% size and the hedge's g value effect size of one block over the 
-% other. The nonparametric alternatives includes the Wilcoxon Signed Ranks test and the
-% Cohen's U3 effect size measure. Figures 2 and 3 are a companion boxplot to this section.
-%
-% - The "global_comparasion" section deals with the comparasion between
-% both groups global mean response time values (considering the whole game as a single block).
-% In "assumption_check", it is possible to see the Shapiro-Wilk normality test results for the data
-% contained in each group and also check if both populations have the same variance, using a F test.
-% In "t_test", it is possible to see the p-values of the 2-sample t-tests applied in the comparasion. 
-% In "effect_size" it is possible to see both the relative effect
-% size and the hedge's g value effect size of the Control group over the 
-% LTPB group. The nonparametric alternatives includes the Wilcoxon Ranksum test and the
-% Cohen's U3 effect size measure. Figure 4 is a companion boxplot to this section.
-%
-% 23/01/2023 by Pedro R. Pinheiro
+%%Block 1
 
 
-function [rt] = RT_analysis(data_control, data_LTPB)
+%Control
 
-%Control group
-
-for i = 1:size(data_control,1)
-
-    T1(i)= data_control(i,7);
-
-
-end
-
-a=1;
-
-for par = 1:(size(data_control,1)/1000) 
-RT1{par}=T1(a:a+999); 
-
-a=a+1000;
-
-end
-
-%Block 1 - Control
+[~, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, 1, 334, 0);
 
 for par = 1:(size(data_control,1)/1000)
-    
-    RT1b1{par} = RT1{par} (1:334); %isolating only block 1 data.
-    MRTC1(par) = trimmean(RT1b1{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTC1(par) = 0;
+   for ctx_row = 1:5
+        MRTC1(par) = MRTC1(par) + (mctxs_RT_control{ctx_row}(par) * ctxs_propC{ctx_row}(par));
+   end
+end
 
+%LTPB
+
+for par = 1:(size(data_LTPB,1)/1000)
+    MRTL1(par) = 0;
+   for ctx_row = 1:5
+        MRTL1(par) = MRTL1(par) + (mctxs_RT_LTPB{ctx_row}(par) * ctxs_propL{ctx_row}(par));
+   end
+end
+
+%%Block 2 
+
+[~, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, 335, 668, 0);
+
+% Control
+
+for par = 1:(size(data_control,1)/1000)
+    MRTC2(par) = 0;
+   for ctx_row = 1:5
+        MRTC2(par) = MRTC2(par) + (mctxs_RT_control{ctx_row}(par) * ctxs_propC{ctx_row}(par));
+   end
 end
 
 
-%%Block 2 - Control
+% LTPB
+
+for par = 1:(size(data_LTPB,1)/1000)
+    MRTL2(par) = 0;
+   for ctx_row = 1:5
+        MRTL2(par) = MRTL2(par) + (mctxs_RT_LTPB{ctx_row}(par) * ctxs_propL{ctx_row}(par));
+   end
+end
+
+% Block 3 
+
+[~, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, 669, 1000, 0);
+
+% Control
 
 for par = 1:(size(data_control,1)/1000)
-    
-    RT1b2{par} = RT1{par} (335:668); %isolating only block 1 data.
-    MRTC2(par) = trimmean(RT1b2{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
-
+    MRTC3(par) = 0;
+   for ctx_row = 1:5
+        MRTC3(par) = MRTC3(par) + (mctxs_RT_control{ctx_row}(par) * ctxs_propC{ctx_row}(par));
+   end
 end
 
 
-%Block 3 - Control
+% LTPB
 
-for par = 1:(size(data_control,1)/1000)
-    
-    RT1b3{par} = RT1{par} (669:1000); %isolating only block 1 data.
-    MRTC3(par) = trimmean(RT1b3{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
-
+for par = 1:(size(data_LTPB,1)/1000)
+    MRTL3(par) = 0;
+   for ctx_row = 1:5
+        MRTL3(par) = MRTL3(par) + (mctxs_RT_LTPB{ctx_row}(par) * ctxs_propL{ctx_row}(par));
+   end
 end
 
 rt.response_times.Control.block_1 = MRTC1;
 rt.response_times.Control.block_2 = MRTC2;
 rt.response_times.Control.block_3 = MRTC3;
-
-%LTPB group
-
-for i = 1:size(data_LTPB,1)
-
-    T2(i)= data_LTPB(i,7);
-end     
-a=1;
-
-for par = 1:(size(data_LTPB,1)/1000) 
-RT2{par}=T2(a:a+999); 
-
-
-a=a+1000;
-
-end
-
-%Block 1 - LTPB
-
-for par = 1:(size(data_LTPB,1)/1000)
-    
-    RT2b1{par} = RT2{par} (1:334); %isolating only block 1 data.
-    MRTL1(par) = trimmean(RT2b1{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
-
-end
-%Block 2 - LTPB
-
-for par = 1:(size(data_LTPB,1)/1000)
-    
-    RT2b2{par} = RT2{par} (335:668); %isolating only block 1 data.
-    MRTL2(par) = trimmean(RT2b2{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
-
-end
-
-%Block 3 - LTPB
-
-for par = 1:(size(data_LTPB,1)/1000)
-    
-    RT2b3{par} = RT2{par} (669:1000); %isolating only block 1 data.
-    MRTL3(par) = trimmean(RT2b3{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
-
-end
-
 rt.response_times.LTPB.block_1 = MRTL1;
 rt.response_times.LTPB.block_2 = MRTL2;
 rt.response_times.LTPB.block_3 = MRTL3;
@@ -596,14 +512,25 @@ rt.within_comparasion.LTPB.effect_size.U3.U3L_2_3 = U3L_2_3;
 
 %%% Global comparasion
 
+[~, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, 1, 1000, 0);
 
 for par = 1:(size(data_control,1)/1000)
-     GTMC(par) = trimmean(RT1{par},10); %global temporal means control
+    GTMC(par) = 0;
+   for ctx_row = 1:5
+        GTMC(par) = GTMC(par) + (mctxs_RT_control{ctx_row}(par) * ctxs_propC{ctx_row}(par));
+   end
 end
 
+%LTPB
+
 for par = 1:(size(data_LTPB,1)/1000)
-     GTML(par) = trimmean(RT2{par},10); %global temporal means LTPB
+    GTML(par) = 0;
+   for ctx_row = 1:5
+        GTML(par) = GTML(par) + (mctxs_RT_LTPB{ctx_row}(par) * ctxs_propL{ctx_row}(par));
+   end
 end
+
+
 
 rt.response_times.Control.global = GTMC;
 rt.response_times.LTPB.global = GTML;

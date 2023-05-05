@@ -1,4 +1,4 @@
-% [stats, mctxs_RT_control, mctxs_RT_LTPB] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+% [stats, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, from_t, to_t, show)
 %
 % This function compares the mean reaction times (RTs) of both groups
 % according to each specific context. One boxplot for each comparasion is
@@ -14,6 +14,8 @@
 % from_t = starting trial of the interval of trials you wish to analyze.
 %
 % to_t = finishing trial of the interval of trials you wish to analyze.
+%
+% show = 1 if you want to see the plots and 0 if you don't.
 %
 % OUTPUT:
 % 
@@ -31,9 +33,14 @@
 % members grouped by context. Each one of the 5 columns is a context, in
 % the order: 0, 01, 11, 21, 2.
 %
+% ctxs_prop = the proportion of each context in the sequence of each
+% participant. Each column is a context in the same order that was defined
+% before and inside the context column each entry in the list belongs to a
+% single participant in the observed interval.
+%
 % 17/04/2023 by Pedro R. Pinheiro
 
-function [stats, mctxs_RT_control, mctxs_RT_LTPB] =  comp_ctx (data_control, data_LTPB, from_t, to_t)
+function [stats, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, from_t, to_t,show)
 
 control_n = (size(data_control,1)/1000) ;
 LTPB_n = (size(data_LTPB,1)/1000);
@@ -49,10 +56,13 @@ mctxs_RT_LTPB = [];
 for ctx_row = 1:5 %number of contexts
 
     if ctx_row == 1 %w=0
-        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control; %building two variables with the mean RRT values for all the contexts
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
+        ctxs_propC {ctx_row} = ctx_propC; 
+        ctxs_propL{ctx_row} = ctx_propL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w0.assumption_check.norm_check.pC = pC;
@@ -70,21 +80,26 @@ for ctx_row = 1:5 %number of contexts
         U3 = mesU.U3;
         stats.w0.effect_size.U3 = U3;
         
-        RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = append('Distribution of the Mean Response Times of each group for w = 0',' (', num2str(from_t), '-',num2str(to_t),')');
-        figure
-        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
-        ylim([0 2.5])
-        yticks([0:0.2:2.5])
-        xline(1.5)
-        xticks([1 2])
-        xticklabels({'Control','LTPB'})
+        if show == 1
+            RTC = [mctx_RT_control mctx_RT_LTPB];
+            tit = append('Distribution of the Mean Response Times of each group for w = 0',' (', num2str(from_t), '-',num2str(to_t),')');
+            figure
+            sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+            ylim([0 2.5])
+            yticks([0:0.2:2.5])
+            xline(1.5)
+            xticks([1 2])
+            xticklabels({'Control','LTPB'})
+        end
     end
 if ctx_row == 2 %w=01
-        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
+        ctxs_propC {ctx_row} = ctx_propC; 
+        ctxs_propL{ctx_row} = ctx_propL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w01.assumption_check.norm_check.pC = pC;
@@ -102,22 +117,27 @@ if ctx_row == 2 %w=01
         U3 = mesU.U3;
         stats.w01.effect_size.U3 = U3;
         
-        RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = append('Distribution of the Mean Response Times of each group for w = 01',' (',num2str(from_t), '-',num2str(to_t),')');
-        figure
-        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
-        ylim([0 2.5])
-        yticks([0:0.2:2.5])
-        xline(1.5)
-        xticks([1 2])
-        xticklabels({'Control','LTPB'})
+        if show == 1
+            RTC = [mctx_RT_control mctx_RT_LTPB];
+            tit = append('Distribution of the Mean Response Times of each group for w = 01',' (',num2str(from_t), '-',num2str(to_t),')');
+            figure
+            sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+            ylim([0 2.5])
+            yticks([0:0.2:2.5])
+            xline(1.5)
+            xticks([1 2])
+            xticklabels({'Control','LTPB'})
+        end
 end
 
 if ctx_row == 3 %w=11
-        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
       
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
+        ctxs_propC {ctx_row} = ctx_propC; 
+        ctxs_propL{ctx_row} = ctx_propL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w11.assumption_check.norm_check.pC = pC;
@@ -135,22 +155,27 @@ if ctx_row == 3 %w=11
         U3 = mesU.U3;
         stats.w11.effect_size.U3 = U3;
         
-        RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = append('Distribution of the Mean Response Times of each group for w = 11',' (',num2str(from_t), '-',num2str(to_t),')');
-        figure
-        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
-        ylim([0 2.5])
-        yticks([0:0.2:2.5])
-        xline(1.5)
-        xticks([1 2])
-        xticklabels({'Control','LTPB'})
+        if show == 1
+            RTC = [mctx_RT_control mctx_RT_LTPB];
+            tit = append('Distribution of the Mean Response Times of each group for w = 11',' (',num2str(from_t), '-',num2str(to_t),')');
+            figure
+            sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+            ylim([0 2.5])
+            yticks([0:0.2:2.5])
+            xline(1.5)
+            xticks([1 2])
+            xticklabels({'Control','LTPB'})
+        end
 end
 
 if ctx_row == 4 %w=21
-        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
+        ctxs_propC {ctx_row} = ctx_propC; 
+        ctxs_propL{ctx_row} = ctx_propL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w21.assumption_check.norm_check.pC = pC;
@@ -168,22 +193,27 @@ if ctx_row == 4 %w=21
         U3 = mesU.U3;
         stats.w21.effect_size.U3 = U3;
         
-        RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = append('Distribution of the Mean Response Times of each group for w = 21',' (',num2str(from_t), '-',num2str(to_t),')');
-        figure
-        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
-        ylim([0 2.5])
-        yticks([0:0.2:2.5])
-        xline(1.5)
-        xticks([1 2])
-        xticklabels({'Control','LTPB'})
+        if show == 1
+            RTC = [mctx_RT_control mctx_RT_LTPB];
+            tit = append('Distribution of the Mean Response Times of each group for w = 21',' (',num2str(from_t), '-',num2str(to_t),')');
+            figure
+            sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+            ylim([0 2.5])
+            yticks([0:0.2:2.5])
+            xline(1.5)
+            xticks([1 2])
+            xticklabels({'Control','LTPB'})
+        end
 end
 
 if ctx_row == 5 %w=2
-        [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
+        
+        ctxs_propC {ctx_row} = ctx_propC; 
+        ctxs_propL{ctx_row} = ctx_propL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w2.assumption_check.norm_check.pC = pC;
@@ -201,20 +231,22 @@ if ctx_row == 5 %w=2
         U3 = mesU.U3;
         stats.w2.effect_size.U3 = U3;
         
-        RTC = [mctx_RT_control mctx_RT_LTPB];
-        tit = append('Distribution of the Mean Response Times of each group for w = 2',' (',num2str(from_t), '-',num2str(to_t),')');
-        figure
-        sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
-        ylim([0 2.5])
-        yticks([0:0.2:2.5])
-        xline(1.5)
-        xticks([1 2])
-        xticklabels({'Control','LTPB'})
+        if show == 1
+            RTC = [mctx_RT_control mctx_RT_LTPB];
+            tit = append('Distribution of the Mean Response Times of each group for w = 2',' (',num2str(from_t), '-',num2str(to_t),')');
+            figure
+            sbox_comp(grp', RTC',  x_name, y_name, tit,{}, sig_dif, test, acsis)
+            ylim([0 2.5])
+            yticks([0:0.2:2.5])
+            xline(1.5)
+            xticks([1 2])
+            xticklabels({'Control','LTPB'})
+        end
 end
 
 end
 
-function [mctx_RT_control, mctx_RT_LTPB] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row) % This function produces a list for each group containg
+function [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row) % This function produces a list for each group containg
 %the mean RTs in a given context for every participant of the group.
 %"ctx_row" is the corresponding row to the context that you wish to
 %analyze in the ct_pos matrix.
@@ -276,7 +308,9 @@ for i = 1: size(ctx_p,2)
 end
 
 mctx_RT_control (par) = trimmean(ctx_RT,10);
-%mctx_RT_control(par) = mean(ctx_RT);
+% mctx_RT_control(par) = mean(ctx_RT);
+
+ctx_propC (par) = ((0.9*size(ctx_p,2))/(0.9*(to_t-from_t+1)));
 
 end
 
@@ -294,7 +328,9 @@ for i = 1: size(ctx_p,2)
 end
 
 mctx_RT_LTPB(par) = trimmean(ctx_RT,10);
-%mctx_RT_LTPB(par) = mean(ctx_RT);
+% mctx_RT_LTPB(par) = mean(ctx_RT);
+
+ctx_propL (par) = ((0.9*size(ctx_p,2))/(0.9*(to_t-from_t+1))); 
 
 end
 
