@@ -56,13 +56,13 @@ mctxs_RT_LTPB = [];
 for ctx_row = 1:5 %number of contexts
 
     if ctx_row == 1 %w=0
-        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control; %building two variables with the mean RRT values for all the contexts
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
-        ctxs_propC {ctx_row} = ctx_propC; 
-        ctxs_propL{ctx_row} = ctx_propL;
+        size_ctxsC {ctx_row} = size_ctxC; 
+        size_ctxsL{ctx_row} = size_ctxL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w0.assumption_check.norm_check.pC = pC;
@@ -93,13 +93,13 @@ for ctx_row = 1:5 %number of contexts
         end
     end
 if ctx_row == 2 %w=01
-        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
-        ctxs_propC {ctx_row} = ctx_propC; 
-        ctxs_propL{ctx_row} = ctx_propL;
+        size_ctxsC {ctx_row} = size_ctxC; 
+        size_ctxsL{ctx_row} = size_ctxL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w01.assumption_check.norm_check.pC = pC;
@@ -131,13 +131,13 @@ if ctx_row == 2 %w=01
 end
 
 if ctx_row == 3 %w=11
-        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
       
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
-        ctxs_propC {ctx_row} = ctx_propC; 
-        ctxs_propL{ctx_row} = ctx_propL;
+        size_ctxsC {ctx_row} = size_ctxC; 
+        size_ctxsL{ctx_row} = size_ctxL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w11.assumption_check.norm_check.pC = pC;
@@ -169,13 +169,13 @@ if ctx_row == 3 %w=11
 end
 
 if ctx_row == 4 %w=21
-        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
-        ctxs_propC {ctx_row} = ctx_propC; 
-        ctxs_propL{ctx_row} = ctx_propL;
+        size_ctxsC {ctx_row} = size_ctxC; 
+        size_ctxsL{ctx_row} = size_ctxL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w21.assumption_check.norm_check.pC = pC;
@@ -207,13 +207,13 @@ if ctx_row == 4 %w=21
 end
 
 if ctx_row == 5 %w=2
-        [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+        [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control;
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;
         
-        ctxs_propC {ctx_row} = ctx_propC; 
-        ctxs_propL{ctx_row} = ctx_propL;
+        size_ctxsC {ctx_row} = size_ctxC; 
+        size_ctxsL{ctx_row} = size_ctxL;
         
         [~,~,pC] = swtest_norm(mctx_RT_control.'); 
         stats.w2.assumption_check.norm_check.pC = pC;
@@ -246,7 +246,29 @@ end
 
 end
 
-function [mctx_RT_control, mctx_RT_LTPB, ctx_propC, ctx_propL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row) % This function produces a list for each group containg
+for par = 1:(size(data_control,1)/1000)
+    total_sizeparC = 0;
+    for ctx_row = 1:5
+        total_sizeparC = total_sizeparC + size_ctxsC{ctx_row}(par);
+    end
+    for ctx_row = 1:5
+        ctxs_propC{ctx_row}(par) = (size_ctxsC{ctx_row}(par)/total_sizeparC);
+    end
+end
+
+
+for par = 1:(size(data_LTPB,1)/1000)
+    total_sizeparL = 0;
+    for ctx_row = 1:5
+        total_sizeparL = total_sizeparL + size_ctxsL{ctx_row}(par);
+    end
+    for ctx_row = 1:5
+        ctxs_propL{ctx_row}(par) = (size_ctxsL{ctx_row}(par)/total_sizeparL);
+    end
+end
+
+end
+function [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row) % This function produces a list for each group containg
 %the mean RTs in a given context for every participant of the group.
 %"ctx_row" is the corresponding row to the context that you wish to
 %analyze in the ct_pos matrix.
@@ -310,7 +332,7 @@ end
 mctx_RT_control (par) = trimmean(ctx_RT,10);
 % mctx_RT_control(par) = mean(ctx_RT);
 
-ctx_propC (par) = ((0.9*size(ctx_p,2))/(0.9*(to_t-from_t+1)));
+size_ctxC (par) = round(0.9*size(ctx_p,2));
 
 end
 
@@ -318,22 +340,22 @@ end
 
 for par = 1:(size(data_LTPB,1)/1000)
  
-[~,~,~,~,~,ct_pos]= rtanderperctx(data_LTPB,par,from_t,to_t,tree_file_address,0,12);
+    [~,~,~,~,~,ct_pos]= rtanderperctx(data_LTPB,par,from_t,to_t,tree_file_address,0,12);
 
-ctx_p = nonzeros(ct_pos (ctx_row,:)).'; % "nonzeros' removes excess zeros after the last ocurrence of the context
-ctx_RT = zeros(1, size(ctx_p,2)); %the code return an incorret list for the last participant if this line is omitted because it doesn't erase the last iteration.
+    ctx_p = nonzeros(ct_pos (ctx_row,:)).'; % "nonzeros' removes excess zeros after the last ocurrence of the context
+    ctx_RT = zeros(1, size(ctx_p,2)); %the code return an incorret list for the last participant if this line is omitted because it doesn't erase the last iteration.
 
-for i = 1: size(ctx_p,2)
-    ctx_RT (i) = RT2{par}(ctx_p(i)+1); %every RT of a participant after the given context
-end
+    for i = 1: size(ctx_p,2)
+        ctx_RT (i) = RT2{par}(ctx_p(i)+1); %every RT of a participant after the given context
+    end
 
-mctx_RT_LTPB(par) = trimmean(ctx_RT,10);
+    mctx_RT_LTPB(par) = trimmean(ctx_RT,10);
 % mctx_RT_LTPB(par) = mean(ctx_RT);
 
-ctx_propL (par) = ((0.9*size(ctx_p,2))/(0.9*(to_t-from_t+1))); 
+    size_ctxL (par) = round(0.9*size(ctx_p,2)); 
 
 end
 
 end
-end
+
 
