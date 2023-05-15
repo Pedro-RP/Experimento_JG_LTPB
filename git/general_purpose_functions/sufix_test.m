@@ -13,7 +13,10 @@ function log_test = sufix_test(v,w)
     elseif length(v) > length(w)
           log_test =  0;
     else
-          if isequal(w(1+(length(w)-length(v)):length(w)),v)
+          if isempty(v)
+              log_test = 1;
+              return
+          elseif isequal(w(1+(length(w)-length(v)):length(w)),v)
               log_test = 1;
               return
           else

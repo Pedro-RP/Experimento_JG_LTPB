@@ -1,7 +1,7 @@
-% rtimes = get_rtimes(data, nid, from, till, tau_id)
+% [rtimes, chain] = get_rtimes(data, nid, from, till, tau_id)
 %
 % This function is part of the goalkeeper game routines. It returns the
-% response times of the participant identified in nid.
+% response times and the stochastic chain of the participant identified in nid.
 %
 % INPUT:
 % data = data matrix from the function building_DataMatrix
@@ -12,13 +12,13 @@
 %
 % OUTPUT:
 % rtimes = vector containing the response times
-%
+% chain = vector containing the stochastic chain
 % Author: Paulo Roberto Cabral Passos
-% Last Modified: 25/11/2020
+% Last Modified: 27/3/2023
 % Status: Checked
 
 
-function rtimes = get_rtimes(data, nid, from, till, tau_id)
+function [rtimes, chain] = get_rtimes(data, nid, from, till, tau_id)
 
 beg = 0;
 for a = 1:size(data,1)
@@ -37,8 +37,10 @@ end
 if stop == 0
    stop = size(data,1);
 end
-times = data(beg:stop,7);
+times = data(beg:stop,7); 
 rtimes = times(from:till,1);
+chain = data(beg:stop,9);
+chain = chain(from:till,1);
 
 
 end

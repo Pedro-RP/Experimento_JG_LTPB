@@ -117,7 +117,6 @@ posit = uicontrol(f,'Style','edit'); posit.Units = 'normalized'; posit.Position 
 % FIELD CORRECT/INCORRECT
 conditioning = uicontrol(f,'Style','popupmenu','String',{'NONE','CORRECT','INCORRECT'});
 conditioning.Units = 'normalized'; conditioning.Position = [(0.50625+0.075) column1(8) 0.06 0.02]; conditioning.Tag = 'condition';
-conditioning.Tag = 'misc3';
 
 % LABEL FREQUENCY PLOT
 lfplot = uicontrol(f,'Style','text','FontWeight','bold','FontName','Palatino','FontSize',12); 

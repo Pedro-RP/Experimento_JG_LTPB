@@ -17,7 +17,7 @@
 % acsis = change axis to the corresponding vector
 %
 % Author: Paulo Roberto Cabral Passos
-% Last Modified: 10/02/2023 by Pedro R. Pinheiro
+% Last Modified: 07/08/2020
 % Checked:
 
 function sbox_comp(group_id, data,  x_name, y_name, tit, box_names, sig_dif, test, acsis)
@@ -29,7 +29,7 @@ auxdata = []; auxgroup = [];
 groups = max(group_id);
 for a = 1:groups
    auxd = data(find(group_id == a),1);
-   auxd = auxd(find(isoutlier(auxd) == 0),1); %DISABLED FOR MATLAB2015
+   %auxd = auxd(find(isoutlier(auxd) == 0),1); DISABLED FOR MATLAB2015
    %VERSION
    auxdata = [auxdata; auxd];
    auxgroup = [auxgroup; a*ones(length(auxd),1)];
@@ -37,7 +37,7 @@ end
 
 %figure('units','normalized','outerposition',[0 0 1 1])
 
-lw = 2; ms = 7;
+lw = 2; ms = 0.5;
 for a = 1:max(auxgroup)
     if rem(a,2) == 0
        clor = 'k';
@@ -111,8 +111,8 @@ ax.XTick = 1:max(group_id);
 %     ax.XTickLabel{t,1} = box_names{t,1};
 % end
 
-xlabel(x_name, 'FontSize',14)
-ylabel(y_name, 'FontSize', 14)
+xlabel(x_name, 'FontSize',14, 'Interpreter', 'Latex')
+ylabel(y_name, 'FontSize', 14, 'Interpreter', 'Latex')
 title(tit, 'FontSize', 14)
 ax.FontSize = 14;
 

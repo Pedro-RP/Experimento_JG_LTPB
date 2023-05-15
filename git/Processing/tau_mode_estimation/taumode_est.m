@@ -34,9 +34,9 @@ function [mode_tau] = taumode_est(alphal, estimated_trees, L, show, exclude_root
     
     % Importing the functions for the graphical representation
 
-%     addpath('C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\');
-%     addpath('C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\processing\tau_estimation\tauest_RT.m');
-%     addpath('C:\Users\Pedro_R\Desktop\Projeto\Code_exp_ltpb\git\borrowed_code\draw_context_tree\draw_contexttree.m');
+    addpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/Scripts Noslen');
+    addpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/Scripts Noslen/EstimateContextTree');
+    addpath('/home/roberto/Documents/Dr. Fisiologia/Jogo do Goleiro/Scripts Noslen/DrawContextTree');
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     A = zeros(1,alphal);

@@ -119,7 +119,6 @@ grp = [ones(1,control_n),2*ones(1, control_n)];
 
 figure
 sbox_conection(grp', d_C',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
-xline(2.5)
 xline(1.5)
 ylim([0 2.5])
 yticks(0:0.2:2.5)
@@ -231,7 +230,6 @@ grp = [ones(1,LTPB_n),2*ones(1, LTPB_n)];
 
 figure
 sbox_conection(grp', d_L',  x_name, y_name, tit, {'C0120'; 'C1120';}, sig_dif, test, acsis)
-xline(2.5)
 xline(1.5)
 ylim([0 2.5])
 yticks(0:0.2:2.5)
