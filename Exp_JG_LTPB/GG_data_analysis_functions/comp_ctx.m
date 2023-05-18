@@ -56,7 +56,7 @@ mctxs_RT_LTPB = [];
 for ctx_row = 1:5 %number of contexts
 
     if ctx_row == 1 %w=0
-        [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
+       [mctx_RT_control, mctx_RT_LTPB, size_ctxC, size_ctxL] = create_mean_RTs_ctx (data_control, data_LTPB, from_t, to_t, ctx_row);
         
         mctxs_RT_control {ctx_row} = mctx_RT_control; %building two variables with the mean RRT values for all the contexts
         mctxs_RT_LTPB {ctx_row} = mctx_RT_LTPB;

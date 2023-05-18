@@ -2,7 +2,6 @@ function [rt] = RT_analysis_ctx_cor(data_control, data_LTPB)
 
 %%Block 1
 
-
 %Control
 
 [~, mctxs_RT_control, ctxs_propC, mctxs_RT_LTPB, ctxs_propL] =  comp_ctx (data_control, data_LTPB, 1, 334, 0);
