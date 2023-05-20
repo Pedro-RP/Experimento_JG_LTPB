@@ -48,7 +48,7 @@ PES.data.LTPB.failure = failureL;
 
 for par = 1: control_n
     for ctx = 1:5
-        magC{ctx}(par) = failureC{ctx}(par) - successC {ctx}(par); %difference between 
+        magC{ctx}(par) = failureC{ctx}(par) - successC {ctx}(par); %difference between the means of failures and successes
     end
 end
 
@@ -87,8 +87,8 @@ figure
 sbox_comp(grp', d_M',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 xticklabels({'Control','LTPB'});
 yline(0)
-ylim([-1 1])
-yticks(-1:0.1:1)
+ylim([-0.8 0.8])
+yticks(-0.8:0.1:0.8)
 
 end
 
@@ -177,6 +177,39 @@ PES.ranksum.w2 = wp2;
  
  mesw2 = mes(magC{5}.',magL{5}.','U3');
  PES.U3.w2 = mesw2.U3;
+ 
+ % Comparing each magnitude distribution to a population with median 0 to
+ % see if there is an effect
+ 
+[wC0] =  signrank(magC{1});
+PES.zero_comparasion.control.w0 = wC0;
+
+[wC01] =  signrank(magC{2});
+PES.zero_comparasion.control.w01 = wC01;
+
+[wC11] =  signrank(magC{3});
+PES.zero_comparasion.control.w11 = wC11;
+
+[wC21] =  signrank(magC{4});
+PES.zero_comparasion.control.w21 = wC21;
+
+[wC2] =  signrank(magC{5});
+PES.zero_comparasion.control.w2 = wC2;
+ 
+[wL0] =  signrank(magL{1});
+PES.zero_comparasion.LTPB.w0 = wL0;
+
+[wL01] =  signrank(magL{2});
+PES.zero_comparasion.LTPB.w01 = wL01;
+
+[wL11] =  signrank(magL{3});
+PES.zero_comparasion.LTPB.w11 = wL11;
+
+[wL21] =  signrank(magL{4});
+PES.zero_comparasion.LTPB.w21 = wL21;
+
+[wL2] =  signrank(magL{5});
+PES.zero_comparasion.LTPB.w2 = wL2;
 
 
 %% Analysis comparing successes and failures of each group for each context (inside each group)
