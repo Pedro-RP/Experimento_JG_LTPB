@@ -214,26 +214,6 @@ PES.zero_comparasion.LTPB.w2 = wL2;
 
 %% Analysis comparing successes and failures of each group for each context (inside each group)
 
-
-% grp =  [ones(1,control_n),2*ones(1, control_n)];
-% 
-% for ctx = 1:5
-%     if ctx == 1
-%         ctxw = '0';
-%         stepctx = steps(ctx);
-%     elseif ctx == 2
-%         ctxw = '01';
-%         stepctx = steps(ctx);
-%     elseif ctx == 3
-%         ctxw = '11';
-%         stepctx = steps(ctx);
-%     elseif ctx == 4
-%         ctxw = '21';
-%         stepctx = steps(ctx);
-%     elseif ctx == 5
-%         ctxw = '2';
-%         stepctx = steps(ctx);
-%     end
 % 
 % % Control
 % 
