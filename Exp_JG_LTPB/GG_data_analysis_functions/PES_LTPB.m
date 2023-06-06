@@ -13,7 +13,6 @@ sig_dif = 1;
 test = 0;
 acsis = [];
 
-
 control_n = (size(data_control,1)/1000) ;
 LTPB_n = (size(data_LTPB,1)/1000);
 
@@ -87,8 +86,8 @@ figure
 sbox_comp(grp', d_M',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 xticklabels({'Control','LTPB'});
 yline(0)
-ylim([-0.8 0.8])
-yticks(-0.8:0.1:0.8)
+ylim([-1 2.5])
+yticks(-1:0.1:2.5)
 
 end
 
