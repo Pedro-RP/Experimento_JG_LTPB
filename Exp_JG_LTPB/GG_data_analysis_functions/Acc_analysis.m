@@ -333,8 +333,10 @@ acc.between_comparasion.effect_size.U3.U3_3 = U3_3;
 %Boxplot
 
 x_name = '';
-y_name = "Accuracy";
-tit = 'Distribution of the Accuracy of the Control Group in each block';
+%y_name = "Accuracy";
+%tit = 'Distribution of the Accuracy of the Control Group in each block';
+y_name = "Acurácia";
+tit = 'Evolução da acurácia do grupo controle';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -342,11 +344,11 @@ d_C = [MAC1 MAC2 MAC3];
 grp2 = [ones(1,control_n),2*ones(1, control_n),3*ones(1,control_n)];
 
 figure
-sbox_conection(grp2', d_C',  x_name, y_name, tit, {'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
+sbox_conection(grp2', d_C',  x_name, y_name, tit, {'Bloco 1'; 'Bloco 2'; 'Bloco 3'}, sig_dif, test, acsis)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2 3])
-xticklabels({'1st Block', '2nd Block', '3rd Block'})
+xticklabels({'Bloco 1'; 'Bloco 2'; 'Bloco 3'})
 xline(2.5)
 xline(1.5)
 
@@ -490,8 +492,10 @@ acc.within_comparasion.Control.effect_size.U3.U3C_2_3 = U3C_2_3;
 %Boxplot
 
 x_name = '';
-y_name = "Accuracy";
-tit = 'Distribution of the Accuracy of the LTPB Group in each block';
+%y_name = "Accuracy";
+%tit = 'Distribution of the Accuracy of the LTPB Group in each block';
+y_name = "Acurácia";
+tit = 'Evolução da acurácia do grupo LTPB';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -499,11 +503,11 @@ d_L = [MAL1 MAL2 MAL3];
 grp2 = [ones(1,LTPB_n),2*ones(1,LTPB_n),3*ones(1,LTPB_n)];
 
 figure
-sbox_conection(grp2', d_L',  x_name, y_name, tit, {'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
+sbox_conection(grp2', d_L',  x_name, y_name, tit, {'Bloco 1'; 'Bloco 2'; 'Bloco 3'}, sig_dif, test, acsis)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2 3])
-xticklabels({'1st Block', '2nd Block', '3rd Block'})
+xticklabels({'Bloco 1'; 'Bloco 2'; 'Bloco 3'})
 xline(2.5)
 xline(1.5)
 

@@ -42,7 +42,7 @@ for a = 1:max(auxgroup)
     if rem(a,2) == 0
        clor = 'k';
     else
-       clor = 'm';
+       clor = 'k';
     end
     hold on
     % Drawing the quartils
@@ -111,10 +111,10 @@ ax.XTick = 1:max(group_id);
 %     ax.XTickLabel{t,1} = box_names{t,1};
 % end
 
-xlabel(x_name, 'FontSize',14, 'Interpreter', 'Latex')
-ylabel(y_name, 'FontSize', 14, 'Interpreter', 'Latex')
-title(tit, 'FontSize', 14)
-ax.FontSize = 14;
+xlabel(x_name, 'FontSize',16, 'Interpreter', 'Latex')
+ylabel(y_name, 'FontSize', 16, 'Interpreter', 'Latex')
+title(tit, 'FontSize', 16)
+ax.FontSize = 16;
 
 if  length(acsis)> 1
 axis([acsis])    

@@ -86,7 +86,7 @@ end
 for par = 1:(size(data_control,1)/1000)
     
     RT1b1{par} = RT1{par} (1:334); %isolating only block 1 data.
-    MRTC1(par) = trimmean(RT1b1{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTC1(par) = mean(RT1b1{par});  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 
@@ -96,7 +96,7 @@ end
 for par = 1:(size(data_control,1)/1000)
     
     RT1b2{par} = RT1{par} (335:668); %isolating only block 1 data.
-    MRTC2(par) = trimmean(RT1b2{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTC2(par) = mean(RT1b2{par});  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 
@@ -106,7 +106,7 @@ end
 for par = 1:(size(data_control,1)/1000)
     
     RT1b3{par} = RT1{par} (669:1000); %isolating only block 1 data.
-    MRTC3(par) = trimmean(RT1b3{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTC3(par) = mean(RT1b3{par});  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 
@@ -135,7 +135,7 @@ end
 for par = 1:(size(data_LTPB,1)/1000)
     
     RT2b1{par} = RT2{par} (1:334); %isolating only block 1 data.
-    MRTL1(par) = trimmean(RT2b1{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTL1(par) = mean(RT2b1{par});  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 %Block 2 - LTPB
@@ -143,7 +143,7 @@ end
 for par = 1:(size(data_LTPB,1)/1000)
     
     RT2b2{par} = RT2{par} (335:668); %isolating only block 1 data.
-    MRTL2(par) = trimmean(RT2b2{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTL2(par) = mean(RT2b2{par});  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 
@@ -152,7 +152,7 @@ end
 for par = 1:(size(data_LTPB,1)/1000)
     
     RT2b3{par} = RT2{par} (669:1000); %isolating only block 1 data.
-    MRTL3(par) = trimmean(RT2b3{par},10);  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
+    MRTL3(par) = mean(RT2b3{par});  %Mean Response Time Control 1 (MRTC1) is a vector with the 10% trimmed mean response time of each participant of the control group for block 1.
 
 end
 
@@ -294,14 +294,16 @@ d_C = [MRTC1 MRTC2 MRTC3];
 grp2 = [ones(1,control_n),2*ones(1, control_n),3*ones(1,control_n)];
 
 x_name = '';
-y_name = "Mean Response Time(s)";
-tit = 'Distribution of the Mean Response Times of the Control group in each block';
+%y_name = "Mean Response Time(s)";
+%tit = 'Distribution of the Mean Response Times of the Control group in each block';
+y_name = "Tempo de Resposta Médio(s)";
+tit = 'Evolução dos Tempos de Resposta do grupo controle';
 sig_dif = 1;
 test = 0;
 acsis = [];
 
 figure
-sbox_conection(grp2', d_C',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
+sbox_conection(grp2', d_C',  x_name, y_name, tit,{'Bloco 1'; 'Bloco 2'; 'Bloco 3'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
 ylim([0 2.5])
@@ -450,14 +452,16 @@ d_L = [MRTL1 MRTL2 MRTL3];
 grp2 = [ones(1,LTPB_n),2*ones(1, LTPB_n),3*ones(1,LTPB_n)];
 
 x_name = '';
-y_name = "Mean Response Time(s)";
-tit = 'Distribution of the Mean Response Times of the LTPB group in each block';
+%y_name = "Mean Response Time(s)";
+%tit = 'Distribution of the Mean Response Times of the LTPB group in each block';
+y_name = "Tempo de Resposta Médio(s)";
+tit = 'Evolução dos Tempos de Resposta do grupo LTPB';
 sig_dif = 1;
 test = 0;
 acsis = [];
 
 figure
-sbox_conection(grp2', d_L',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
+sbox_conection(grp2', d_L',  x_name, y_name, tit,{'Bloco 1'; 'Bloco 2'; 'Bloco 3'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
 ylim([0 2.5])
@@ -598,11 +602,11 @@ rt.within_comparasion.LTPB.effect_size.U3.U3L_2_3 = U3L_2_3;
 
 
 for par = 1:(size(data_control,1)/1000)
-     GTMC(par) = trimmean(RT1{par},10); %global temporal means control
+     GTMC(par) = mean(RT1{par}); %global temporal means control
 end
 
 for par = 1:(size(data_LTPB,1)/1000)
-     GTML(par) = trimmean(RT2{par},10); %global temporal means LTPB
+     GTML(par) = mean(RT2{par}); %global temporal means LTPB
 end
 
 rt.response_times.Control.global = GTMC;

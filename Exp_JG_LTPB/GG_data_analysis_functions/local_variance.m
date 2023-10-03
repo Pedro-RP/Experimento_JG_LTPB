@@ -1,3 +1,4 @@
+
 % [lv] = local_variance(data_control, data_LTPB)
 %
 % This function returns a struct containing the values of the local
@@ -86,9 +87,6 @@ Lv_sc1 = 0;
 
 for par = 1:(size(data_control,1)/1000)
     RT1b1{par} = RT1{par} (1:334);
-%     RT1b1P = prctile(RT1b1{par},[5,95]);
-%     RT1b1{par} = RT1b1{par}(RT1b1{par} > RT1b1P(1) & RT1b1{par} < RT1b1P(2)); %Removing the hightest and lowest 5% values (trimming).
-    
     
     for i = 1 : size(RT1b1{par},2)-1  % i goes from 1 to n-1
         Lv_sc1 = Lv_sc1 + ((RT1b1{par}(i) - RT1b1{par}(i+1))/(RT1b1{par}(i) + RT1b1{par}(i+1))).^2;
@@ -106,8 +104,6 @@ Lv_sc2 = 0;
 for par = 1:(size(data_control,1)/1000)
     
     RT1b2{par} = RT1{par} (335:668);
-%     RT1b2P = prctile(RT1b2{par},[5,95]);
-%     RT1b2{par} = RT1b2{par}(RT1b2{par} > RT1b2P(1) & RT1b2{par} < RT1b2P(2));
     
     for i = 1 : size(RT1b2{par},2)-1  % i goes from 1 to n-1
         Lv_sc2 = Lv_sc2 + ((RT1b2{par}(i) - RT1b2{par}(i+1))/(RT1b2{par}(i) + RT1b2{par}(i+1))).^2;
@@ -125,8 +121,7 @@ Lv_sc3 = 0;
 for par = 1:(size(data_control,1)/1000)
     
     RT1b3{par} = RT1{par} (669:1000);
-%     RT1b3P = prctile(RT1b3{par},[5,95]);
-%     RT1b3{par} = RT1b3{par}(RT1b3{par} > RT1b3P(1) & RT1b3{par} < RT1b3P(2));
+
     for i = 1 : size(RT1b3{par},2)-1  % i goes from 1 to n-1
         Lv_sc3 = Lv_sc3 + ((RT1b3{par}(i) - RT1b3{par}(i+1))/(RT1b3{par}(i) + RT1b3{par}(i+1))).^2;
     end
@@ -134,7 +129,7 @@ for par = 1:(size(data_control,1)/1000)
     Lv_sc3 = 0;
 end
 
-%Lv_C3(7) = [];
+
 
 %Building a struct to store the results
 
@@ -213,8 +208,10 @@ LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 grp =[ones(1,control_n),2*ones(1,LTPB_n),3*ones(1,control_n),4*ones(1,LTPB_n),5*ones(1,control_n),6*ones(1,LTPB_n)]; %grouping variable. 
 
 x_name = '';
-y_name = "Local variance";
-tit = 'Distribution of the Local Variance of each group in each block';
+%y_name = "Local variance";
+%tit = 'Distribution of the Local Variance of each group in each block';
+y_name = "Variação Local";
+tit = 'Evolução da Variação Local para cada grupo';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -226,7 +223,7 @@ xline(4.5)
 ylim([0 2])
 yticks([0:0.2:2])
 xticks([1 2 3 4 5 6])
-xticklabels({'1st Block - Control','1st Block - LTPB', '2nd Block - Control', '2nd Block - LTPB','3rd Block - Control', '3rd Block - LTPB'})
+xticklabels({'Bloco 1 - Controle','Bloco 1 - LTPB', 'Bloco 2 - Controle', 'Bloco 2 - LTPB','Bloco 3 - Controle', 'Bloco 3 - LTPB'})
 xlim([0.5 7])
 
 % Checking normality of the data samples
@@ -278,7 +275,7 @@ lv.between_comparasion.w_test.pb3 = wpb3;
 
 
 
-% calculating the relative effect size by relative mean difference 
+% calculating the relative effect size by relative trim difference 
 
 MLv_C1 = mean (Lv_C1);
 MLv_C2 = mean (Lv_C2);
