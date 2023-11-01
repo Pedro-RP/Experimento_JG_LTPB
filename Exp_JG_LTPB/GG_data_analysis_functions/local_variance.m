@@ -211,7 +211,7 @@ x_name = '';
 %y_name = "Local variance";
 %tit = 'Distribution of the Local Variance of each group in each block';
 y_name = "Variação Local";
-tit = 'Evolução da Variação Local para cada grupo';
+tit = 'Variação Local - Comparações entre os grupos para cada bloco';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -330,14 +330,14 @@ Lvf_C = [Lv_C1 Lv_C2 Lv_C3];
 grp2 = [ones(1,control_n),2*ones(1, control_n),3*ones(1,control_n)];
 
 x_name = '';
-y_name = "Local Variance";
-tit = 'Distribution of the Local Variance of the Control Group in each block';
+y_name = "Variação Local";
+tit = 'Evolução da Variação Local do grupo controle';
 sig_dif = 1;
 test = 0;
 acsis = [];
 
 figure
-sbox_conection(grp2', Lvf_C',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
+sbox_conection(grp2', Lvf_C',  x_name, y_name, tit,{'Bloco 1'; 'Bloco 2'; 'Bloco 3'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
 ylim([0 2])
@@ -483,14 +483,14 @@ Lvf_L = [Lv_L1 Lv_L2 Lv_L3];
 grp2 = [ones(1,LTPB_n),2*ones(1, LTPB_n),3*ones(1,LTPB_n)];
 
 x_name = '';
-y_name = "Local Variance";
-tit = 'Distribution of the Local Variance of the LTPB Group in each block';
+y_name = "Variação Local";
+tit = 'Evolução da Variação Local do grupo LTPB';
 sig_dif = 1;
 test = 0;
 acsis = [];
 
 figure
-sbox_conection(grp2', Lvf_L',  x_name, y_name, tit,{'1st Block'; '2nd Block'; '3rd Block'}, sig_dif, test, acsis)
+sbox_conection(grp2', Lvf_L',  x_name, y_name, tit,{'Bloco 1'; 'Bloco 2'; 'Bloco 3'}, sig_dif, test, acsis)
 xline(2.5)
 xline(1.5)
 ylim([0 2])
@@ -657,8 +657,8 @@ LvG = [Lv_CG Lv_LG];
 grp3 =[ones(1,control_n),2*ones(1,LTPB_n)]; 
 
 x_name = '';
-y_name = "Local Variance";
-tit = 'Distribution of the Local Variance of each group in the whole experiment';
+y_name = "Variação Local";
+tit = 'Variação Local - Comparação Global';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -669,7 +669,7 @@ ylim([0 2])
 yticks([0:0.2:2])
 xline(1.5)
 xticks([1 2])
-xticklabels({'Control','LTPB'})
+xticklabels({'Controle','LTPB'})
 
 % Checking normality of the data samples
 

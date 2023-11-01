@@ -9,7 +9,7 @@ tau = 12;
 
 x_name = '';
 %y_name = "Mean RT(Failure) - Mean RT (Success)";
-y_name = "Magnitude da PES (s)";
+y_name = "Magnitude do RAE (s)";
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -79,7 +79,7 @@ for ctx = 1:5
     end
 
 %tit = append('Error analysis (','w = ', ctxw, ' / step = ', num2str(stepctx), ' / ', num2str(from_t), '-', num2str(to_t),')');
-tit = 'Magnitude da PES no contexto 0';
+tit = append('Magnitude do RAE no contexto ', num2str(ctxw));
 grp = [ones(1,control_n),2*ones(1, LTPB_n)];
 
 d_M = [magC{ctx} magL{ctx}];
@@ -87,7 +87,8 @@ d_M = [magC{ctx} magL{ctx}];
 figure
 sbox_comp(grp', d_M',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 xticklabels({'Controle','LTPB'});
-yline(0)
+yline(0,'--b','LineWidth',3)
+xline(1.5)
 ylim([-1 2.5])
 yticks(-1:0.5:2.5)
 

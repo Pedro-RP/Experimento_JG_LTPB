@@ -187,7 +187,7 @@ xline(4.5)
 ylim([0 2.5])
 yticks([0:0.2:2.5])
 xticks([1 2 3 4 5 6])
-xticklabels({'Bloco 1 - Controle','Bloco 1 - LTPB', 'Bloco 2 - Controle', 'Bloco 2 - LTPB','Bloco 3 - Controle', 'Bloco 3 - LTPB'})
+xticklabels({'Bloco 1 - Controle','Bloc - LTPB', '2nd Block - Control', '2nd Block - LTPB','3rd Block - Control', '3rd Block - LTPB'})
 xlim([0.5 7])
 
 

@@ -216,8 +216,8 @@ LTPB_n = (size(data_LTPB,1)/1000); %number of participants in each group
 grp =[ones(1,control_n),2*ones(1,LTPB_n),3*ones(1,control_n),4*ones(1,LTPB_n),5*ones(1,control_n),6*ones(1,LTPB_n)]; %grouping variable. 
 
 x_name = '';
-y_name = "Accuracy";
-tit = 'Distribution of the Accuracy of each group in each block';
+y_name = "Acurácia";
+tit = 'Acurácia - Comparações entre os grupos para cada bloco';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -229,7 +229,7 @@ xline(4.5)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2 3 4 5 6])
-xticklabels({'1st Block - Control','1st Block - LTPB', '2nd Block - Control', '2nd Block - LTPB','3rd Block - Control', '3rd Block - LTPB'})
+xticklabels({'Bloco 1 - Controle','Bloco 1 - LTPB', 'Bloco 2 - Controle', 'Bloco 2 - LTPB','Bloco 3 - Controle', 'Bloco 3 - LTPB'})
 xlim([0.5 7])
 
 % Checking normality of the data samples
@@ -662,8 +662,8 @@ grp3 =[ones(1,control_n),2*ones(1,LTPB_n)];
 %Boxplot
 
 x_name = '';
-y_name = "Accuracy";
-tit = 'Distribution of the Accuracy of each group considering the whole experiment';
+y_name = "Acurácia";
+tit = 'Acurácia - Comparação Global';
 sig_dif = 1;
 test = 0;
 acsis = [];
@@ -673,7 +673,7 @@ sbox_comp(grp3', AG',  x_name, y_name, tit,{}, sig_dif, test, acsis)
 ylim([0 1])
 yticks([0:0.2:1])
 xticks([1 2])
-xticklabels({'Control','LTPB'})
+xticklabels({'Controle','LTPB'})
 xline(1.5)
 
 % Checking normality of the data samples

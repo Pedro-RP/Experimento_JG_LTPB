@@ -68,16 +68,16 @@ if strcmpi(interest,'RTs')
 
         x = linspace(1,1000,1000);
         if strcmpi(data_name,'data_control') %unlike '==', strcmpi allows comparsions between matrixes of different dimensions
-            title(append('Temporal Moving Average -', ' Control Group')) 
+            title(append('Média móvel dos tempos de resposta -', ' Grupo controle')) 
         elseif strcmpi(data_name,'data_LTPB')
-            title(append('Temporal Moving Average -', ' LTPB Group'))
+            title(append('Média móvel dos tempos de resposta -', ' Grupo LTPB'))
         elseif strcmpi(data_name,'data_full')
             title(append('Temporal Moving Average -', ' Full'))
         end
 
 
-        xlabel("Trial Number")
-        ylabel("Mean RT(s)")
+        xlabel("Número da Jogada")
+        ylabel("Tempo de Resposta Médio(s)")
 
         set(0,'defaultaxescolororder', [[1 0 0]
                                         [0 0 1]
@@ -90,14 +90,14 @@ if strcmpi(interest,'RTs')
 
         hold on
         for I= 1:(size(data,1)/1000) 
-            l = append('Participant',' ', num2str(I));
+            l = append('Participante',' ', num2str(I));
             plot(x, mov_average{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
             ylim([0 5])
         end
 
-        xline(334,'--','DisplayName','Break 1');
-        xline(668,'--','DisplayName','Break 2');
-        plot(NaN,NaN,'display',append('Window =', num2str(window)), 'linestyle', 'none') %put the window information in the legend
+        xline(334,'--','DisplayName','Intervalo 1');
+        xline(668,'--','DisplayName','Intervalo 2');
+        plot(NaN,NaN,'display',append('Janela =', num2str(window)), 'linestyle', 'none') %put the window information in the legend
 
         figureHandle = gcf;
         set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
@@ -169,10 +169,10 @@ if strcmpi(interest,'RTs')
        ylabel("Infrequent contexts proportion")
 
 
-       xline(334,'--','DisplayName','Break 1');
-       xline(668,'--','DisplayName','Break 2');
+       xline(334,'--','DisplayName','Intervalo 1');
+       xline(668,'--','DisplayName','Intervalo 2');
 
-       plot(NaN,NaN,'display',append('Window =', num2str(window)), 'linestyle', 'none')
+       plot(NaN,NaN,'display',append('Janela=', num2str(window)), 'linestyle', 'none')
 
        figureHandle = gcf;
        set(findall(figureHandle,'type','text'),'fontSize',14)
@@ -212,16 +212,16 @@ elseif strcmpi(interest,'acc')
 
             x = linspace(1,1000,1000);
             if strcmpi(data_name,'data_control')
-                title(append('Accuracy Moving Average -', ' Control Group')) 
+                title(append('Média móvel da acurácia -', ' Grupo Controle')) 
             elseif strcmpi(data_name,'data_LTPB')
-                title(append('Accuracy Moving Average -', ' LTPB Group'))
+                title(append('Média móvel da acurácia -', ' Grupo LTPB'))
             elseif strcmpi(data_name,'data_full')
                 title(append('Accuracy Moving Average -', ' Full'))
             end
 
 
-            xlabel("Trial Number")
-            ylabel("Mean Accuracy")
+            xlabel("Número da jogada")
+            ylabel("Acurácia média")
 
             set(0,'defaultaxescolororder', [[1 0 0]
                                             [0 0 1]
@@ -234,14 +234,14 @@ elseif strcmpi(interest,'acc')
 
             hold on
             for I= 1:(size(data,1)/1000) 
-                l = append('Participant',' ', num2str(I));
+                l = append('Participante',' ', num2str(I));
                 plot(x, mov_average{I},'LineWidth',2.5,'MarkerSize',2.5,'DisplayName',l)
                 ylim([0 1])
             end
 
-            xline(334,'--','DisplayName','Break 1');
-            xline(668,'--','DisplayName','Break 2');
-            plot(NaN,NaN,'display',append('Window =', num2str(window)), 'linestyle', 'none') %put the window information in the legend
+            xline(334,'--','DisplayName','Intervalo 1');
+            xline(668,'--','DisplayName','Intervalo 2');
+            plot(NaN,NaN,'display',append('Janela =', num2str(window)), 'linestyle', 'none') %put the window information in the legend
 
             figureHandle = gcf;
             set(findall(figureHandle,'type','text'),'fontSize',14) %make all text in the figure to size 14
