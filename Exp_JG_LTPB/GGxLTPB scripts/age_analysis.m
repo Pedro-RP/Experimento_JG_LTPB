@@ -1,5 +1,13 @@
-L = [41, 39, 39, 44, 35, 26, 44, 31, 45, 47];
+L = [41, 39, 39, 44, 35, 26, 44, 33, 47, 47];
 C = [25, 59, 29, 27, 38, 49, 31, 60, 52, 23];
+
+% Checking mean and standart deviation
+
+L_mean = mean(L);
+L_std = std(L);
+
+C_mean = mean(C);
+C_std = std(C);
 
 %Checking if the distribuition are normal
 
