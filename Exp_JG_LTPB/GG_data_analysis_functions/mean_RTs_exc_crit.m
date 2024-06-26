@@ -38,10 +38,10 @@ end
 %Block 1
 
 RF1 = 0;
-for par = 1:(size(data,1)/1000);
-    for k = drange(1:334); %the second input is the number of trials in the block.
+for par = 1:(size(data,1)/1000)
+    for k = drange(1:334) %the second input is the number of trials in the block.
         
-        RF1 = RF1 + P{par}(k); %RF1 (RTs full block 1) -> Response times of block 1. It is the sum of all the terms inside the interval k for A{par}.
+        RF1 = RF1 + P{par}(k); %RF1 (RTs full block 1) -> Response times of block 1. It is the sum of all the terms inside the interval k for P{par}.
     end
     
     MRF1(par) = RF1/334;  %MRF1 (Mean RTs Full block 1) is a vector in which each term corresponds to the mean response time of a participant in the first block.
@@ -52,8 +52,8 @@ end
 %Block 2
 
 RF2 = 0;
-for par = 1:(size(data,1)/1000);
-    for k = drange(335:668); 
+for par = 1:(size(data,1)/1000)
+    for k = drange(335:668) 
         
         RF2 = RF2 + P{par}(k); 
     end
@@ -65,8 +65,8 @@ end
 %Block 3
 
 RF3 = 0;
-for par = 1:(size(data,1)/1000);
-    for k = drange(669:1000); 
+for par = 1:(size(data,1)/1000)
+    for k = drange(669:1000)
         
         RF3 = RF3 + P{par}(k); 
     end
